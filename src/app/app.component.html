@@ -1,3 +1,25 @@
-<h1>
-  {{title}}
-</h1>
+ <div class="row">
+    <div class="input-field col s6">
+      <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate">
+      <label for="search_book">Search books</label>
+    </div>
+  </div>
+ <div *ngIf="books" class="row"
+      infinite-scroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="500"
+      (scrolled)="onScroll()">
+     <div class="col s12 m8" *ngFor="let book of books.items">
+       <div class="card horizontal">
+         <div class="card-image">
+           <img [src]="book.volumeInfo.imageLinks.smallThumbnail">
+         </div>
+         <div class="card-stacked">
+           <div class="card-content">
+             <span class="card-title activator grey-text text-darken-4">{{book.volumeInfo.title}}<i class="material-icons right">more_vert</i></span>
+             <p class="limit">{{book.volumeInfo.description}}</p>
+           </div>
+         </div>
+       </div>
+     </div>
+ </div>
