@@ -27,6 +27,14 @@ export class AppComponent implements OnInit{
       else
         this.books.items.length = 0;
     });
+
+    $('.button-collapse').sideNav();
+    $('body').on('click', '.jq-go--top', function () {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+    $('body').on('click', '.jq-arrow--delete', function () {
+      $('.u-input--search').val('');
+    });
   }
 
   onScroll(){
