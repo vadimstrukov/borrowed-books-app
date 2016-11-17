@@ -1,23 +1,41 @@
- <div class="row">
-    <div class="input-field col s6">
-      <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate">
-      <label for="search_book">Search books</label>
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Books</a>
+      <a href="#" data-activates="mobile-view" class="button-collapse"><i class="material-icons">menu</i></a>
+      <div class="u-search--div">
+        <i class="material-icons">search</i>
+        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate">
+      </div>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">You</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Friends</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-view">
+        <li><a href="#">You</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Friends</a></li>
+      </ul>
     </div>
+  </nav>
+</div>
+<div class="row">
   </div>
  <div *ngIf="books" class="row"
       infinite-scroll
       [infiniteScrollDistance]="1"
       [infiniteScrollThrottle]="500"
       (scrolled)="onScroll()">
-     <div class="col s12 m8" *ngFor="let book of books.items">
-       <div class="card horizontal">
-         <div class="card-image">
+     <div class="col s12 m6 l4" *ngFor="let book of books.items">
+       <div class="card horizontal u-height--245px">
+         <div class="card-image u-width--145px">
            <img [src]="book.volumeInfo.imageLinks.smallThumbnail">
          </div>
          <div class="card-stacked">
            <div class="card-content">
-             <span class="card-title activator grey-text text-darken-4">{{book.volumeInfo.title}}<i class="material-icons right">more_vert</i></span>
-             <p class="limit">{{book.volumeInfo.description}}</p>
+             <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{book.volumeInfo.title}}<i class="material-icons right u-position--absolute_">more_vert</i></span>
+             <p class="limit u-border--top_">{{book.volumeInfo.description}}</p>
            </div>
          </div>
        </div>
