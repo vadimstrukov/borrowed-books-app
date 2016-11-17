@@ -5,7 +5,7 @@
       <div class="u-search--div">
         <i class="material-icons">search</i>
         <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search">
-        <a href="#" class="u-arrow--delete jq-arrow--delete" (click)="clearSearchBox()"></a>
+        <a href="#" class="u-arrow--delete" (click)="clearSearchBox()"></a>
       </div>
       <ul class="side-nav" id="mobile-view">
         <li class="u-image--box"></li>
@@ -15,7 +15,7 @@
       </ul>
     </div>
   </nav>
- <span class="u-go--top jq-go--top"><i class="material-icons">play_circle_filled</i></span>
+ <span class="u-go--top" (click)="scrollWindowToTop()"><i class="material-icons">play_circle_filled</i></span>
  <div *ngIf="books" class="row u-paddingbot--150px_"
       infinite-scroll
       [infiniteScrollDistance]="1"

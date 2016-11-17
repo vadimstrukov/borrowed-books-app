@@ -29,9 +29,10 @@ export class AppComponent implements OnInit{
     });
 
     $('.button-collapse').sideNav();
-    $('body').on('click', '.jq-go--top', function () {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-    });
+  }
+
+  scrollWindowToTop(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
   }
 
   clearSearchBox(){
