@@ -5,6 +5,14 @@
   -webkit-box-orient: vertical;
 }
 
+.button-collapse{
+  display: block !important;
+}
+
+.side-nav{
+  text-align: center;
+}
+
 .u-position--fixed_{
   position: fixed;
   z-index: 1000;
@@ -226,7 +234,7 @@ input[type=text].valid{
     width: 33.3333333333% !important;
   }
   .nav-wrapper{
-    text-align: right;
+    text-align: left;
   }
 
   .brand-logo{
