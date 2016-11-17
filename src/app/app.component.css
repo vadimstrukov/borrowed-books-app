@@ -5,6 +5,10 @@
   -webkit-box-orient: vertical;
 }
 
+.u-paddingbot--150px{
+  padding-bottom: 150px;
+}
+
 .nav-wrapper{
   background-color: #00897b;
 }
@@ -136,6 +140,10 @@ input[type=text].valid{
     text-align: right;
   }
 
+  .brand-logo{
+    display: block;
+  }
+
   .u-search--div{
     width: 50%;
   }
@@ -147,6 +155,7 @@ input[type=text].valid{
   .l4{
     width: 25% !important;
   }
+
   .brand-logo{
     display: block;
   }
