@@ -3,16 +3,17 @@ import {BookItems} from "./model/BookItems";
 import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [BookService]
 })
-
 export class AppComponent implements OnInit{
   books: BookItems;
   searchControl = new FormControl();
+
 
   constructor(private bookService: BookService){
 
