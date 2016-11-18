@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BookItems} from "./model/BookItems";
 import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -17,17 +18,19 @@ export class AppComponent implements OnInit{
 
   constructor(private bookService: BookService){
 
+    this.searchControl.valueChanges
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .subscribe((value : string) => {
+        bookService.startIndex = 1;
+        if(value!="")
+          bookService.getBooksByTitle(value).subscribe(data => this.books = data);
+        else
+          this.books.items.length = 0;
+      });
   }
 
   ngOnInit(){
-    this.searchControl.valueChanges.debounceTime(500).subscribe(value => {
-      this.bookService.startIndex = 1;
-      if(value!="")
-        this.bookService.getBooksByTitle(value).subscribe(data => this.books = data);
-      else
-        this.books.items.length = 0;
-    });
-
     $('.button-collapse').sideNav();
   }
 
