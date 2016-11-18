@@ -3,7 +3,7 @@
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
 
 ## Installation
-1. Install Angular-CLI:  `npm install -g angular-cli`
+1. Install Angular-CLI: `npm install -g angular-cli`
 2. Install JQuery typings: `npm install —save @types/jquery`
 3. Install Materialize CSS typings: `npm install —save @types/materialize-css`
 
