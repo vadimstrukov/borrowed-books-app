@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {BookItems} from "./model/BookItems";
 import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs";
 
 
 @Component({
@@ -39,7 +38,7 @@ export class AppComponent implements OnInit{
   }
 
   clearSearchBox(){
-    $('.u-input--search').val('');
+    this.searchControl.setValue("");
   }
 
   onScroll(){
