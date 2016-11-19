@@ -41,8 +41,8 @@ export class AppComponent implements OnInit{
         arrowDelete.toggleClass('rollIn');
         arrowDelete.addClass("rollOut").delay(1000).queue(function(){
           $(this).addClass('u-display--none');
-          $('.loader-preview').fadeIn('slow');
         });
+        $('.loader-preview').fadeIn('slow');
       }
     });
     }
@@ -62,8 +62,8 @@ export class AppComponent implements OnInit{
     )
     $('.u-arrow--delete').addClass("rollOut").delay(1000).queue(function(){
       $(this).addClass('u-display--none');
-      $('.loader-preview').fadeIn('slow');
     });
+    $('.loader-preview').fadeIn('slow');
   }
 
   onScroll(){
