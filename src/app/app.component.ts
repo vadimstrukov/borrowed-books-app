@@ -29,16 +29,41 @@ export class AppComponent implements OnInit{
       });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     $('.button-collapse').sideNav();
-  }
+
+    var arrowDelete = $('.u-arrow--delete');
+    $(".u-input--search").on("change keyup paste", function(){
+      if(($(this).val().length) > 0){
+        $('.loader-preview').fadeOut('slow');
+        arrowDelete.removeClass('rollOut u-display--none').addClass('rollIn');
+      }else{
+        arrowDelete.toggleClass('rollIn');
+        arrowDelete.addClass("rollOut").delay(1000).queue(function(){
+          $(this).addClass('u-display--none');
+          $('.loader-preview').fadeIn('slow');
+        });
+      }
+    });
+    }
 
   scrollWindowToTop(){
     $("html, body").animate({ scrollTop: 0 }, "slow");
   }
 
+  removeAttrStyle(){
+    $('.u-input--search').removeAttr('style');
+  }
+
   clearSearchBox(){
     this.searchControl.setValue("");
+    $('.u-input--search').css(
+      'width', '200px'
+    )
+    $('.u-arrow--delete').addClass("rollOut").delay(1000).queue(function(){
+      $(this).addClass('u-display--none');
+      $('.loader-preview').fadeIn('slow');
+    });
   }
 
   onScroll(){

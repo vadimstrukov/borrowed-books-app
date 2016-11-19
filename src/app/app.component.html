@@ -3,10 +3,14 @@
       <!--a href="#" class="brand-logo">Books</a-->
       <a href="#" data-activates="mobile-view" class="button-collapse"><i class="material-icons">menu</i></a>
       <div class="u-search--div">
-        <i class="material-icons">search</i>
-        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search">
-        <a href="#" class="u-arrow--delete" (click)="clearSearchBox()"></a>
+        <i class="material-icons u-search--icon">search</i>
+        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search" (click)="removeAttrStyle()">
+        <i class="u-arrow--delete u-display--none animated material-icons" (click)="clearSearchBox()">cancel</i>
       </div>
+      <ul class="right">
+        <li><a href="#" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
+        <li><a href="#" class="waves-effect waves-light"><i class="material-icons">settings</i></a></li>
+      </ul>
       <ul class="side-nav" id="mobile-view">
         <li class="u-image--box"></li>
         <li><a href="#">You</a></li>
@@ -16,13 +20,18 @@
     </div>
   </nav>
  <span class="u-go--top" (click)="scrollWindowToTop()"><i class="material-icons">play_circle_filled</i></span>
+ <div class="loader-preview">
+   <div class="animation">
+   </div>
+   <h4>Hello, let's find a book for you</h4>
+ </div>
  <div *ngIf="books" class="row u-paddingbot--150px_"
       infinite-scroll
       [infiniteScrollDistance]="1"
       [infiniteScrollThrottle]="500"
       (scrolled)="onScroll()">
      <div class="col s12 m6 l4" *ngFor="let book of books.items">
-       <div class="card horizontal u-height--245px_">
+       <div class="card horizontal u-height--245px_ waves-effect">
          <div class="card-image u-width--145px">
            <img [src]="book.volumeInfo.imageLinks?.smallThumbnail">
          </div>
