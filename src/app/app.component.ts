@@ -14,38 +14,41 @@ export class AppComponent implements OnInit{
   books: BookItems;
   searchControl = new FormControl();
 
+  loader:JQuery;
+  arrowDelete:JQuery;
 
   constructor(private bookService: BookService){
-
-    this.searchControl.valueChanges
-      .debounceTime(500)
-      .distinctUntilChanged()
+    this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
       .subscribe((value : string) => {
         bookService.startIndex = 1;
-        if(value!="")
+        this.loader = $('.loader-preview');
+        this.arrowDelete = $('.u-arrow--delete');
+        if(value.length>0){
           bookService.getBooksByTitle(value).subscribe(data => this.books = data);
-        else
+          this.hideLoaderShowArrow();
+        }
+        else{
           this.books.items.length = 0;
+          this.showLoaderHideArrow();
+        }
       });
   }
 
   ngOnInit() {
     $('.button-collapse').sideNav();
+  }
 
-    var arrowDelete = $('.u-arrow--delete');
-    $(".u-input--search").on("change keyup paste", function(){
-      if(($(this).val().length) > 0){
-        $('.loader-preview').fadeOut('slow');
-        arrowDelete.removeClass('rollOut u-display--none').addClass('rollIn');
-      }else{
-        arrowDelete.toggleClass('rollIn');
-        arrowDelete.addClass("rollOut").delay(1000).queue(function(){
-          $(this).addClass('u-display--none');
-        });
-        $('.loader-preview').fadeIn('slow');
-      }
+  private hideLoaderShowArrow(){
+    this.loader.fadeOut('slow');
+    this.arrowDelete.removeClass('rollOut u-display--none').addClass('rollIn');
+  }
+
+  private showLoaderHideArrow(){
+    this.loader.fadeIn('slow');
+    this.arrowDelete.toggleClass('rollIn').addClass("rollOut").delay(1000).queue(function(){
+      $(this).addClass('u-display--none');
     });
-    }
+  }
 
   scrollWindowToTop(){
     $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -59,11 +62,8 @@ export class AppComponent implements OnInit{
     this.searchControl.setValue("");
     $('.u-input--search').css(
       'width', '200px'
-    )
-    $('.u-arrow--delete').addClass("rollOut").delay(1000).queue(function(){
-      $(this).addClass('u-display--none');
-    });
-    $('.loader-preview').fadeIn('slow');
+    );
+    this.arrowDelete.addClass("rollOut");
   }
 
   onScroll(){
