@@ -8,7 +8,7 @@
         <i class="u-arrow--delete u-display--none animated material-icons" (click)="clearSearchBox()">cancel</i>
       </div>
       <ul class="right">
-        <li><a href="#" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
+        <li><a (click)="openLogin()" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
         <li><a href="#" class="waves-effect waves-light"><i class="material-icons">settings</i></a></li>
       </ul>
       <ul class="side-nav" id="mobile-view">
@@ -44,3 +44,4 @@
        </div>
      </div>
  </div>
+ <login #login></login>

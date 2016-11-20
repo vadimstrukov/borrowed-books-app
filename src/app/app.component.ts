@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BookItems} from "./model/BookItems";
 import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
+import {LoginModal} from "./directives/login.directive";
 
 
 @Component({
@@ -13,6 +14,7 @@ import {FormControl} from "@angular/forms";
 export class AppComponent implements OnInit{
   books: BookItems;
   searchControl = new FormControl();
+  @ViewChild('login') loginModal:LoginModal;
 
   loader:JQuery;
   arrowDelete:JQuery;
@@ -48,6 +50,10 @@ export class AppComponent implements OnInit{
     this.arrowDelete.toggleClass('rollIn').addClass("rollOut").delay(1000).queue(function(){
       $(this).addClass('u-display--none');
     });
+  }
+
+  openLogin(){
+    this.loginModal.openModal();
   }
 
   scrollWindowToTop(){
