@@ -42,11 +42,19 @@ export class AppComponent implements OnInit{
 
   private hideLoaderShowArrow(){
     this.loader.fadeOut('slow');
+    if ($(window).width() < 500){
+      $('.jq-right').fadeOut('slow');
+      $('.u-search--div').addClass('u-make--wider');
+    }
     this.arrowDelete.removeClass('rollOut u-display--none').addClass('rollIn');
   }
 
   private showLoaderHideArrow(){
     this.loader.fadeIn('slow');
+    if ($(window).width() < 500){
+      $('.jq-right').fadeIn('slow');
+      $('.u-search--div').removeClass('u-make--wider');
+    }
     this.arrowDelete.toggleClass('rollIn').addClass("rollOut").delay(1000).queue(function(){
       $(this).addClass('u-display--none');
     });
@@ -66,10 +74,30 @@ export class AppComponent implements OnInit{
 
   clearSearchBox(){
     this.searchControl.setValue("");
-    $('.u-input--search').css(
-      'width', '200px'
-    );
     this.arrowDelete.addClass("rollOut");
+    if($('.u-search--div').hasClass('u-make--wider') && $(window).width() < 500){
+      $('.u-search--div').toggleClass('u-make--wider');
+    }else{
+      $('.u-input--search').css(
+        'width', '200px'
+      );
+    }
+  }
+
+  makeItWider(){
+    if ($(window).width() < 500){
+      if(!$('.u-search--div').hasClass('u-make--wider')){
+        $('.jq-right').fadeOut('fast');
+        $('.u-search--div').toggleClass('u-make--wider');
+      }
+    }
+  }
+
+  removeWider(){
+    if ($(window).width() < 500 && $('.u-input--search').val().length == 0) {
+      $('.jq-right').fadeIn('slow');
+      $('.u-search--div').toggleClass('u-make--wider');
+    }
   }
 
   onScroll(){

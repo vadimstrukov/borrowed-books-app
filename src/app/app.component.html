@@ -4,10 +4,10 @@
       <a href="#" data-activates="mobile-view" class="button-collapse"><i class="material-icons">menu</i></a>
       <div class="u-search--div">
         <i class="material-icons u-search--icon">search</i>
-        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search" (click)="removeAttrStyle()">
+        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search" (click)="removeAttrStyle(); makeItWider()" (blur)="removeWider()">
         <i class="u-arrow--delete u-display--none animated material-icons" (click)="clearSearchBox()">cancel</i>
       </div>
-      <ul class="right">
+      <ul class="right jq-right">
         <li><a (click)="openLogin()" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
         <li><a href="#" class="waves-effect waves-light"><i class="material-icons">settings</i></a></li>
       </ul>
@@ -21,9 +21,7 @@
   </nav>
  <span class="u-go--top" (click)="scrollWindowToTop()"><i class="material-icons">play_circle_filled</i></span>
  <div class="loader-preview">
-   <div class="animation">
-   </div>
-   <h4>Hello, let's find a book for you</h4>
+   <h4>Let's find a book for you</h4>
  </div>
  <div *ngIf="books" class="row u-paddingbot--150px_"
       infinite-scroll

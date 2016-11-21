@@ -113,6 +113,7 @@
 }
 
 .u-arrow--delete{
+  position: absolute;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
@@ -123,7 +124,7 @@
 }
 
 .loader-preview{
-  padding-top: 150px;
+  padding-top: 300px;
   text-align: center;
 }
 
@@ -132,48 +133,8 @@
   padding-top: 20px;
 }
 
-.animation, .animation:before, .animation:after{
-  border: 3px solid transparent;
-}
-
-.animation{
-  position: relative;
-  margin: 0 auto;
-  height: 200px;
-  width: 200px;
-  border-top-color: #2196f3;
-  border-radius: 50%;
-  animation-name: logo;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-}
-
-.animation:after{
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-  border-top-color: #00897b;
-  border-radius: 50%;
-  animation-name: logo;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-}
-
-.animation:before{
-  content: '';
-  position: absolute;
-  left: -15px;
-  right: -15px;
-  top: -15px;
-  bottom: -15px;
-  border-top-color: #f57f17;
-  border-radius: 50%;
-  animation-name: logo;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
+.u-make--wider{
+  width: 23rem !important;
 }
 
 input[type="text"]{
@@ -305,9 +266,18 @@ input[type=text].valid{
 
 /* For the innovative Apple Display */
 @media (max-width: 400px) {
-  input[type=text]:focus:not([readonly]),
-  input[type=text].valid{
+  input[type="text"]:focus:not([readonly]),
+  input[type="text"].valid{
     width: 75%;
+  }
+
+  .u-make--wider{
+    width: 20rem !important;
+  }
+
+  input[type="text"]{
+    width: 11rem;
+    min-width: 11rem;
   }
 
   .u-height--245px_{
@@ -322,7 +292,7 @@ input[type=text].valid{
   }
 
   .u-search--div{
-    width: 80%;
+    width: 13rem;
   }
 
   .brand-logo{
@@ -340,13 +310,13 @@ input[type=text].valid{
 }
 /* Larger than mobile */
 @media (min-width: 400px) {
-  input[type=text]:focus:not([readonly]),
-  input[type=text].valid{
+  input[type="text"]:focus:not([readonly]),
+  input[type="text"].valid{
     width: 85%;
   }
 
   .u-search--div{
-    width: 70%;
+    width: 17rem;
   }
 
   .brand-logo{
