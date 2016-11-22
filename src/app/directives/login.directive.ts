@@ -5,12 +5,14 @@ import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Authentication} from "../utils/Authentication";
 import {FormType} from "./FormType";
+import {UserService} from "../service/UserService";
+import {User} from "../model/User";
 
 @Component({
   selector: "login",
   templateUrl: "./login.html",
   styleUrls: ['./login-styles.css'],
-  providers: [Authentication]
+  providers: [Authentication, UserService]
 })
 export class LoginRegisterModal implements OnInit{
 
@@ -21,7 +23,7 @@ export class LoginRegisterModal implements OnInit{
   formType:string = FormType[FormType.LOGIN];
   buttonName:string = "Sign up";
 
-  constructor(private formBuilder:FormBuilder, private auth:Authentication){}
+  constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService){}
 
   ngOnInit(): void {
     $('.modal').modal();
@@ -35,13 +37,22 @@ export class LoginRegisterModal implements OnInit{
   public onSubmit(value:any){
     switch (this.formType){
       case FormType[FormType.LOGIN]:
-        // this.auth.authenticate(value.email, value.password).subscribe((token: any) => {
-        //       this.closeModal();
-        //       location.reload(); }, () => { this.error = true; });
-        console.log("Logged in");
+
+        this.auth.authenticate(value.email, value.password).subscribe((token: any) => {
+          this.closeModal();
+          location.reload(); }, () => { this.error = true; });
         break;
+
       case FormType[FormType.REGISTER]:
-        console.log("Registered");
+
+        let user = new User();
+        user.email = value.email;
+        user.fullname = value.fullname;
+        user.pass = value.password;
+
+        this.userService.register(user).subscribe((data: any) => {
+          this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');}, () => {
+          this.error = true; });
         break;
     }
   }
