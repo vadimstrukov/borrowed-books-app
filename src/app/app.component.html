@@ -29,7 +29,7 @@
       [infiniteScrollDistance]="1"
       [infiniteScrollThrottle]="500"
       (scrolled)="onScroll()">
-     <div class="col s12 m6 l4" *ngFor="let book of books.items" (click)="bookClicked(book)">
+     <div class="col s12 m6 l4" *ngFor="let book of books.items" (click)="bookClicked(book, $event)">
        <div class="card horizontal u-height--245px_ waves-effect">
          <div class="card-image u-width--145px">
            <img [src]="book.volumeInfo.imageLinks?.smallThumbnail">

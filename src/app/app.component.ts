@@ -123,11 +123,11 @@ export class AppComponent implements OnInit{
     });
   }
 
-  public bookClicked(book:Book){
+  public bookClicked(book:Book, event:any){
     this.isInfoExpanded = !this.isInfoExpanded;
     this.selectedBook = book;
     console.log(book);
+    console.log($(event.target).attr('class'));
   }
-
 
 }
