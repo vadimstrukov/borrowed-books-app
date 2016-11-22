@@ -5,5 +5,8 @@ export class VolumeInfo{
   publisher: string;
   publishedDate: string;
   description: string;
+  pageCount:string;
+  language:string;
+  infoLink:string;
   imageLinks: ImageLink;
 }
