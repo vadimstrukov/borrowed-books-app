@@ -7,6 +7,7 @@ import {Constants} from "./Constants";
 
 @Injectable()
 export class Authentication{
+
   access_token: string;
 
   constructor(private http:Http) {
@@ -39,11 +40,16 @@ export class Authentication{
   logout() {
     let params = new URLSearchParams();
     params.set('token', this.access_token);
-    return this.http.get(Constants.LogoutURL, {search: params})
-      .map((res : any) => {
+    return this.http.get(Constants.LogoutURL, {search: params}).map(response => {
         this.access_token = undefined;
         localStorage.removeItem('access_token');
-      });
+    });
+  }
+
+  getAuthUser(){
+    let headers = new Headers();
+    headers.set('Authorization', 'Bearer ' + this.access_token);
+    return this.http.get(Constants.LoggedInUser, {headers: headers}).map(response => response.json());
   }
 
 }

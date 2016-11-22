@@ -3,23 +3,27 @@ import {BookItems} from "./model/BookItems";
 import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
 import {LoginModal} from "./directives/login.directive";
+import {Authentication} from "./utils/Authentication";
+import {User} from "./model/User";
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [BookService]
+  providers: [BookService, Authentication]
 })
+
 export class AppComponent implements OnInit{
   books: BookItems;
   searchControl = new FormControl();
+  user:User;
   @ViewChild('login') loginModal:LoginModal;
 
   loader:JQuery;
   arrowDelete:JQuery;
 
-  constructor(private bookService: BookService){
+  constructor(private bookService: BookService, private auth:Authentication){
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
       .subscribe((value : string) => {
         bookService.startIndex = 1;
@@ -38,6 +42,8 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     $('.button-collapse').sideNav();
+    if(this.auth.access_token)
+      this.auth.getAuthUser().subscribe(data => this.user = data);
   }
 
   private hideLoaderShowArrow(){
@@ -62,6 +68,11 @@ export class AppComponent implements OnInit{
 
   openLogin(){
     this.loginModal.openModal();
+  }
+
+  logout(){
+    this.auth.logout().subscribe(data=>this.user = null);
+    location.reload();
   }
 
   scrollWindowToTop(){

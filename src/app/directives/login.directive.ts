@@ -3,8 +3,8 @@
  */
 import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {UserService} from "../service/UserService";
 import {Authentication} from "../utils/Authentication";
+
 @Component({
   selector: "login",
   templateUrl: "./login.html",
@@ -29,7 +29,10 @@ export class LoginModal implements OnInit{
   public onSubmit(value:any){
     this.auth.authenticate(value.email, value.password)
       .subscribe(
-        (token: any) => this.closeModal(),
+        (token: any) => {
+          this.closeModal();
+          location.reload();
+        },
         () => { this.error = true; }
       );
   }
