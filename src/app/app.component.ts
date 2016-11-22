@@ -5,6 +5,7 @@ import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {User} from "./model/User";
+import {Book} from "./model/Book";
 
 
 @Component({
@@ -16,6 +17,8 @@ import {User} from "./model/User";
 
 export class AppComponent implements OnInit{
   books: BookItems;
+  selectedBook:Book;
+
   searchControl = new FormControl();
   user:User;
   @ViewChild('login') loginModal:LoginRegisterModal;
@@ -119,6 +122,10 @@ export class AppComponent implements OnInit{
     });
   }
 
-
+  public bookClicked(book:Book){
+    this.selectedBook = book;
+    console.log(book);
+  }
+  
 
 }
