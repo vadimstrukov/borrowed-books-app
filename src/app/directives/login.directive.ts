@@ -18,7 +18,8 @@ export class LoginRegisterModal implements OnInit{
   error: boolean = false;
 
   isRegister: boolean = false;
-  formType:string = FormType[FormType.REGISTER];
+  formType:string = FormType[FormType.LOGIN];
+  buttonName:string = "Sign up";
 
   constructor(private formBuilder:FormBuilder, private auth:Authentication){}
 
@@ -55,14 +56,15 @@ export class LoginRegisterModal implements OnInit{
 
   public changeFormType(){
     if(!this.isRegister)
-      this.setFormType(true, FormType[FormType.LOGIN], 'Registration');
+      this.setFormType(true, "Sign in", FormType[FormType.REGISTER], 'Registration');
     else
-      this.setFormType(false, FormType[FormType.REGISTER], 'Sign in');
+      this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');
   }
 
-  private setFormType(isRegister:boolean, formType:string, hText:string){
+  private setFormType(isRegister:boolean, buttonName:string, formType:string, hText:string){
     this.isRegister = isRegister;
     this.formType = formType;
+    this.buttonName = buttonName;
     $('.modal-content > h4').text(hText);
   }
 }
