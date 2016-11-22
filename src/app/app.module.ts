@@ -5,12 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
-import {LoginModal} from "./directives/login.directive";
+import {LoginRegisterModal} from "./directives/login.directive";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginModal
+    LoginRegisterModal
   ],
   imports: [
     BrowserModule,

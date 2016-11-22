@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BookItems} from "./model/BookItems";
 import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
-import {LoginModal} from "./directives/login.directive";
+import {LoginRegisterModal} from "./directives/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {User} from "./model/User";
 
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   books: BookItems;
   searchControl = new FormControl();
   user:User;
-  @ViewChild('login') loginModal:LoginModal;
+  @ViewChild('login') loginModal:LoginRegisterModal;
 
   loader:JQuery;
   arrowDelete:JQuery;

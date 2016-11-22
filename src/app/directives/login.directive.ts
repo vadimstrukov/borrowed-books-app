@@ -4,6 +4,7 @@
 import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Authentication} from "../utils/Authentication";
+import {FormType} from "./FormType";
 
 @Component({
   selector: "login",
@@ -11,30 +12,37 @@ import {Authentication} from "../utils/Authentication";
   styleUrls: ['./login-styles.css'],
   providers: [Authentication]
 })
-export class LoginModal implements OnInit{
+export class LoginRegisterModal implements OnInit{
 
-  loginForm: FormGroup;
+  submitForm: FormGroup;
   error: boolean = false;
+
+  isRegister: boolean = false;
+  formType:string = FormType[FormType.REGISTER];
 
   constructor(private formBuilder:FormBuilder, private auth:Authentication){}
 
   ngOnInit(): void {
     $('.modal').modal();
-    this.loginForm = this.formBuilder.group({
+    this.submitForm = this.formBuilder.group({
       email: ['',[<any>Validators.required]],
-      password: ['', [<any>Validators.required]]
+      password: ['', [<any>Validators.required]],
+      fullname: ['', [<any>Validators.required]]
     });
   }
 
   public onSubmit(value:any){
-    this.auth.authenticate(value.email, value.password)
-      .subscribe(
-        (token: any) => {
-          this.closeModal();
-          location.reload();
-        },
-        () => { this.error = true; }
-      );
+    switch (this.formType){
+      case FormType[FormType.LOGIN]:
+        // this.auth.authenticate(value.email, value.password).subscribe((token: any) => {
+        //       this.closeModal();
+        //       location.reload(); }, () => { this.error = true; });
+        console.log("Logged in");
+        break;
+      case FormType[FormType.REGISTER]:
+        console.log("Registered");
+        break;
+    }
   }
 
   public openModal(){
@@ -45,17 +53,16 @@ export class LoginModal implements OnInit{
     $('#login').modal('close');
   }
 
-  registerMe(){
-    $('.jq-form > .row > .u-display--none').toggleClass('u-display--none u-were--invisible');
-    $('.u-float--left').toggleClass('u-display--none');
-    $('.jq-login').text('Register');
-    $('.modal-content > h4').text('Registration');
+  public changeFormType(){
+    if(!this.isRegister)
+      this.setFormType(true, FormType[FormType.LOGIN], 'Registration');
+    else
+      this.setFormType(false, FormType[FormType.REGISTER], 'Sign in');
   }
 
-  loginMe(){
-    $('.jq-form > .row > .u-were--invisible').toggleClass('u-display--none u-were--invisible');
-    $('.u-float--left').toggleClass('u-display--none');
-    $('.jq-login').text('Login');
-    $('.modal-content > h4').text('Sign in');
+  private setFormType(isRegister:boolean, formType:string, hText:string){
+    this.isRegister = isRegister;
+    this.formType = formType;
+    $('.modal-content > h4').text(hText);
   }
 }
