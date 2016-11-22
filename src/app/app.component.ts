@@ -18,6 +18,7 @@ import {Book} from "./model/Book";
 export class AppComponent implements OnInit{
   books: BookItems;
   selectedBook:Book;
+  isInfoExpanded:boolean = false;
 
   searchControl = new FormControl();
   user:User;
@@ -123,9 +124,10 @@ export class AppComponent implements OnInit{
   }
 
   public bookClicked(book:Book){
+    this.isInfoExpanded = !this.isInfoExpanded;
     this.selectedBook = book;
     console.log(book);
   }
-  
+
 
 }

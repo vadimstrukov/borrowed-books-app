@@ -42,5 +42,10 @@
          </div>
        </div>
      </div>
+   <div *ngIf="isInfoExpanded" >
+     <!--остальная инфа тут или где угодно на этой странице, НО НЕ ВНУТРИ ЦИКЛА КОТОРЫЙ ВЫШЕ-->
+     <!--<тэг>{{selectedBook.volumeInfo...}}</тэг>-->
+   </div>
  </div>
+
  <login #login *ngIf="!user"></login>
