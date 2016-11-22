@@ -45,4 +45,17 @@ export class LoginModal implements OnInit{
     $('#login').modal('close');
   }
 
+  registerMe(){
+    $('.jq-form > .row > .u-display--none').toggleClass('u-display--none u-were--invisible');
+    $('.u-float--left').toggleClass('u-display--none');
+    $('.jq-login').text('Register');
+    $('.modal-content > h4').text('Registration');
+  }
+
+  loginMe(){
+    $('.jq-form > .row > .u-were--invisible').toggleClass('u-display--none u-were--invisible');
+    $('.u-float--left').toggleClass('u-display--none');
+    $('.jq-login').text('Login');
+    $('.modal-content > h4').text('Sign in');
+  }
 }

@@ -3,17 +3,16 @@
 }
 
 .u-marginL--8rem{
-  margin-left: 8rem !important;
+  /*margin-left: 8rem !important;*/
 }
 
 .modal-footer{
   text-align: center;
 }
 
-.modal-footer > a{
+.modal-footer > button, a{
   background-color: #00897b;
   color: white;
-  float: none;
 }
 
 .u-close--modal{
@@ -24,4 +23,12 @@
   right: 20px;
   top: 15px;
   cursor: pointer;
+}
+
+.u-float--left{
+  float: left !important;
+}
+
+.u-display--none{
+  display: none;
 }

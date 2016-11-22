@@ -1,23 +1,35 @@
 <div id="login" class="modal">
   <span class="u-close--modal" (click)="closeModal()"><i class="material-icons">clear</i></span>
   <div class="modal-content">
-    <h4>Login</h4>
+    <h4>Sign in</h4>
     <div class="row">
-      <form [formGroup]="loginForm" class="col s12" (ngSubmit)="onSubmit(loginForm.value)">
+      <form [formGroup]="loginForm" class="col s12 jq-form" (ngSubmit)="onSubmit(loginForm.value)">
         <div class="row">
-          <div class="input-field col s7 u-marginL--8rem">
-            <i class="material-icons prefix">account_circle</i>
+          <div class="input-field col s12 u-display--none">
+            <i class="material-icons prefix"><i class="material-icons">account_circle</i></i>
+            <input id="firstn_prefix" type="text" class="validate" formControlName="email">
+            <label for="firstn_prefix">First name</label>
+          </div>
+          <div class="input-field col s12 u-display--none">
+            <i class="material-icons prefix"><i class="material-icons">account_circle</i></i>
+            <input id="lastn_prefix" type="text" class="validate" formControlName="email">
+            <label for="lastn_prefix">Last name</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">email</i>
             <input id="icon_prefix" type="text" class="validate" formControlName="email">
             <label for="icon_prefix">Email</label>
           </div>
-          <div class="input-field col s7 u-marginL--8rem">
+          <div class="input-field col s12">
             <i class="material-icons prefix">vpn_key</i>
-            <input id="icon_password" type="password" class="validate" formControlName="password">
-            <label for="icon_password">Password</label>
+            <input id="password_first_prefix" type="password" class="validate" formControlName="password">
+            <label for="password_first_prefix">Password</label>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="waves-effect waves-green btn-flat">Login</button>
+          <button type="submit" class="waves-effect waves-green btn-flat jq-login">Login</button>
+          <a (click)="loginMe()" class="waves-effect waves-green btn-flat u-float--left u-display--none">Login</a>
+          <a (click)="registerMe()" class="waves-effect waves-green btn-flat u-float--left">Register</a>
         </div>
       </form>
     </div>

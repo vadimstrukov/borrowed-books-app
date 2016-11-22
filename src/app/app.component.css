@@ -264,7 +264,14 @@ input[type=text].valid{
   }
 }
 
-/* For the innovative Apple Display */
+/*Special or iphone5 320px width*/
+@media (max-width: 325px) {
+  .u-make--wider{
+    width: 17rem !important;
+  }
+}
+
+/* For the very small displays */
 @media (max-width: 400px) {
   input[type="text"]:focus:not([readonly]),
   input[type="text"].valid{
@@ -272,7 +279,7 @@ input[type=text].valid{
   }
 
   .u-make--wider{
-    width: 20rem !important;
+    width: 20rem;
   }
 
   input[type="text"]{
@@ -292,7 +299,15 @@ input[type=text].valid{
   }
 
   .u-search--div{
-    width: 13rem;
+    width: 14rem;
+  }
+
+  .right{
+    width: 7rem;
+  }
+
+  .right > li{
+    width: 3rem;
   }
 
   .brand-logo{
