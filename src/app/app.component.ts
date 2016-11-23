@@ -127,21 +127,20 @@ export class AppComponent implements OnInit{
     });
   }
 
+  private selectBook(book:Book, expandable:boolean){
+    this.selectedBook = book;
+    this.isInfoExpanded = expandable;
+  };
+
   public bookClicked(book:Book, event:any){
-    if(this.selectedBook==null){
-      this.isInfoExpanded = true;
-      this.selectedBook = book;
-      console.log("Open expandable, New Book");
-    }
-    else if(this.selectedBook == book){
-      console.log("Close expandable, Old Book");
-      this.isInfoExpanded = false;
-      this.selectedBook = null;
-    }
-    else {
-      console.log("Open new expandable, if Old Book");
-      this.isInfoExpanded = true;
-      this.selectedBook = book;
+    switch (this.selectedBook){
+      case book:
+        this.selectBook(null, false);
+        console.log("Close expandable, Old Book", this.selectedBook);
+        break;
+      default:
+        this.selectBook(book, true);
+        console.log("Open expandable, New Book", this.selectedBook);
     }
 
     // var clickedParent = $(event.target).parents('.col');
