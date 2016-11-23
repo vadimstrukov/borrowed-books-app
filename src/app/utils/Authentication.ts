@@ -38,9 +38,7 @@ export class Authentication{
   }
 
   logout() {
-    let params = new URLSearchParams();
     let headers = new Headers();
-    params.set('token', this.access_token);
     headers.set('Authorization', 'Bearer ' + this.access_token);
     return this.http.get(Constants.LogoutURL, {search: params, headers: headers}).map(response => {
         this.access_token = undefined;
