@@ -128,33 +128,46 @@ export class AppComponent implements OnInit{
   }
 
   public bookClicked(book:Book, event:any){
-    this.isInfoExpanded = !this.isInfoExpanded;
-    this.selectedBook = book;
-    console.log(book);
-    var clickedParent = $(event.target).parents('.col');
-    var i = 0;
-    if(clickedParent.hasClass('clicked_') || $('.col').hasClass('clicked_')) {
-      $('.clicked_ .u-information--about').toggleClass('u-display--none');
-      $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
-      $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
-      $('.clicked_').removeClass('clicked_');
-    } else {
-      clickedParent.toggleClass('clicked_');
-      if(clickedParent.hasClass('clicked_')) {
-        $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
-          $(`.clicked_ .u-width--145px`).toggleClass('u-height--245px_');
-          $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
-          $('.clicked_ .u-information--about').toggleClass('u-display--none').delay(200).queue(function () {
-
-          for (i = 1; i <= $('.u-additional--information span').length; i++) {
-            if ($('.inf-' + i).text() == "") {
-              $('.u-inf--' + i).text('Not found');
-            } else {
-              $('.u-inf--' + i).text('').append($('.inf-' + i).text());
-            }
-          }
-        });
-      }
+    if(this.selectedBook==null){
+      this.isInfoExpanded = true;
+      this.selectedBook = book;
+      console.log("Open expandable, New Book");
     }
+    else if(this.selectedBook == book){
+      console.log("Close expandable, Old Book");
+      this.isInfoExpanded = false;
+      this.selectedBook = null;
+    }
+    else {
+      console.log("Open new expandable, if Old Book");
+      this.isInfoExpanded = true;
+      this.selectedBook = book;
+    }
+
+    // var clickedParent = $(event.target).parents('.col');
+    // var i = 0;
+    // if(clickedParent.hasClass('clicked_') || $('.col').hasClass('clicked_')) {
+    //   $('.clicked_ .u-information--about').toggleClass('u-display--none');
+    //   $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
+    //   $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
+    //   $('.clicked_').removeClass('clicked_');
+    // } else {
+    //   clickedParent.toggleClass('clicked_');
+    //   if(clickedParent.hasClass('clicked_')) {
+    //     $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
+    //       $(`.clicked_ .u-width--145px`).toggleClass('u-height--245px_');
+    //       $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
+    //       $('.clicked_ .u-information--about').toggleClass('u-display--none').delay(200).queue(function () {
+    //
+    //       for (i = 1; i <= $('.u-additional--information span').length; i++) {
+    //         if ($('.inf-' + i).text() == "") {
+    //           $('.u-inf--' + i).text('Not found');
+    //         } else {
+    //           $('.u-inf--' + i).text('').append($('.inf-' + i).text());
+    //         }
+    //       }
+    //     });
+    //   }
+    // }
   }
 }
