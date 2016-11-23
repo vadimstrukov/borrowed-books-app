@@ -2,7 +2,7 @@
  * Created by strukov on 15.11.16.
  */
 export class Constants{
-  private static get API_URL():string {return 'http://192.168.0.101:8080'}
+  private static get API_URL():string {return 'http://192.168.0.102:8080'}
   public static get GoogleAPI():string {return 'https://www.googleapis.com/books/v1/volumes'}
   public static get OAuthURL():string {return this.API_URL + '/oauth/token'}
   public static get LogoutURL():string {return this.API_URL + '/api/v1/logout'}

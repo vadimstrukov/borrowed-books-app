@@ -37,11 +37,6 @@
   transition: all 0.2s linear;
 }
 
-.u-height--245px_:hover{
-  background-color: #eeeeee;
-  transition: all 0.2s linear;
-}
-
 .u-width--145px{
   width: 150px;
 }
@@ -68,6 +63,10 @@
 .u-border--top_{
   border-top: 1px solid rgba(0, 0, 0, 0.16);
   padding-top: 10px;
+  padding-bottom: 2rem;
+}
+
+.u-height--75px{
   height: 75px;
 }
 
@@ -135,6 +134,41 @@
 
 .u-make--wider{
   width: 23rem !important;
+}
+
+.clicked_{
+  min-width: 100% !important;
+}
+
+
+
+.u-information--about{
+  text-align: center;
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.u-information--about > hr{
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 42px;
+  border: 2px solid gray;
+  border-radius: 20px;
+}
+
+.u-fontsize--1rem{
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  font-size: 1rem;
+  color: gray;
+}
+
+.u-information--about > div{
+  display: inline-block;
+  text-align: center;
+  margin-right: 50px;
 }
 
 input[type="text"]{
@@ -264,26 +298,48 @@ input[type=text].valid{
   }
 }
 
-/*Special or iphone5 320px width*/
-@media (max-width: 325px) {
-  .u-make--wider{
-    width: 17rem !important;
-  }
-}
-
 /* For the very small displays */
 @media (max-width: 400px) {
+
+  .u-information--about{
+    margin-left: -8rem;
+    text-align: left;
+  }
+
+  .u-information--about hr{
+    display: none;
+  }
+
+  .u-information--about > div{
+    margin-right: 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .u-information--about > div > div{
+    display: inline-block !important;
+  }
+
+  .u-information--about > div > .u-fontsize--1rem{
+    display: none;
+  }
+
+  .u-information--about > div > span.chip {
+    display: inline-block;
+    float: right
+  }
+
   input[type="text"]:focus:not([readonly]),
   input[type="text"].valid{
     width: 75%;
   }
 
   .u-make--wider{
-    width: 20rem;
+    width: 20rem !important;
   }
 
   input[type="text"]{
-    width: 11rem;
+    width: 11rem !important;
     min-width: 11rem;
   }
 
@@ -292,6 +348,10 @@ input[type=text].valid{
     height: auto;
     max-height: 200px;
     overflow: hidden;
+  }
+
+  .u-height--245px{
+    height: 245px !important;
   }
 
   .u-width--145px{
@@ -303,7 +363,7 @@ input[type=text].valid{
   }
 
   .right{
-    width: 7rem;
+    /*width: 7rem;*/
   }
 
   .right > li{
@@ -323,6 +383,14 @@ input[type=text].valid{
     font-weight: 500;
   }
 }
+
+/*Special or iphone5 320px width*/
+@media (max-width: 325px) {
+  .u-make--wider{
+    width: 17rem !important;
+  }
+}
+
 /* Larger than mobile */
 @media (min-width: 400px) {
   input[type="text"]:focus:not([readonly]),
@@ -332,6 +400,19 @@ input[type=text].valid{
 
   .u-search--div{
     width: 17rem;
+  }
+
+  .u-information--about > div{
+    display: inline-block;
+  }
+
+  .u-information--about > .u-fontsize--1rem{
+    display: inline-block;
+    padding: 0;
+  }
+
+  .u-information--about > span{
+    display: inline-block;
   }
 
   .brand-logo{
@@ -360,6 +441,14 @@ input[type=text].valid{
     display: none;
   }
 
+  .u-information--about > hr{
+    top: 40px;
+  }
+
+  .u-information--about > div{
+    margin-right: 5px;
+  }
+
   .nav-wrapper{
     text-align: center;
   }
@@ -372,6 +461,14 @@ input[type=text].valid{
   }
   .nav-wrapper{
     text-align: left;
+  }
+
+  .u-information--about > hr{
+    top: 43px;
+  }
+
+  .u-information--about > div{
+    margin-right: 50px;
   }
 
   .brand-logo{

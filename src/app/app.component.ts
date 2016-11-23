@@ -48,6 +48,10 @@ export class AppComponent implements OnInit{
     $('.button-collapse').sideNav();
     if(this.auth.access_token)
       this.auth.getAuthUser().subscribe(data => this.user = data);
+
+    $('div').click(function () {
+      $(this).attr('class');
+    })
   }
 
   private hideLoaderShowArrow(){
@@ -127,7 +131,30 @@ export class AppComponent implements OnInit{
     this.isInfoExpanded = !this.isInfoExpanded;
     this.selectedBook = book;
     console.log(book);
-    console.log($(event.target).attr('class'));
-  }
+    var clickedParent = $(event.target).parents('.col');
+    var i = 0;
+    if(clickedParent.hasClass('clicked_') || $('.col').hasClass('clicked_')) {
+      $('.clicked_ .u-information--about').toggleClass('u-display--none');
+      $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
+      $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
+      $('.clicked_').removeClass('clicked_');
+    } else {
+      clickedParent.toggleClass('clicked_');
+      if(clickedParent.hasClass('clicked_')) {
+        $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
+          $(`.clicked_ .u-width--145px`).toggleClass('u-height--245px_');
+          $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
+          $('.clicked_ .u-information--about').toggleClass('u-display--none').delay(200).queue(function () {
 
+          for (i = 1; i <= $('.u-additional--information span').length; i++) {
+            if ($('.inf-' + i).text() == "") {
+              $('.u-inf--' + i).text('Not found');
+            } else {
+              $('.u-inf--' + i).text('').append($('.inf-' + i).text());
+            }
+          }
+        });
+      }
+    }
+  }
 }
