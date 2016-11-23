@@ -38,7 +38,7 @@ export class LoginRegisterModal implements OnInit{
     switch (this.formType){
       case FormType[FormType.LOGIN]:
 
-        this.auth.authenticate(value.email, value.password).subscribe((token: any) => {
+        this.auth.authenticate(value.email, value.password).subscribe(() => {
           this.closeModal();
           location.reload(); }, () => { this.error = true; });
         break;
@@ -50,7 +50,7 @@ export class LoginRegisterModal implements OnInit{
         user.fullname = value.fullname;
         user.pass = value.password;
 
-        this.userService.register(user).subscribe((data: any) => {
+        this.userService.register(user).subscribe(() => {
           this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');}, () => {
           this.error = true; });
         break;
