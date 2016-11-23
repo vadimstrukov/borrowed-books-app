@@ -40,7 +40,7 @@ export class Authentication{
   logout() {
     let headers = new Headers();
     headers.set('Authorization', 'Bearer ' + this.access_token);
-    return this.http.get(Constants.LogoutURL, {search: params, headers: headers}).map(response => {
+    return this.http.get(Constants.LogoutURL, {headers: headers}).map(response => {
         this.access_token = undefined;
         localStorage.removeItem('access_token');
     });
