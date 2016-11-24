@@ -511,6 +511,13 @@ input[type=text].valid{
   }
 }
 
+/* Special fixes for line with attributes */
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .u-information--about > hr{
+    top: 40px !important;
+  }
+}
+
 /* Larger than desktop */
 @media (min-width: 1000px) {
   .l4{
@@ -535,7 +542,6 @@ input[type=text].valid{
   .u-search--div{
     width: 50%;
   }
-
 }
 
 /* Larger than Desktop HD */

@@ -132,41 +132,39 @@ export class AppComponent implements OnInit{
     this.isInfoExpanded = expandable;
   };
 
+  private clearInformationBlock():void{
+    $('.u-additional--information').toggleClass('u-display--none');
+    $('.u-border--top_ + .u-information--about').remove();
+    $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
+    $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
+    $('.clicked_').toggleClass('clicked_');
+  }
+
   public bookClicked(book:Book, event:any){
     switch (this.selectedBook){
       case book:
         this.selectBook(null, false);
-        console.log("Close expandable, Old Book", this.selectedBook);
+        //console.log("Close expandable, Old Book", this.selectedBook);
+        this.clearInformationBlock();
         break;
       default:
         this.selectBook(book, true);
-        console.log("Open expandable, New Book", this.selectedBook);
+        var clickedParent = $(event.target).parents('.col');
+        var i;
+        //console.log("Open expandable, Old Book", this.selectedBook);
+        this.clearInformationBlock();
+        clickedParent.toggleClass('clicked_');
+        $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
+        $(`.clicked_ .u-width--145px`).toggleClass('u-height--245px_');
+        $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px').delay(10).queue(function () {
+          for (i = 1; i <= $('.u-additional--information .chip').length; i++){
+            if($('.u-inf--' + i).text() == ""){
+              $('.u-inf--' + i).text('Not found');
+            }
+          }
+          $('.u-additional--information').toggleClass('u-display--none').insertAfter('.clicked_ .u-border--top_');
+          $(this).dequeue();
+        });
     }
-
-    // var clickedParent = $(event.target).parents('.col');
-    // var i = 0;
-    // if(clickedParent.hasClass('clicked_') || $('.col').hasClass('clicked_')) {
-    //   $('.clicked_ .u-information--about').toggleClass('u-display--none');
-    //   $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
-    //   $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
-    //   $('.clicked_').removeClass('clicked_');
-    // } else {
-    //   clickedParent.toggleClass('clicked_');
-    //   if(clickedParent.hasClass('clicked_')) {
-    //     $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
-    //       $(`.clicked_ .u-width--145px`).toggleClass('u-height--245px_');
-    //       $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
-    //       $('.clicked_ .u-information--about').toggleClass('u-display--none').delay(200).queue(function () {
-    //
-    //       for (i = 1; i <= $('.u-additional--information span').length; i++) {
-    //         if ($('.inf-' + i).text() == "") {
-    //           $('.u-inf--' + i).text('Not found');
-    //         } else {
-    //           $('.u-inf--' + i).text('').append($('.inf-' + i).text());
-    //         }
-    //       }
-    //     });
-    //   }
-    // }
   }
 }
