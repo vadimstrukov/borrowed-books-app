@@ -40,54 +40,49 @@
              <p class="limit u-border--top_ u-height--75px">
                {{book.volumeInfo.description}}
              </p>
-             <div class="u-information--about u-display--none">
-               <hr>
-               <div class="u-author">
-                 <div>
-                   Author
-                 </div>
-                 <i class="material-icons u-fontsize--1rem">brightness_1</i>
-                 <span class="u-inf--1 chip"></span>
-               </div>
-               <div class="u-language">
-                 <div>
-                   Language
-                 </div>
-                 <i class="material-icons u-fontsize--1rem">brightness_1</i>
-                 <span class="u-inf--2 chip"></span>
-               </div>
-               <div class="u-pageCount">
-                 <div>
-                   Pages
-                 </div>
-                 <i class="material-icons u-fontsize--1rem">brightness_1</i>
-                 <span class="u-inf--3 chip"></span>
-               </div>
-               <div class="u-publisher">
-                 <div>
-                   Publisher
-                 </div>
-                 <i class="material-icons u-fontsize--1rem">brightness_1</i>
-                 <span class="u-inf--4 chip"></span>
-               </div>
-               <div class="u-publishDate">
-                 <div>
-                   Publish date
-                 </div>
-                 <i class="material-icons u-fontsize--1rem">brightness_1</i>
-                 <span class="u-inf--5 chip"></span>
-               </div>
-             </div>
            </div>
          </div>
        </div>
      </div>
    <div class="u-additional--information u-display--none" *ngIf="isInfoExpanded" >
-     <span class="inf-1">{{selectedBook.volumeInfo.authors}}</span>
-     <span class="inf-2">{{selectedBook.volumeInfo.language}}</span>
-     <span class="inf-3">{{selectedBook.volumeInfo.pageCount}}</span>
-     <span class="inf-4">{{selectedBook.volumeInfo.publisher}}</span>
-     <span class="inf-5">{{selectedBook.volumeInfo.publishedDate}}</span>
+     <div class="u-information--about">
+       <hr>
+       <div class="u-author">
+         <div>
+           Author
+         </div>
+         <i class="material-icons u-fontsize--1rem">brightness_1</i>
+         <span class="u-inf--1 chip">{{selectedBook.volumeInfo.authors}}</span>
+       </div>
+       <div class="u-language">
+         <div>
+           Language
+         </div>
+         <i class="material-icons u-fontsize--1rem">brightness_1</i>
+         <span class="u-inf--2 chip">{{selectedBook.volumeInfo.language}}</span>
+       </div>
+       <div class="u-pageCount">
+         <div>
+           Pages
+         </div>
+         <i class="material-icons u-fontsize--1rem">brightness_1</i>
+         <span class="u-inf--3 chip">{{selectedBook.volumeInfo.pageCount}}</span>
+       </div>
+       <div class="u-publisher">
+         <div>
+           Publisher
+         </div>
+         <i class="material-icons u-fontsize--1rem">brightness_1</i>
+         <span class="u-inf--4 chip">{{selectedBook.volumeInfo.publisher}}</span>
+       </div>
+       <div class="u-publishDate">
+         <div>
+           Publish date
+         </div>
+         <i class="material-icons u-fontsize--1rem">brightness_1</i>
+         <span class="u-inf--5 chip">{{selectedBook.volumeInfo.publishedDate}}</span>
+       </div>
+     </div>
    </div>
  </div>
 
