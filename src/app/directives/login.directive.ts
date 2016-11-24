@@ -7,6 +7,7 @@ import {Authentication} from "../utils/Authentication";
 import {FormType} from "./FormType";
 import {UserService} from "../service/UserService";
 import {User} from "../model/User";
+import {hashSync} from "bcryptjs";
 
 @Component({
   selector: "login",
@@ -48,8 +49,7 @@ export class LoginRegisterModal implements OnInit{
         let user = new User();
         user.email = value.email;
         user.fullname = value.fullname;
-        user.pass = value.password;
-
+        user.pass = hashSync(value.password, 4);
         this.userService.register(user).subscribe(() => {
           this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');}, () => {
           this.error = true; });

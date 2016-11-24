@@ -31,8 +31,8 @@ export class Authentication{
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.http.post(Constants.OAuthURL, credentials.toString(),  {headers: headers})
-      .map((res : any) => {
-      this.access_token = res.json().access_token;
+      .map((response) => {
+      this.access_token = response.json().access_token;
       localStorage.setItem('access_token', this.access_token);
     });
   }
@@ -40,7 +40,7 @@ export class Authentication{
   logout() {
     let headers = new Headers();
     headers.set('Authorization', 'Bearer ' + this.access_token);
-    return this.http.get(Constants.LogoutURL, {headers: headers}).map(response => {
+    return this.http.get(Constants.LogoutURL, {headers: headers}).map(() => {
         this.access_token = undefined;
         localStorage.removeItem('access_token');
     });

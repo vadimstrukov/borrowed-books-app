@@ -22,7 +22,8 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/materialize-css/dist/js/materialize.js"
+        "../node_modules/materialize-css/dist/js/materialize.js",
+        "../node_modules/bcryptjs/dist/bcrypt.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
