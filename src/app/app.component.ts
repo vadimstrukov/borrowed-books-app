@@ -79,8 +79,8 @@ export class AppComponent implements OnInit{
   }
 
   logout(){
-    this.auth.logout().subscribe(data=>this.user = null);
-    location.reload();
+    this.auth.logout().subscribe(()=>{this.user = null; location.reload()});
+
   }
 
   scrollWindowToTop(){
