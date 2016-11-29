@@ -39,7 +39,7 @@ export class AppComponent implements OnInit{
           this.hideLoaderShowArrow();
         }
         else{
-          this.books.items.length = 0;
+          this.books = null;
           this.showLoaderHideArrow();
         }
       });
