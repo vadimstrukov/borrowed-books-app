@@ -17,6 +17,7 @@ import {Book} from "./model/Book";
 
 export class AppComponent implements OnInit{
   books: BookItems;
+  userBooks:Array<Book>;
   selectedBook:Book;
   isInfoExpanded:boolean = false;
 
@@ -42,6 +43,17 @@ export class AppComponent implements OnInit{
           this.showLoaderHideArrow();
         }
       });
+  }
+
+  getUserBooks(){
+    this.bookService.getUserBooks().subscribe(data=>this.books = data);
+    console.log(this.books);
+  }
+
+  addBook(){
+    this.bookService.saveBook(this.selectedBook).subscribe(()=>{
+      console.log("Book saved");
+    });
   }
 
   ngOnInit() {
@@ -144,14 +156,12 @@ export class AppComponent implements OnInit{
     switch (this.selectedBook){
       case book:
         this.selectBook(null, false);
-        //console.log("Close expandable, Old Book", this.selectedBook);
         this.clearInformationBlock();
         break;
       default:
         this.selectBook(book, true);
         var clickedParent = $(event.target).parents('.col');
         var i;
-        //console.log("Open expandable, Old Book", this.selectedBook);
         this.clearInformationBlock();
         clickedParent.toggleClass('clicked_');
         $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');

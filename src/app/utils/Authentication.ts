@@ -14,6 +14,13 @@ export class Authentication{
     this.access_token = localStorage.getItem('access_token');
   }
 
+  setAuthHeaders():Headers{
+    let headers      = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    return headers;
+  }
+
   authenticate(email:string, password:string){
 
     let credentials = new URLSearchParams();
@@ -52,8 +59,4 @@ export class Authentication{
     return this.http.get(Constants.LoggedInUser, {headers: headers}).map(response => response.json());
   }
 
-}
-
-export function isLoggedin() {
-  return !!localStorage.getItem('access_token');
 }
