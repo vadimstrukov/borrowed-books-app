@@ -4,6 +4,8 @@
 import {Injectable} from "@angular/core";
 import {URLSearchParams, Headers, Http} from "@angular/http";
 import {Constants} from "./Constants";
+import {CanActivate} from "@angular/router";
+import {isUndefined} from "util";
 
 @Injectable()
 export class Authentication{
@@ -57,6 +59,10 @@ export class Authentication{
     let headers = new Headers();
     headers.set('Authorization', 'Bearer ' + this.access_token);
     return this.http.get(Constants.LoggedInUser, {headers: headers}).map(response => response.json());
+  }
+
+  isLoggedIn():boolean{
+    return this.access_token !== null && this.access_token !== undefined;
   }
 
 }
