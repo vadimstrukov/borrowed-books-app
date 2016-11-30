@@ -6,20 +6,31 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import {LoginRegisterModal} from "./directives/login.directive";
+import {Routes, RouterModule} from "@angular/router";
+import {UserBooks} from "./directives/userbooks.directive";
+import {Authentication} from "./utils/Authentication";
+import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
+
+const appRoutes: Routes = [
+  {path: 'library', component: UserBooks, canActivate: [CanActivateViaAuth]}
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginRegisterModal
+    LoginRegisterModal,
+    UserBooks
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [Authentication, CanActivateViaAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
