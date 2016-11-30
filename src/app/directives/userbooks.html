@@ -1,0 +1,17 @@
+<div *ngIf="userBooks" class="row u-paddingbot--150px_">
+  <div class="col s12 m6 l4" *ngFor="let userBook of userBooks">
+    <div class="card horizontal u-height--245px_ waves-effect">
+      <div class="card-image u-width--145px">
+        <img [src]="userBook.book.volumeInfo.imageLinks?.smallThumbnail">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{userBook.book.volumeInfo.title}}</span>
+          <p class="limit u-border--top_ u-height--75px">{{userBook.book.volumeInfo.description}}</p>
+        </div>
+        <p class="limit u-border--top_ u-height--75px">Status: {{userBook.readStatus}}</p>
+        <p class="limit u-border--top_ u-height--75px">Added: {{userBook.date_added | date}}</p>
+      </div>
+    </div>
+  </div>
+</div>
