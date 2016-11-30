@@ -1,6 +1,5 @@
  <nav class="u-position--fixed_">
     <div class="nav-wrapper">
-      <!--a href="#" class="brand-logo">Books</a-->
       <a href="#" data-activates="mobile-view" class="button-collapse"><i class="material-icons">menu</i></a>
       <div class="u-search--div">
         <i class="material-icons u-search--icon">search</i>
@@ -8,9 +7,15 @@
         <i class="u-arrow--delete u-display--none animated material-icons" (click)="clearSearchBox()">cancel</i>
       </div>
       <ul class="right jq-right">
-        <li *ngIf="!user"><a (click)="openLogin()" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
-        <li *ngIf="user">{{user.fullname}}<a (click)="logout()" class="waves-effect waves-light"><i class="material-icons">exit_to_app</i></a></li>
-
+        <li *ngIf="!user" class="u-float--right"><a (click)="openLogin()" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
+        <!--li *ngIf="user" class="u-are--name">{{user.fullname}}<a (click)="logout()" class="waves-effect waves-light"><i class="material-icons">exit_to_app</i></a></li-->
+        <a class='dropdown-button' href='#' data-activates='dropdown1' *ngIf="user" (click)="openDropDown()">{{user.fullname}}</a>
+        <ul id='dropdown1' class='dropdown-content'>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <li class="divider"></li>
+          <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
+        </ul>
       </ul>
       <ul class="side-nav" id="mobile-view">
         <li class="u-image--box"></li>
@@ -20,7 +25,7 @@
       </ul>
     </div>
   </nav>
- <span class="u-go--top" (click)="scrollWindowToTop()"><i class="material-icons">play_circle_filled</i></span>
+ <span class="u-go--top u-display--none" (click)="scrollWindowToTop()"><i class="material-icons">play_circle_filled</i></span>
  <div class="loader-preview">
    <h4>Let's find a book for you</h4>
  </div>
@@ -36,7 +41,7 @@
          </div>
          <div class="card-stacked">
            <div class="card-content">
-             <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{book.volumeInfo.title}}<i class="material-icons right u-position--absolute_">more_vert</i></span>
+             <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{book.volumeInfo.title}}<!--i class="material-icons right u-position--absolute_">more_vert</i--></span>
              <p class="limit u-border--top_ u-height--75px">
                {{book.volumeInfo.description}}
              </p>
@@ -44,46 +49,40 @@
          </div>
        </div>
      </div>
-   <div class="u-additional--information u-display--none" *ngIf="isInfoExpanded" >
-     <button (click)="addBook()">Add to my books</button>
+   <div class="u-additional--information col s12 l6 m12" *ngIf="isInfoExpanded" >
      <div class="u-information--about">
-       <hr>
        <div class="u-author">
          <div>
            Author
          </div>
-         <i class="material-icons u-fontsize--1rem">brightness_1</i>
          <span class="u-inf--1 chip">{{selectedBook.volumeInfo.authors}}</span>
        </div>
        <div class="u-language">
          <div>
            Language
          </div>
-         <i class="material-icons u-fontsize--1rem">brightness_1</i>
          <span class="u-inf--2 chip">{{selectedBook.volumeInfo.language}}</span>
        </div>
        <div class="u-pageCount">
          <div>
            Pages
          </div>
-         <i class="material-icons u-fontsize--1rem">brightness_1</i>
          <span class="u-inf--3 chip">{{selectedBook.volumeInfo.pageCount}}</span>
        </div>
        <div class="u-publisher">
          <div>
            Publisher
          </div>
-         <i class="material-icons u-fontsize--1rem">brightness_1</i>
          <span class="u-inf--4 chip">{{selectedBook.volumeInfo.publisher}}</span>
        </div>
        <div class="u-publishDate">
          <div>
            Publish date
          </div>
-         <i class="material-icons u-fontsize--1rem">brightness_1</i>
          <span class="u-inf--5 chip">{{selectedBook.volumeInfo.publishedDate}}</span>
        </div>
      </div>
+     <button *ngIf="user" (click)="addBook()" class="btn u-btn--add">add book</button>
    </div>
  </div>
 

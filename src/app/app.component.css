@@ -5,6 +5,10 @@
   -webkit-box-orient: vertical;
 }
 
+.u-input--search{
+  border-bottom: none !important;
+}
+
 .button-collapse{
   display: block !important;
 }
@@ -28,6 +32,8 @@
 }
 
 .u-search--div > .u-search--icon{
+  position: relative;
+  left: 2.5rem;
   vertical-align: middle;
   display: inline-block;
 }
@@ -79,6 +85,7 @@
 }
 
 .u-search--div{
+  position: relative;
   display: inline-block;
   height: inherit;
   width: 50%;
@@ -113,6 +120,7 @@
 
 .u-arrow--delete{
   position: absolute;
+  top: 0;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
@@ -140,42 +148,87 @@
   min-width: 100% !important;
 }
 
-
-
 .u-information--about{
   text-align: center;
   position: relative;
   padding-bottom: 2rem;
 }
 
-.u-information--about > hr{
+.u-additional--information{
+  text-align: center;
+}
+
+/*.u-information--about > hr{
   left: 0;
   right: 0;
   position: absolute;
   top: 42px;
   border: 2px solid gray;
   border-radius: 20px;
-}
+}*/
 
-.u-fontsize--1rem{
+/*.u-information--about > div{
+  display: inline-block;
+  text-align: center;
+  margin-right: 50px;
+}*/
+
+/*.u-fontsize--1rem{
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   display: block;
   font-size: 1rem;
   color: gray;
+}*/
+
+.u-information--about{
+  text-align: left;
+}
+
+.u-information--about hr{
+  display: none;
 }
 
 .u-information--about > div{
+  margin-right: 0 !important;
+  width: 100% !important;
+  text-align: left !important;
+  margin-top: 1.5rem;
+}
+
+.u-information--about > div > div{
+  display: inline-block !important;
+}
+
+.u-information--about > div > .u-fontsize--1rem{
+  display: none;
+}
+
+.u-information--about > div > span.chip {
   display: inline-block;
-  text-align: center;
-  margin-right: 50px;
+  float: right
+}
+
+.u-float--right{
+  float: right;
+}
+
+.u-btn--add{
+  border-radius: 30px;
+}
+
+ul > ul {
+  min-width: 100% !important;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
 }
 
 input[type="text"]{
   width: 200px;
   min-width: 200px;
-  border-bottom: 1px solid white;
+  /*border-bottom: 1px solid white;*/
   text-align: center;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 30px;
 }
 
 input[type="text"]:invalid{
@@ -185,8 +238,10 @@ input[type="text"]:invalid{
 
 input[type=text]:focus:not([readonly]),
 input[type=text].valid{
-  border-bottom: 1px solid white;
+  /*border-bottom: 1px solid white;
   box-shadow: 0 1px 0 0 white;
+  border-bottom: none;*/
+  box-shadow: none;
   width: 90%;
 }
 
@@ -244,7 +299,6 @@ input[type=text].valid{
 }
 
 /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
-
 @-webkit-keyframes rollOut {
   from {
     opacity: 1;
@@ -301,23 +355,12 @@ input[type=text].valid{
 /* For the very small displays */
 @media (max-width: 400px) {
 
-  .u-information--about{
-    margin-left: -8rem;
-    text-align: left;
-  }
-
-  .u-information--about hr{
-    display: none;
-  }
-
   .u-information--about > div{
-    margin-right: 0 !important;
-    width: 100% !important;
-    text-align: left !important;
+    text-align: center !important;
   }
 
   .u-information--about > div > div{
-    display: inline-block !important;
+    display: block !important;
   }
 
   .u-information--about > div > .u-fontsize--1rem{
@@ -325,22 +368,42 @@ input[type=text].valid{
   }
 
   .u-information--about > div > span.chip {
-    display: inline-block;
-    float: right
+    display: block;
+    float: none;
+  }
+
+  .right.jq-right{
+    width: 91px;
+    overflow: hidden;
+    height: 4rem;
+  }
+
+  ul > ul{
+    top: 4rem;
   }
 
   input[type="text"]:focus:not([readonly]),
   input[type="text"].valid{
-    width: 75%;
+    width: 100% !important;
+  }
+
+  .u-search--icon{
+    left: -0.9rem !important;
+  }
+
+  .u-arrow--delete{
+    right: 1.5rem !important;
   }
 
   .u-make--wider{
-    width: 20rem !important;
+    width: 21.3rem !important;
   }
 
   input[type="text"]{
-    width: 11rem !important;
-    min-width: 11rem;
+    /*width: 11rem !important;*/
+    min-width: 11.5rem;
+    margin-left: -3rem;
+    border-bottom: none !important;
   }
 
   .u-height--245px_{
@@ -362,16 +425,12 @@ input[type=text].valid{
     width: 14rem;
   }
 
-  .right{
-    /*width: 7rem;*/
-  }
+  /*.right{
+    width: 7rem;
+  }*/
 
-  .right > li{
+  .right.jq-right > li{
     width: 3rem;
-  }
-
-  .brand-logo{
-    display: none;
   }
 
   .nav-wrapper{
@@ -394,23 +453,12 @@ input[type=text].valid{
 /* Larger than mobile */
 @media (min-width: 400px) and (max-width: 550px) {
 
-  .u-information--about{
-    margin-left: -8rem;
-    text-align: left;
-  }
-
-  .u-information--about hr{
-    display: none;
-  }
-
   .u-information--about > div{
-    margin-right: 0 !important;
-    width: 100% !important;
-    text-align: left !important;
+    text-align: center !important;
   }
 
   .u-information--about > div > div{
-    display: inline-block !important;
+    display: block !important;
   }
 
   .u-information--about > div > .u-fontsize--1rem{
@@ -418,60 +466,65 @@ input[type=text].valid{
   }
 
   .u-information--about > div > span.chip {
-    display: inline-block;
-    float: right
+    display: block;
+    float: none;
   }
 
-  input[type="text"]:focus:not([readonly]),
-  input[type="text"].valid{
-    width: 85%;
+  .right.jq-right{
+    width: 91px;
+    overflow: hidden;
+    height: 4rem;
   }
 
-  .u-search--div{
-    width: 17rem;
-  }
-
-  .u-information--about > div{
-    display: inline-block;
-  }
-
-  .u-information--about > .u-fontsize--1rem{
-    display: inline-block;
-    padding: 0;
-  }
-
-  .u-information--about > span{
-    display: inline-block;
-  }
-
-  .brand-logo{
-    display: none;
+  ul > ul{
+    top: 4rem;
   }
 
   .nav-wrapper{
     text-align: left;
+  }
+
+  .u-search--div{
+    width: 60%;
+    margin-left: -1.2rem;
+  }
+
+  .u-make--wider{
+    width: 26.3rem !important;
+  }
+
+  .u-input--search{
+    margin-left: -1.5rem;
+  }
+
+  .u-search--icon{
+    left: 1rem !important;
+  }
+
+  .u-arrow--delete{
+    right: 2.8rem !important;
   }
 }
 
 /* Larger than phablet */
 @media (min-width: 550px) and (max-width: 750px) {
 
-  .u-information--about{
-    text-align: left;
+  .right.jq-right{
+    width: 91px;
+    overflow: hidden;
+    height: 4rem;
   }
 
-  .u-information--about hr{
-    display: none;
+  ul > ul{
+    top: 4rem;
   }
 
   .u-information--about > div{
-    margin-right: 0 !important;
-    width: 100% !important;
-    text-align: left !important;
+    text-align: center !important;
   }
 
   .u-information--about > div > div{
-    display: inline-block !important;
+    display: block !important;
   }
 
   .u-information--about > div > .u-fontsize--1rem{
@@ -479,27 +532,43 @@ input[type=text].valid{
   }
 
   .u-information--about > div > span.chip {
-    display: inline-block;
-    float: right
-  }
-
-  .brand-logo{
-    display: none;
+    display: block;
+    float: none;
   }
 
   .nav-wrapper{
     text-align: center;
   }
+
+  .u-search--div{
+    width: 60%;
+    margin-left: -4rem;
+  }
+
+  .u-input--search{
+    margin-left: -2rem;
+    /*border-bottom: none !important;*/
+  }
+
+  .u-search--icon{
+    left: 0.5rem !important;
+  }
+
+  .u-arrow--delete{
+    right: 2rem !important;
+  }
+
 }
 
 /* Larger than tablet */
 @media (min-width: 750px) {
-  .brand-logo{
-    display: none;
-  }
 
   .u-information--about > hr{
     top: 40px;
+  }
+
+  .u-arrow--delete{
+    right: 1.1rem;
   }
 
   .u-information--about > div{
@@ -520,6 +589,11 @@ input[type=text].valid{
 
 /* Larger than desktop */
 @media (min-width: 1000px) {
+
+  .u-additional--information{
+    margin-left: 20% !important;
+  }
+
   .l4{
     width: 33.3333333333% !important;
   }
@@ -535,12 +609,12 @@ input[type=text].valid{
     margin-right: 50px;
   }
 
-  .brand-logo{
-    display: block;
-  }
-
   .u-search--div{
     width: 50%;
+  }
+
+  .u-arrow--delete{
+    right: 3.1rem;
   }
 }
 
@@ -548,9 +622,5 @@ input[type=text].valid{
 @media (min-width: 1600px) {
   .l4{
     width: 25% !important;
-  }
-
-  .brand-logo{
-    display: block;
   }
 }
