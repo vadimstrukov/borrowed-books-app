@@ -6,14 +6,17 @@ import {URLSearchParams, Headers, Http} from "@angular/http";
 import {Constants} from "./Constants";
 import {CanActivate} from "@angular/router";
 import {isUndefined} from "util";
+import {User} from "../model/User";
 
 @Injectable()
 export class Authentication{
 
   access_token: string;
+  user:User;
 
   constructor(private http:Http) {
     this.access_token = localStorage.getItem('access_token');
+    this.getAuthUser();
   }
 
   setAuthHeaders():Headers{
@@ -52,13 +55,17 @@ export class Authentication{
     return this.http.get(Constants.LogoutURL, {headers: headers}).map(() => {
         this.access_token = undefined;
         localStorage.removeItem('access_token');
+        this.user = null;
     });
   }
 
   getAuthUser(){
-    let headers = new Headers();
-    headers.set('Authorization', 'Bearer ' + this.access_token);
-    return this.http.get(Constants.LoggedInUser, {headers: headers}).map(response => response.json());
+    if(this.access_token){
+      let headers = new Headers();
+      headers.set('Authorization', 'Bearer ' + this.access_token);
+      return this.http.get(Constants.LoggedInUser, {headers: headers}).map(response => response.json())
+        .subscribe(data=>this.user=data);
+    }
   }
 
   isLoggedIn():boolean{

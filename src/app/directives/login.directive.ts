@@ -12,8 +12,7 @@ import {hashSync} from "bcryptjs";
 @Component({
   selector: "login",
   templateUrl: "./login.html",
-  styleUrls: ['./login-styles.css'],
-  providers: [Authentication, UserService]
+  styleUrls: ['./login-styles.css']
 })
 export class LoginRegisterModal implements OnInit{
 
