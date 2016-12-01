@@ -7,10 +7,9 @@
       <div class="card-stacked">
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{userBook.book.volumeInfo.title}}</span>
-          <p class="limit u-border--top_ u-height--75px">{{userBook.book.volumeInfo.description}}</p>
+          <p class="limit u-border--top_ u-height--75px">Status: {{userBook.readStatus}}</p>
+          <p class="limit u-border--top_ u-height--75px">Added: {{userBook.date_added | date}}</p>
         </div>
-        <p class="limit u-border--top_ u-height--75px">Status: {{userBook.readStatus}}</p>
-        <p class="limit u-border--top_ u-height--75px">Added: {{userBook.date_added | date}}</p>
       </div>
     </div>
   </div>

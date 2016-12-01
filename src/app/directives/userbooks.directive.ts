@@ -7,9 +7,9 @@ import {OwnedBook} from "../model/OwnedBook";
 
 @Component({
   templateUrl: './userbooks.html',
-  styleUrls: ['./userbooks-styles.css'],
-  providers: [BookService]
+  styleUrls: ['../app.component.css']
 })
+
 export class UserBooks implements OnInit{
   userBooks:Array<OwnedBook>;
 
