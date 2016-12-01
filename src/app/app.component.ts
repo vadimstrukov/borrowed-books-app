@@ -72,7 +72,8 @@ export class AppComponent implements OnInit{
       $('.jq-right').fadeOut('slow');
       $('.u-search--div').addClass('u-make--wider');
     }
-    this.arrowDelete.removeClass('rollOut u-display--none').addClass('rollIn');
+    this.arrowDelete.fadeIn('slow');
+    $('.u-go--top').fadeIn('slow');
   }
 
   private showLoaderHideArrow(){
@@ -81,11 +82,8 @@ export class AppComponent implements OnInit{
       $('.jq-right').fadeIn('slow');
       $('.u-search--div').removeClass('u-make--wider');
     }
-    this.arrowDelete.toggleClass('rollIn').addClass("rollOut").queue(function(){
-      $(this).addClass('u-display--none');
-      $('.u-go--top').fadeOut('slow');
-      $(this).dequeue();
-    });
+    this.arrowDelete.fadeOut('fast');
+    $('.u-go--top').fadeOut('slow');
   }
 
   openLogin(){
@@ -96,24 +94,24 @@ export class AppComponent implements OnInit{
     this.auth.logout().subscribe(()=>{this.user = null; location.reload()});
   }
 
-  openDropDown() {
-    if ($('.dropdown-content').css('display') == 'none') {
-      $('.dropdown-button').css({
-        'background-color': 'white',
-        'color': '#26a69a'
-      });
-      $('.dropdown-content').show().animate({'opacity': '1'}, 'fast');
-    } else {
-      $('.dropdown-button').css({
-        'background-color': '#00897b',
-        'color': 'white'
-      });
-      $('.dropdown-content').animate({'opacity': '0'}, 'fast').queue(function () {
-        $('.dropdown-content').hide();
-        $(this).dequeue();
-      });
-    }
-  }
+  // openDropDown() {
+  //   if ($('.dropdown-content').css('display') == 'none') {
+  //     $('.dropdown-button').css({
+  //       'background-color': 'white',
+  //       'color': '#26a69a'
+  //     });
+  //     $('.dropdown-content').show().animate({'opacity': '1'}, 'fast');
+  //   } else {
+  //     $('.dropdown-button').css({
+  //       'background-color': '#00897b',
+  //       'color': 'white'
+  //     });
+  //     $('.dropdown-content').animate({'opacity': '0'}, 'fast').queue(function () {
+  //       $('.dropdown-content').hide();
+  //       $(this).dequeue();
+  //     });
+  //   }
+  // }
 
   scrollWindowToTop(){
     $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -125,7 +123,7 @@ export class AppComponent implements OnInit{
 
   clearSearchBox(){
     this.searchControl.setValue("");
-    this.arrowDelete.addClass("rollOut");
+    this.arrowDelete.fadeOut('fast');
     if($('.u-search--div').hasClass('u-make--wider') && $(window).width() < 500){
       $('.u-search--div').toggleClass('u-make--wider');
     }else{
@@ -167,6 +165,7 @@ export class AppComponent implements OnInit{
   private clearInformationBlock():void{
     $('.u-border--top_ + .u-information--about').remove();
     $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
+    $('.clicked_ .u-width--145px').removeClass('u-height--245px_');
     $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
     $('.clicked_').toggleClass('clicked_');
   }
@@ -183,7 +182,7 @@ export class AppComponent implements OnInit{
         this.clearInformationBlock();
         clickedParent.toggleClass('clicked_');
         $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
-        $(`.clicked_ .u-width--145px`).toggleClass('u-height--245px_');
+        $('.clicked_ .u-width--145px').toggleClass('u-height--245px_');
         $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px').delay(1).queue(function () {
           $('.u-additional--information').insertAfter('.clicked_ .u-border--top_');
           $(this).dequeue();
