@@ -10,8 +10,13 @@ import {Routes, RouterModule} from "@angular/router";
 import {UserBooks} from "./directives/userbooks.directive";
 import {Authentication} from "./utils/Authentication";
 import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
+import {SearchBooks} from "./directives/searchbooks.directive";
+import {BookService} from "./service/BookService";
+import {UserService} from "./service/UserService";
 
 const appRoutes: Routes = [
+  {path: '', redirectTo: 'library', pathMatch: 'full'},
+  {path: 'search', component:SearchBooks},
   {path: 'library', component: UserBooks, canActivate: [CanActivateViaAuth]}
 ];
 
@@ -20,7 +25,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginRegisterModal,
-    UserBooks
+    UserBooks,
+    SearchBooks
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,7 @@ const appRoutes: Routes = [
     InfiniteScrollModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [Authentication, CanActivateViaAuth],
+  providers: [Authentication, CanActivateViaAuth, BookService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
