@@ -45,11 +45,6 @@ export class AppComponent implements OnInit{
       });
   }
 
-  getUserBooks(){
-    this.bookService.getUserBooks().subscribe(data=>this.books = data);
-    console.log(this.books);
-  }
-
   addBook(){
     this.bookService.saveBook(this.selectedBook).subscribe(()=>{
       console.log("Book saved");
@@ -64,6 +59,10 @@ export class AppComponent implements OnInit{
     $('div').click(function () {
       $(this).attr('class');
     })
+  }
+
+  closeSideNav(){
+    $('.button-collapse').sideNav('hide');
   }
 
   private hideLoaderShowArrow(){
