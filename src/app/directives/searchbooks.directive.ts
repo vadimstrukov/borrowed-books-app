@@ -15,10 +15,10 @@ import {Authentication} from "../utils/Authentication";
 })
 export class SearchBooks implements OnInit, OnDestroy{
 
-  books: BookItems;
-  selectedBook:Book;
-  isInfoExpanded:boolean = false;
-  query:any;
+  public books: BookItems;
+  public selectedBook:Book;
+  public isInfoExpanded:boolean = false;
+  private query:any;
   private subscription: Subscription;
 
   constructor(private bookService: BookService, private route: ActivatedRoute, public auth:Authentication){}
@@ -26,14 +26,11 @@ export class SearchBooks implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.subscription = this.route.queryParams.subscribe((param:any)=>{
       this.query = param['q'];
-      if(this.query.length>0)
-        this.bookService.getBooksByTitle(this.query).subscribe(data => this.books = data);
-      else
-        this.books = null;
+      this.bookService.getBooksByTitle(this.query).subscribe(data => this.books = data);
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
@@ -43,7 +40,8 @@ export class SearchBooks implements OnInit, OnDestroy{
     this.isInfoExpanded = expandable;
   }
 
-  public bookClicked(book:Book, event:any){
+  public bookClicked(book:Book, event:any) : void{
+    let clickedParent = $(event.target).parents('.col');
     switch (this.selectedBook){
       case book:
         this.selectBook(null, false);
@@ -51,16 +49,19 @@ export class SearchBooks implements OnInit, OnDestroy{
         break;
       default:
         this.selectBook(book, true);
-        var clickedParent = $(event.target).parents('.col');
-        this.clearInformationBlock();
-        clickedParent.toggleClass('clicked_');
-        $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
-        $('.clicked_ .u-width--145px').toggleClass('u-height--245px_');
-        $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px').delay(1).queue(function () {
-          $('.u-additional--information').insertAfter('.clicked_ .u-border--top_');
-          $(this).dequeue();
-        });
+        this.addInformationBlock(clickedParent);
     }
+  }
+
+
+  private addInformationBlock(clickedParent:JQuery):void{
+    clickedParent.addClass('clicked_');
+    $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
+    $('.clicked_ .u-width--145px').toggleClass('u-height--245px_');
+    $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px').delay(1).queue(function () {
+      $('.u-additional--information').insertAfter('.clicked_ .u-border--top_');
+      $(this).dequeue();
+    });
   }
 
   private clearInformationBlock():void{
@@ -68,7 +69,7 @@ export class SearchBooks implements OnInit, OnDestroy{
     $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
     $('.clicked_ .u-width--145px').removeClass('u-height--245px_');
     $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
-    $('.clicked_').toggleClass('clicked_');
+    $('.clicked_').removeClass('clicked_');
   }
 
 

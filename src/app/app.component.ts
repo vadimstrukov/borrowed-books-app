@@ -14,12 +14,12 @@ import {Router} from "@angular/router";
 
 export class AppComponent implements OnInit {
 
+  public searchControl = new FormControl();
+  @ViewChild('login')
+  private loginModal:LoginRegisterModal;
 
-  searchControl = new FormControl();
-  @ViewChild('login') loginModal:LoginRegisterModal;
-
-  loader:JQuery;
-  arrowDelete:JQuery;
+  private loader:JQuery;
+  private arrowDelete:JQuery;
 
   constructor(private bookService: BookService, public auth:Authentication, private router:Router){
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
@@ -28,9 +28,11 @@ export class AppComponent implements OnInit {
         this.loader = $('.loader-preview');
         this.arrowDelete = $('.u-arrow--delete');
         if(value.length>0)
-          router.navigate(['/search'], {queryParams : {q: value}});
+          this.adjustLoaderAndArrow('slow', false);
+          // router.navigate(['/search'], {queryParams : {q: value}});
         else
-          router.navigate(['/library']);
+          this.adjustLoaderAndArrow('fast', true);
+          // router.navigate(['/library']);
       });
   }
 
@@ -46,25 +48,16 @@ export class AppComponent implements OnInit {
     $('.button-collapse').sideNav('hide');
   }
 
-  // private hideLoaderShowArrow(){
-  //   this.loader.fadeOut('slow');
-  //   if ($(window).width() < 500){
-  //     $('.jq-right').fadeOut('slow');
-  //     $('.u-search--div').addClass('u-make--wider');
-  //   }
-  //   this.arrowDelete.fadeIn('slow');
-  //   $('.u-go--top').fadeIn('slow');
-  // }
-  //
-  // private showLoaderHideArrow():void{
-  //   this.loader.fadeIn('slow');
-  //   if ($(window).width() < 500){
-  //     $('.jq-right').fadeIn('slow');
-  //     $('.u-search--div').removeClass('u-make--wider');
-  //   }
-  //   this.arrowDelete.fadeOut('fast');
-  //   $('.u-go--top').fadeOut('slow');
-  // }
+  private adjustLoaderAndArrow(duration:string, addOrRemove:boolean):void{
+    this.loader.fadeToggle(duration);
+    if ($(window).width() < 500){
+      $('.jq-right').fadeToggle(duration);
+      $('.u-search--div').toggleClass('u-make--wider', addOrRemove);
+    }
+    this.arrowDelete.fadeToggle(duration);
+    $('.u-go--top').fadeToggle(duration);
+  }
+
 
   public openLogin():void{
     this.loginModal.openModal();
@@ -75,35 +68,13 @@ export class AppComponent implements OnInit {
   }
 
 
- private scrollWindowToTop():void{
+ public scrollWindowToTop():void{
     $("html, body").animate({ scrollTop: 0 }, "slow");
   }
 
 
   public clearSearchBox():void {
     this.searchControl.setValue("");
-    this.arrowDelete.fadeOut('fast');
-    if ($('.u-search--div').hasClass('u-make--wider') && $(window).width() < 500)
-      $('.u-search--div').toggleClass('u-make--wider');
-    else
-      $('.u-input--search').css('width', '200px');
-  }
-
-  public makeItWider():void{
-    $('.u-input--search').removeAttr('style');
-    if ($(window).width() < 500){
-      if(!$('.u-search--div').hasClass('u-make--wider')){
-        $('.jq-right').fadeOut('fast');
-        $('.u-search--div').toggleClass('u-make--wider');
-      }
-    }
-  }
-
-  public removeWider():void{
-    if ($(window).width() < 500 && $('.u-input--search').val().length == 0) {
-      $('.jq-right').fadeIn('slow');
-      $('.u-search--div').toggleClass('u-make--wider');
-    }
   }
 
 

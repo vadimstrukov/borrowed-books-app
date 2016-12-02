@@ -4,7 +4,7 @@
 import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {Authentication} from "../utils/Authentication";
-import {FormType} from "./FormType";
+import {FormType} from "../utils/FormType";
 import {UserService} from "../service/UserService";
 import {User} from "../model/User";
 import {hashSync} from "bcryptjs";
@@ -16,12 +16,12 @@ import {hashSync} from "bcryptjs";
 })
 export class LoginRegisterModal implements OnInit{
 
-  submitForm: FormGroup;
-  error: boolean = false;
+  public submitForm: FormGroup;
+  public error: boolean = false;
 
-  isRegister: boolean = false;
-  formType:string = FormType[FormType.LOGIN];
-  buttonName:string = "Sign up";
+  public isRegister: boolean = false;
+  private formType:string = FormType[FormType.LOGIN];
+  public buttonName:string = "Sign up";
 
   constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService){}
 
@@ -34,7 +34,7 @@ export class LoginRegisterModal implements OnInit{
     });
   }
 
-  public onSubmit(value:any){
+  public onSubmit(value:any):void{
     switch (this.formType){
       case FormType[FormType.LOGIN]:
 
@@ -56,22 +56,22 @@ export class LoginRegisterModal implements OnInit{
     }
   }
 
-  public openModal(){
+  public openModal():void{
     $('#login').modal('open');
   }
 
-  public closeModal(){
+  public closeModal():void{
     $('#login').modal('close');
   }
 
-  public changeFormType(){
+  public changeFormType():void{
     if(!this.isRegister)
       this.setFormType(true, "Sign in", FormType[FormType.REGISTER], 'Registration');
     else
       this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');
   }
 
-  private setFormType(isRegister:boolean, buttonName:string, formType:string, hText:string){
+  private setFormType(isRegister:boolean, buttonName:string, formType:string, hText:string):void{
     this.isRegister = isRegister;
     this.formType = formType;
     this.buttonName = buttonName;

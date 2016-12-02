@@ -3,7 +3,7 @@
       <a href="#" data-activates="mobile-view" class="button-collapse"><i class="material-icons">menu</i></a>
       <div class="u-search--div">
         <i class="material-icons u-search--icon">search</i>
-        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search" (click)=" makeItWider()" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter book title...' " (blur)="removeWider()">
+        <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text" class="validate u-input--search" onfocus="placeholder = ''" onblur="placeholder = 'Enter book title...'">
         <i class="u-arrow--delete u-display--none material-icons" (click)="clearSearchBox()">cancel</i>
       </div>
       <ul class="right jq-right">
@@ -25,9 +25,10 @@
     </div>
   </nav>
  <span class="u-go--top u-display--none" (click)="scrollWindowToTop()"><i class="material-icons">play_circle_filled</i></span>
- <!--<div class="loader-preview">-->
-   <!--<h4>Let's find a book for you</h4>-->
- <!--</div>-->
+ <div class="loader-preview">
+   <h4>Let's find a book for you...</h4>
+ </div>
+
  <router-outlet></router-outlet>
 
  <login #login *ngIf="!auth.user"></login>
