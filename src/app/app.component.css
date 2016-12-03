@@ -70,6 +70,7 @@ ul:hover ul{
 
 .button-collapse{
   display: block !important;
+  cursor: pointer;
 }
 
 .side-nav{

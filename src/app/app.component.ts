@@ -4,8 +4,6 @@ import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {Router} from "@angular/router";
-import {Constants} from "./utils/Constants";
-
 
 @Component({
   selector: 'app-root',
@@ -26,8 +24,6 @@ export class AppComponent implements OnInit {
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
       .subscribe((value : string) => {
         bookService.startIndex = 1;
-        this.loader = $('.loader-preview');
-        this.arrowDelete = $('.u-arrow--delete');
         if(value.length>0){
           router.navigate(['/search'], {queryParams : {q: value}});
           this.adjustLoaderAndArrow('slow', false);
@@ -40,24 +36,26 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('.button-collapse').sideNav();
-
+    setTimeout(()=>{
+      $('.button-collapse').sideNav();
+    }, 500);
     $('div').click(function () {
       $(this).attr('class');
     });
   }
 
-  public closeSideNav():void{
+  public openLibrary():void{
     $('.button-collapse').sideNav('hide');
+    this.router.navigate(['/library']);
   }
 
   private adjustLoaderAndArrow(duration:string, addOrRemove:boolean):void{
-    this.loader.fadeToggle(duration);
+    // $('.loader-preview').fadeToggle(duration);
     if ($(window).width() < 500){
       $('.jq-right').fadeToggle(duration);
       $('.u-search--div').toggleClass('u-make--wider', addOrRemove);
     }
-    this.arrowDelete.fadeToggle(duration);
+    $('.u-arrow--delete').fadeToggle(duration);
     $('.u-go--top').fadeToggle(duration);
   }
 
