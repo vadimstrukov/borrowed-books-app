@@ -16,7 +16,7 @@ import {UserService} from "./service/UserService";
 import {BookInfoModal} from "./directives/bookinfo.directive";
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: 'library', pathMatch: 'full'},
+  {path: '', redirectTo: 'search', pathMatch: 'full'},
   {path: 'search', component:SearchBooks},
   {path: 'library', component: UserBooks, canActivate: [CanActivateViaAuth]}
 ];

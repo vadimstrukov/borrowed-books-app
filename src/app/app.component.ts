@@ -28,12 +28,14 @@ export class AppComponent implements OnInit {
         bookService.startIndex = 1;
         this.loader = $('.loader-preview');
         this.arrowDelete = $('.u-arrow--delete');
-        if(value.length>0)
+        if(value.length>0){
+          router.navigate(['/search'], {queryParams : {q: value}});
           this.adjustLoaderAndArrow('slow', false);
-          // router.navigate(['/search'], {queryParams : {q: value}});
-        else
+        }
+        else{
+          router.navigate(['/search'], {queryParams : {}});
           this.adjustLoaderAndArrow('fast', true);
-          // router.navigate(['/library']);
+        }
       });
   }
 

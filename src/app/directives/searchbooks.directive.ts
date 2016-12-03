@@ -29,7 +29,11 @@ export class SearchBooks implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.subscription = this.route.queryParams.subscribe((param:any)=>{
       this.query = param['q'];
-      this.bookService.getBooksByTitle(this.query).subscribe(data => this.books = data);
+      if(this.query!=null)
+        this.bookService.getBooksByTitle(this.query).subscribe(data => this.books = data);
+      else{
+        this.books = null;
+      }
     });
   }
 
