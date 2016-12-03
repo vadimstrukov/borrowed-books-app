@@ -9,7 +9,8 @@ import {ModalBehaviour} from "./moda.directive";
 import {Constants} from "../utils/Constants";
 @Component({
   selector: 'bookinfo',
-  templateUrl: './bookinfo.html'
+  templateUrl: './bookinfo.html',
+  styleUrls: ['../app.component.css']
 })
 export class BookInfoModal extends ModalBehaviour implements OnInit{
   @Input()
