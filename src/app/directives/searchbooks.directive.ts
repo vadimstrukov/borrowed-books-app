@@ -41,37 +41,31 @@ export class SearchBooks implements OnInit, OnDestroy{
   }
 
   public bookClicked(book:Book, event:any) : void{
+    //вызвается дважды, если вызывать здесь
+    this.manipulationWithAdditionalData( '.remove()', 'u-height--245px_', 'limit u-height--75px', 'clicked_' );
     let clickedParent = $(event.target).parents('.col');
     switch (this.selectedBook){
       case book:
         this.selectBook(null, false);
-        this.clearInformationBlock();
+        //не очищает данные, если сразу же перейти на другу книгу пока предыдущая открыта
+        //this.manipulationWithAdditionalData( '.remove()', 'u-height--245px_', 'limit u-height--75px', 'clicked_' );
         break;
       default:
         this.selectBook(book, true);
-        this.addInformationBlock(clickedParent);
+        clickedParent.toggleClass('clicked_');
+        this.manipulationWithAdditionalData( '', 'u-height--245px_', 'limit u-height--75px', '' );
     }
   }
 
-
-  private addInformationBlock(clickedParent:JQuery):void{
-    clickedParent.addClass('clicked_');
-    $('.clicked_ .u-height--245px_').toggleClass('u-height--245px_ u-was--245px');
-    $('.clicked_ .u-width--145px').toggleClass('u-height--245px_');
-    $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px').delay(1).queue(function () {
+  private manipulationWithAdditionalData( removeMethod:string, uHeight245px:string, uLimitAndHeight75:string, uClicked_:string ):void{
+    $('.u-border--top_ + .u-information--about') + removeMethod;
+    $('.clicked_ .u-width--145px, .clicked_ .card.horizontal').toggleClass(uHeight245px);
+    $('.clicked_ .u-border--top_').toggleClass(uLimitAndHeight75).delay(1).queue(function () {
       $('.u-additional--information').insertAfter('.clicked_ .u-border--top_');
       $(this).dequeue();
     });
+    $('.clicked_').toggleClass(uClicked_);
   }
-
-  private clearInformationBlock():void{
-    $('.u-border--top_ + .u-information--about').remove();
-    $('.u-was--245px').toggleClass('u-was--245px u-height--245px_');
-    $('.clicked_ .u-width--145px').removeClass('u-height--245px_');
-    $('.clicked_ .u-border--top_').toggleClass('limit u-height--75px');
-    $('.clicked_').removeClass('clicked_');
-  }
-
 
    public onScroll():void{
     this.bookService.startIndex += 10;
