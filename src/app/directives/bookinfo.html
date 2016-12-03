@@ -1,10 +1,12 @@
 <div id="bookinfo" class="modal">
   <div class="modal-content">
-    <div class="row u-text--centrefy">
-      <div class="u-thumbnail--box">
-        <img src="{{selectedBook.volumeInfo.imageLinks?.smallThumbnail}}" />
+    <div class="row">
+      <div class="u-information--wrapper">
+        <div class="u-thumbnail--box  col s12 m5 l3">
+          <img src="{{selectedBook.volumeInfo.imageLinks?.smallThumbnail}}" />
+        </div>
+        <p class="u-text--justify">{{selectedBook.volumeInfo.description}}</p>
       </div>
-      <p class="u-text--justify">{{selectedBook.volumeInfo.description}}</p>
       <div class="u-information--about">
         <hr/>
         <div class="u-author" *ngIf="selectedBook.volumeInfo.authors">

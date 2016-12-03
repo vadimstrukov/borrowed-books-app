@@ -224,21 +224,21 @@ ul:hover{
 .modal{
   min-height: 100%;
   min-width: 100%;
-  top: 7.6% !important;
-}
-
-.u-text--centrefy{
-  text-align: center;
+  top: 9.6% !important;
 }
 
 .u-text--justify{
   text-align: justify;
 }
 
+.u-information--wrapper{
+  min-height: 365px;
+}
+
 .u-thumbnail--box{
   height: 350px;
   width: 250px;
-  margin: 0 auto;
+  margin: 0px 20px 20px 0px;
 }
 
 .u-thumbnail--box > img {
@@ -304,7 +304,13 @@ input[type=text].valid{
 }
 
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 400px) {
+  .modal{
+    min-height: 100%;
+    min-width: 100%;
+    top: 8.5% !important;
+  }
+}
 
 /* Larger than phablet */
 @media (min-width: 550px) {}
@@ -378,6 +384,10 @@ input[type=text].valid{
 
   .u-information--about > hr{
     top: 4.36rem;
+  }
+
+  .u-thumbnail--box{
+    margin: 0px 10px 10px 0px;
   }
 }
 
