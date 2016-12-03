@@ -8,13 +8,15 @@ import {FormType} from "../utils/FormType";
 import {UserService} from "../service/UserService";
 import {User} from "../model/User";
 import {hashSync} from "bcryptjs";
+import {ModalBehaviour} from "./moda.directive";
+import {Constants} from "../utils/Constants";
 
 @Component({
   selector: "login",
   templateUrl: "./login.html",
   styleUrls: ['./login-styles.css']
 })
-export class LoginRegisterModal implements OnInit{
+export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 
   public submitForm: FormGroup;
   public error: boolean = false;
@@ -23,10 +25,12 @@ export class LoginRegisterModal implements OnInit{
   private formType:string = FormType[FormType.LOGIN];
   public buttonName:string = "Sign up";
 
-  constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService){}
+  constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService){
+    super();
+  }
 
   ngOnInit(): void {
-    $('.modal').modal();
+    super.ngOnInit();
     this.submitForm = this.formBuilder.group({
       email: ['',[<any>Validators.required]],
       password: ['', [<any>Validators.required]],
@@ -39,7 +43,7 @@ export class LoginRegisterModal implements OnInit{
       case FormType[FormType.LOGIN]:
 
         this.auth.authenticate(value.email, value.password).subscribe(() => {
-          this.closeModal();
+          this.closeLogin();
           location.reload(); }, () => { this.error = true; });
         break;
 
@@ -56,14 +60,6 @@ export class LoginRegisterModal implements OnInit{
     }
   }
 
-  public openModal():void{
-    $('#login').modal('open');
-  }
-
-  public closeModal():void{
-    $('#login').modal('close');
-  }
-
   public changeFormType():void{
     if(!this.isRegister)
       this.setFormType(true, "Sign in", FormType[FormType.REGISTER], 'Registration');
@@ -76,5 +72,12 @@ export class LoginRegisterModal implements OnInit{
     this.formType = formType;
     this.buttonName = buttonName;
     $('.modal-content > h4').text(hText);
+  }
+
+  public openLogin():void{
+    this.openModal(Constants.LoginModal);
+  }
+  public closeLogin():void{
+    this.closeModal(Constants.LoginModal);
   }
 }

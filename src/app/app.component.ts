@@ -4,6 +4,7 @@ import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {Router} from "@angular/router";
+import {Constants} from "./utils/Constants";
 
 
 @Component({
@@ -60,7 +61,7 @@ export class AppComponent implements OnInit {
 
 
   public openLogin():void{
-    this.loginModal.openModal();
+    this.loginModal.openLogin();
   }
 
   public logout():void{
