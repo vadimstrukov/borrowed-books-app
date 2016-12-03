@@ -13,6 +13,7 @@ import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
 import {SearchBooks} from "./directives/searchbooks.directive";
 import {BookService} from "./service/BookService";
 import {UserService} from "./service/UserService";
+import {BookInfoModal} from "./directives/bookinfo.directive";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'library', pathMatch: 'full'},
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginRegisterModal,
+    BookInfoModal,
     UserBooks,
     SearchBooks
   ],
