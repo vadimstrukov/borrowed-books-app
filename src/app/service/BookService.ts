@@ -20,6 +20,7 @@ export class BookService{
     params.set('startIndex', this.startIndex);
     params.set('printType', 'books');
     params.set('filter', 'partial');
+    params.set('projection', 'lite');
     params.set('key', Constants.API_KEY);
     return this.http.get(Constants.GoogleAPI, {search: params}).map(response => response.json());
   }
