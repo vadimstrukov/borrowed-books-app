@@ -4,4 +4,5 @@
 export class ImageLink{
   smallThumbnail: any;
   thumbnail: string;
+  medium:string;
 }
