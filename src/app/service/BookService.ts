@@ -24,6 +24,11 @@ export class BookService{
     return this.http.get(Constants.GoogleAPI, {search: params}).map(response => response.json());
   }
 
+  getBookById(id:string){
+    return this.http.get(Constants.GoogleAPI + '/' + id).map(response => response.json());
+  }
+
+
   getUserBooks(){
     return this.http.get(Constants.Books, {headers: this.auth.setAuthHeaders()})
       .map(response => response.json());
