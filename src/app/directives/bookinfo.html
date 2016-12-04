@@ -10,7 +10,7 @@
           <img src="../../assets/img_loading.gif" />
         </div>
         <h4>{{selectedBook?.volumeInfo.title}}</h4>
-        <p class="u-text--justify">{{selectedBook?.volumeInfo.description}}</p>
+        <div [innerHTML]="selectedBook?.volumeInfo.description"></div>
       </div>
       <div class="u-information--about col s12 m12 l8">
         <hr/>
