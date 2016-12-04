@@ -15,9 +15,10 @@ import {Location} from "@angular/common";
   templateUrl: './bookinfo.html',
   styleUrls: ['../app.component.css']
 })
-export class BookInfoModal extends ModalBehaviour implements OnInit, OnDestroy{
+export class BookInfoModal extends ModalBehaviour implements OnInit{
 
   public selectedBook:Book;
+  public isLoading:boolean= true;
   private subscription: Subscription;
 
   constructor(private bookService:BookService, public auth:Authentication, private route: ActivatedRoute,
@@ -33,14 +34,14 @@ export class BookInfoModal extends ModalBehaviour implements OnInit, OnDestroy{
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   public addBook():void{
     this.bookService.saveBook(this.selectedBook).subscribe(()=>{
       console.log("Book saved");
     });
+  }
+
+  public onLoad():void{
+    this.isLoading = false;
   }
 
   public openInfo():void{
@@ -49,7 +50,7 @@ export class BookInfoModal extends ModalBehaviour implements OnInit, OnDestroy{
   public closeInfo():void{
     this.closeModal(Constants.BookInfoModal);
     this.selectedBook = null;
-    this.ngOnDestroy();
+    this.subscription.unsubscribe();
     this.location.back();
   }
 }

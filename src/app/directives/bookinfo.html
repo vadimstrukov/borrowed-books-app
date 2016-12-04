@@ -3,8 +3,11 @@
   <div class="modal-content">
     <div class="row">
       <div class="u-information--wrapper">
-        <div class="u-thumbnail--box  col s12 m5 l3">
-          <img [src]="selectedBook?.volumeInfo.imageLinks.medium" />
+        <div class="u-thumbnail--box  col s12 m5 l3" [hidden]="isLoading">
+          <img [src]="selectedBook?.volumeInfo.imageLinks.medium || selectedBook?.volumeInfo.imageLinks.smallThumbnail" (load)="onLoad()" />
+        </div>
+        <div class=" col s12 m5 l3" *ngIf="isLoading">
+          <img src="../../assets/img_loading.gif" />
         </div>
         <h4>{{selectedBook?.volumeInfo.title}}</h4>
         <p class="u-text--justify">{{selectedBook?.volumeInfo.description}}</p>
