@@ -1,7 +1,7 @@
 /**
  * Created by strukov on 30.11.16.
  */
-import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
+import {Component, OnInit, OnDestroy, ViewChild, ViewChildren} from "@angular/core";
 import {BookService} from "../service/BookService";
 import {BookItems} from "../model/BookItems";
 import {Book} from "../model/Book";
@@ -20,7 +20,8 @@ export class SearchBooks implements OnInit, OnDestroy{
   public books: BookItems;
   private query:any;
   private subscription: Subscription;
-  public selectedBook:Book;
+  @ViewChild('bookinfo')
+  public bookInfoModal:BookInfoModal;
 
   constructor(private bookService: BookService, private route: ActivatedRoute, private router: Router, public auth:Authentication){}
 
@@ -41,10 +42,9 @@ export class SearchBooks implements OnInit, OnDestroy{
 
 
   public openAdditionalInfo(book:Book) : void{
-    this.selectedBook = book;
-    this.router.navigate(['/book'], {queryParams : {id: book.id}});
-
+    this.bookInfoModal.openInfo(book.id);
   }
+
    public onScroll():void{
     this.bookService.startIndex += 10;
     this.bookService.getBooksByTitle(this.query).subscribe(data => {
