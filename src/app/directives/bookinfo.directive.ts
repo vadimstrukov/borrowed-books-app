@@ -1,27 +1,40 @@
 /**
  * Created by strukov on 3.12.16.
  */
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {BookService} from "../service/BookService";
 import {Book} from "../model/Book";
 import {Authentication} from "../utils/Authentication";
 import {ModalBehaviour} from "./moda.directive";
 import {Constants} from "../utils/Constants";
+import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
 @Component({
   selector: 'bookinfo',
   templateUrl: './bookinfo.html',
   styleUrls: ['../app.component.css']
 })
-export class BookInfoModal extends ModalBehaviour implements OnInit{
-  @Input()
-  selectedBook:Book;
+export class BookInfoModal extends ModalBehaviour implements OnInit, OnDestroy{
 
-  constructor(private bookService:BookService, public auth:Authentication){
+  public selectedBook:Book;
+  private subscription: Subscription;
+
+  constructor(private bookService:BookService, public auth:Authentication, private route: ActivatedRoute,
+              private location:Location){
     super();
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    $('.modal').modal({dismissible: false});
+    this.subscription = this.route.queryParams.subscribe((param:any)=>{
+      this.bookService.getBookById(param['id']).subscribe(data=>this.selectedBook = data);
+      this.openInfo();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public addBook():void{
@@ -35,5 +48,8 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
   }
   public closeInfo():void{
     this.closeModal(Constants.BookInfoModal);
+    this.selectedBook = null;
+    this.ngOnDestroy();
+    this.location.back();
   }
 }
