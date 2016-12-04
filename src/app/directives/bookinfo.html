@@ -10,16 +10,17 @@
           <img src="../../assets/img_loading.gif" />
         </div>
         <h4>{{selectedBook?.volumeInfo.title}}</h4>
-        <div [innerHTML]="selectedBook?.volumeInfo.description"></div>
+        <div [innerHTML]="selectedBook?.volumeInfo.description" class="u-text--justify"></div>
       </div>
-      <div class="u-information--about col s12 m12 l8">
+      <div class="u-information--about col s12 m12 l12">
         <hr/>
+        <div class="u-makeit--center col s12 m10 push-m1 l8 push-l2">
         <div class="u-author" *ngIf="selectedBook?.volumeInfo.authors">
           <div>
             Author
           </div>
           <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--1 chip">{{selectedBook?.volumeInfo.authors}}</span>
+          <span class="u-inf--1 chip u-chip--wrapper">{{selectedBook?.volumeInfo.authors}}</span>
         </div>
         <div class="u-language" *ngIf="selectedBook?.volumeInfo.language">
           <div>
@@ -40,7 +41,7 @@
             Publisher
           </div>
           <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--4 chip">{{selectedBook?.volumeInfo.publisher}}</span>
+          <span class="u-inf--4 chip u-chip--wrapper">{{selectedBook?.volumeInfo.publisher}}</span>
         </div>
         <div class="u-publishDate" *ngIf="selectedBook?.volumeInfo.publishedDate">
           <div>
@@ -48,6 +49,7 @@
           </div>
           <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
           <span class="u-inf--5 chip">{{selectedBook?.volumeInfo.publishedDate}}</span>
+        </div>
         </div>
       </div>
     </div>
