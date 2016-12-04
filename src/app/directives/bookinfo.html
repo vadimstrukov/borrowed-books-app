@@ -14,7 +14,7 @@
       </div>
       <div class="u-information--about col s12 m12 l12">
         <hr/>
-        <div class="u-makeit--center col s12 m10 push-m1 l8 push-l2">
+        <div class="u-makeit--center col s12 m12 l12">
         <div class="u-author" *ngIf="selectedBook?.volumeInfo.authors">
           <div>
             Author
@@ -27,14 +27,14 @@
             Language
           </div>
           <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--2 chip">{{selectedBook?.volumeInfo.language}}</span>
+          <span class="u-inf--2 chip u-chip--wrapper">{{selectedBook?.volumeInfo.language}}</span>
         </div>
         <div class="u-pageCount" *ngIf="selectedBook?.volumeInfo.pageCount">
           <div>
             Pages
           </div>
           <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--3 chip">{{selectedBook?.volumeInfo.pageCount}}</span>
+          <span class="u-inf--3 chip u-chip--wrapper">{{selectedBook?.volumeInfo.pageCount}}</span>
         </div>
         <div class="u-publisher" *ngIf="selectedBook?.volumeInfo.publisher">
           <div>
@@ -48,7 +48,7 @@
             Publish date
           </div>
           <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--5 chip">{{selectedBook?.volumeInfo.publishedDate}}</span>
+          <span class="u-inf--5 chip u-chip--wrapper">{{selectedBook?.volumeInfo.publishedDate}}</span>
         </div>
         </div>
       </div>

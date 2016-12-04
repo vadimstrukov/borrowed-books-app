@@ -20,6 +20,7 @@
   height: inherit;
   float: left;
   text-align: left;
+  margin-left: 1%;
 }
 
 .u-search--div > .u-search--icon{
@@ -206,6 +207,8 @@ ul:hover ul{
 .u-makeit--center > div > span.chip {
   display: block;
   height: auto !important;
+  float: left !important;
+  width: 100%;
 }
 
 .u-btn--add{
@@ -331,7 +334,8 @@ input[type=text].valid{
 /* Larger than tablet */
 @media (min-width: 750px) {
   .u-chip--wrapper{
-    width: 150px;
+    max-width: 150px;
+    min-width: 100px;
     height: auto;
   }
   .right{
@@ -357,9 +361,8 @@ input[type=text].valid{
 
   .u-makeit--center > div{
     display: inline-block;
-    text-align: center;
+    text-align: center !important;
     margin-right: 1%;
-    float: left !important;
   }
 
   .u-fontsize--1rem{
