@@ -224,7 +224,7 @@ ul:hover{
 .modal{
   min-height: 100%;
   min-width: 100%;
-  top: 9.6% !important;
+  top: 0% !important;
 }
 
 .u-text--justify{
@@ -232,7 +232,7 @@ ul:hover{
 }
 
 .u-information--wrapper{
-  min-height: 365px;
+  text-align: center;
 }
 
 .u-thumbnail--box{
@@ -241,8 +241,22 @@ ul:hover{
   margin: 0px 20px 20px 0px;
 }
 
+.col{
+  float: none;
+}
+
 .u-thumbnail--box > img {
   height: 100%;
+}
+
+.u-thumbnail--box + h4{
+  text-align: center;
+}
+
+.u-close--modal{
+  float: right;
+  margin: 10px;
+  cursor: pointer;
 }
 
 input[type="text"]{
@@ -304,26 +318,19 @@ input[type=text].valid{
 }
 
 /* Larger than mobile */
-@media (min-width: 400px) {
-  .modal{
-    min-height: 100%;
-    min-width: 100%;
-    top: 8.5% !important;
-  }
-}
+@media (min-width: 400px) {}
 
 /* Larger than phablet */
-@media (min-width: 550px) {}
+@media (min-width: 550px) {
+  .col{
+    float: left;
+  }
+}
 
 /* Larger than tablet */
 @media (min-width: 750px) {
   .right{
     width: auto;
-  }
-
-  .modal{
-    min-height: 80%;
-    min-width: 90%;
   }
 
   .u-search--div{
@@ -369,6 +376,12 @@ input[type=text].valid{
 
   /* Larger than desktop */
 @media (min-width: 1000px) {
+  .modal{
+    min-height: 80%;
+    min-width: 90%;
+    top: 10% !important;
+  }
+
   .card.horizontal{
     display: flex;
   }

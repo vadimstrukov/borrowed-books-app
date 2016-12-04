@@ -6,9 +6,10 @@
         <div class="u-thumbnail--box  col s12 m5 l3">
           <img [src]="selectedBook?.volumeInfo.imageLinks.medium" />
         </div>
+        <h4>{{selectedBook?.volumeInfo.title}}</h4>
         <p class="u-text--justify">{{selectedBook?.volumeInfo.description}}</p>
       </div>
-      <div class="u-information--about">
+      <div class="u-information--about col s12 m12 l8">
         <hr/>
         <div class="u-author" *ngIf="selectedBook?.volumeInfo.authors">
           <div>
