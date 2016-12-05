@@ -17,9 +17,6 @@ export class AppComponent implements OnInit {
   @ViewChild('login')
   private loginModal:LoginRegisterModal;
 
-  private loader:JQuery;
-  private arrowDelete:JQuery;
-
   constructor(private bookService: BookService, public auth:Authentication, private router:Router){
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
       .subscribe((value : string) => {

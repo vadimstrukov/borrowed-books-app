@@ -54,9 +54,10 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button *ngIf="auth.user" (click)="addBook()" type="submit" class="waves-effect waves-green btn-flat jq-login">Add
-        to my library
+      <button *ngIf="auth.user && !isInLibrary" (click)="addBook()" type="submit" class="waves-effect waves-green btn-flat jq-login">
+        Add to my library
       </button>
+      <span *ngIf="isInLibrary">Added in library</span>
     </div>
   </div>
 </div>
