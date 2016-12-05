@@ -75,6 +75,10 @@ ul:hover ul{
 }
 
 .side-nav{
+  text-align: left;
+}
+
+.side-nav ul{
   text-align: center;
 }
 
@@ -240,9 +244,10 @@ ul:hover{
 }
 
 .u-thumbnail--box{
+  display: inline-block;
   height: 350px;
   width: 250px;
-  margin: 0px 20px 50px 0px;
+  margin: 0px 20px 0px 0px;
 }
 
 .col{
@@ -250,7 +255,7 @@ ul:hover{
 }
 
 .u-thumbnail--box > img {
-  height: 100%;
+  height: 95%;
 }
 
 .u-thumbnail--box + h4{
@@ -261,6 +266,32 @@ ul:hover{
   float: right;
   margin: 10px;
   cursor: pointer;
+}
+
+.u-library--indicator{
+  margin: 10px;
+  color: white !important;
+  background-color: #00897b;
+  text-transform: uppercase;
+}
+
+button.u-library--indicator{
+  background-color: #fdd835;
+}
+
+.u-hide--onSmall{
+  display: none;
+}
+
+.u-hide--onHuge{
+  display: block;
+}
+
+.btn-flat,
+button.chip,
+span.chip{
+  min-width: 90px;
+  font-size: 11px;
 }
 
 input[type="text"]{
@@ -333,6 +364,24 @@ input[type=text].valid{
 
 /* Larger than tablet */
 @media (min-width: 750px) {
+  .btn-flat,
+  button.chip,
+  span.chip{
+    min-width: 90px;
+    font-size: 14px;
+  }
+
+  .u-hide--onSmall{
+    display: block;
+  }
+
+  .u-hide--onHuge{
+    display: none;
+  }
+  .u-thumbnail--box{
+    margin: 0 0 10px 0;
+  }
+
   .u-chip--wrapper{
     max-width: 150px;
     min-width: 100px;
@@ -389,12 +438,6 @@ input[type=text].valid{
     margin-right: 5% !important;
   }
 
-  .modal{
-    min-height: 80%;
-    min-width: 90%;
-    top: 10% !important;
-  }
-
   .card.horizontal{
     display: flex;
   }
@@ -413,9 +456,15 @@ input[type=text].valid{
   }
 
   .u-thumbnail--box{
-    margin: 5% 3% 3% 0;
+    margin: 0 0 0.5% 0;
   }
 }
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+  .modal{
+    min-height: 80%;
+    min-width: 90%;
+    top: 10% !important;
+  }
+}
