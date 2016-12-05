@@ -8,8 +8,7 @@
       </div>
       <ul class="right jq-right">
         <li *ngIf="!auth.user" class="u-float--right"><a (click)="openLogin()" class="waves-effect waves-light"><i class="material-icons">account_circle</i></a></li>
-
-        <a *ngIf="auth.user" class='dropdown-button'  data-activates='dropdown1' >{{auth.user.fullname}}</a>
+        <a *ngIf="auth.user" class='dropdown-button u-hide--onSmall'  data-activates='dropdown1' >{{auth.user.fullname}}</a>
         <ul *ngIf="auth.user" id='dropdown1' class='dropdown-content'>
           <li class="divider"></li>
           <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
@@ -19,6 +18,13 @@
       <ul class="side-nav" id="mobile-view">
         <li class="u-image--box"></li>
         <li><a (click)="openLibrary()">My library</a></li>
+        <li class="u-hide--onHuge"><a *ngIf="auth.user">{{auth.user.fullname}}</a>
+          <ul *ngIf="auth.user">
+            <li class="divider"></li>
+              <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </nav>
