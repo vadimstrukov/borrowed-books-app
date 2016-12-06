@@ -4,8 +4,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 ## Installation
 1. Install Angular-CLI: `npm install -g angular-cli`
-2. Install JQuery typings: `npm install —save @types/jquery`
-3. Install Materialize CSS typings: `npm install —save @types/materialize-css`
+2. `npm install`
 
 ## Development server 
 1. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

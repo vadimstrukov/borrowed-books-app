@@ -7,7 +7,7 @@
       <div class="card-stacked">
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{userBook.book.volumeInfo.title}}</span>
-          <p class="limit u-border--top_ u-height--75px">Excellent. Of universal interest. It deals with the subject in an entirely new way.-Simone de Beauvoir Originally released twenty years ago, Love and Limerence has become a classic in the psychology of emotion. As relevant today as it was then, this book offers insight into love, infatuation, madness, and all flavors of emotion in between.</p>
+          <p class="limit u-border--top_ u-height--75px" [innerHTML]="userBook.book.volumeInfo.description"></p>
         </div>
         <div class="card-action u-bookUser--info">
           <span class="chip u-float--left">Status: {{userBook.readStatus}}</span>
