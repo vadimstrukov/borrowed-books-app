@@ -23,9 +23,10 @@ export class SearchBooks implements OnInit, OnDestroy{
   @ViewChild('bookinfo')
   public bookInfoModal:BookInfoModal;
 
-  constructor(private bookService: BookService, private route: ActivatedRoute, private router: Router, public auth:Authentication){}
+  constructor(private bookService: BookService, private route: ActivatedRoute, public auth:Authentication){}
 
   ngOnInit(): void {
+    this.bookService.startIndex = 1;
     this.subscription = this.route.queryParams.subscribe((param:any)=>{
       this.query = param['q'];
       if(this.query!=null)

@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BookService} from "./service/BookService";
 import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login.directive";
 import {Authentication} from "./utils/Authentication";
@@ -17,17 +16,16 @@ export class AppComponent implements OnInit {
   @ViewChild('login')
   private loginModal:LoginRegisterModal;
 
-  constructor(private bookService: BookService, public auth:Authentication, private router:Router){
+  constructor(public auth:Authentication, private router:Router){
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
       .subscribe((value : string) => {
-        bookService.startIndex = 1;
         if(value.length>0){
           router.navigate(['/search'], {queryParams : {q: value}});
-          this.adjustLoaderAndArrow('slow', false);
+          this.adjustArrow('slow', false);
         }
         else{
           router.navigate(['/search'], {queryParams : {}});
-          this.adjustLoaderAndArrow('fast', true);
+          this.adjustArrow('fast', true);
         }
       });
   }
@@ -46,8 +44,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/library']);
   }
 
-  private adjustLoaderAndArrow(duration:string, addOrRemove:boolean):void{
-    // $('.loader-preview').fadeToggle(duration);
+  private adjustArrow(duration:string, addOrRemove:boolean):void{
     if ($(window).width() < 500){
       $('.jq-right').fadeToggle(duration);
       $('.u-search--div').toggleClass('u-make--wider', addOrRemove);
