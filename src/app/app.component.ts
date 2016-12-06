@@ -62,7 +62,10 @@ export class AppComponent implements OnInit {
   }
 
   public logout():void{
-    this.auth.logout().subscribe(()=>{location.reload()});
+    this.auth.logout().subscribe(()=>{
+      location.reload();
+      this.router.navigate(['/search'], {queryParams: {}});
+    });
   }
 
 
