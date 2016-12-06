@@ -9,8 +9,6 @@ import {ModalBehaviour} from "./moda.directive";
 import {Constants} from "../utils/Constants";
 import {ActivatedRoute} from "@angular/router";
 import {OwnedBook} from "../model/OwnedBook";
-import {forEach} from "@angular/router/src/utils/collection";
-import {error} from "util";
 
 @Component({
   selector: 'bookinfo',
@@ -21,7 +19,6 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
 
   public selectedBook:Book;
   private ownedBook:OwnedBook;
-  public isLoading:boolean= true;
   public isInLibrary:boolean = false;
 
   constructor(private bookService:BookService, public auth:Authentication, private route: ActivatedRoute){
@@ -48,9 +45,6 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
     this.isInLibrary = isInLibrary;
   }
 
-  public onLoad():void{
-    this.isLoading = false;
-  }
 
   public openInfo(bookId:string):void{
     if(this.auth.isLoggedIn())
@@ -71,6 +65,5 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
   public closeInfo():void{
     this.closeModal(Constants.BookInfoModal);
     this.selectedBook = null;
-    this.isLoading = true;
   }
 }
