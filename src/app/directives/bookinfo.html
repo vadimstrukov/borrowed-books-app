@@ -9,7 +9,8 @@
       <div class="u-information--wrapper">
         <h4>{{selectedBook?.volumeInfo.title}}</h4>
         <div class="u-thumbnail--box">
-          <img [src]="selectedBook?.volumeInfo.imageLinks.medium || selectedBook?.volumeInfo.imageLinks.smallThumbnail"/>
+          <img [src]="selectedBook?.volumeInfo.imageLinks.medium || selectedBook?.volumeInfo.imageLinks.smallThumbnail"
+          onerror="src='../../assets/img_loading.gif';"/>
         </div>
         <div [innerHTML]="selectedBook?.volumeInfo.description" class="u-text--justify u-display--right col s12 m12 l9"></div>
       </div>
