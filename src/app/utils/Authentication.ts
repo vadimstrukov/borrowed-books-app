@@ -2,19 +2,32 @@
  * Created by strukov on 21.11.16.
  */
 import {Injectable} from "@angular/core";
-import {URLSearchParams, Headers, Http} from "@angular/http";
+import {URLSearchParams, Headers, Http, Response} from "@angular/http";
 import {Constants} from "./Constants";
+import {CanActivate} from "@angular/router";
+import {isUndefined} from "util";
+import {User} from "../model/User";
+import {Observable, Subscription} from "rxjs";
 
 @Injectable()
 export class Authentication{
 
-  access_token: string;
+  public access_token: string;
+  public user:User;
 
   constructor(private http:Http) {
     this.access_token = localStorage.getItem('access_token');
+    this.getAuthUser();
   }
 
-  authenticate(email:string, password:string){
+  public setAuthHeaders():Headers{
+    let headers      = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.access_token);
+    return headers;
+  }
+
+  public authenticate(email:string, password:string) : Observable<void>{
 
     let credentials = new URLSearchParams();
     let headers = new Headers();
@@ -37,23 +50,25 @@ export class Authentication{
     });
   }
 
-  logout() {
+  public logout() : Observable<void>{
     let headers = new Headers();
     headers.set('Authorization', 'Bearer ' + this.access_token);
     return this.http.get(Constants.LogoutURL, {headers: headers}).map(() => {
         this.access_token = undefined;
         localStorage.removeItem('access_token');
+        this.user = null;
     });
   }
 
-  getAuthUser(){
-    let headers = new Headers();
-    headers.set('Authorization', 'Bearer ' + this.access_token);
-    return this.http.get(Constants.LoggedInUser, {headers: headers}).map(response => response.json());
+  public getAuthUser() :Subscription{
+    if(this.access_token)
+      return this.http.get(Constants.LoggedInUser, {headers: this.setAuthHeaders()})
+        .map(response => response.json())
+        .subscribe(data=>this.user=data);
   }
 
-}
+  public isLoggedIn():boolean{
+    return this.access_token !== null && this.access_token !== undefined;
+  }
 
-export function isLoggedin() {
-  return !!localStorage.getItem('access_token');
 }
