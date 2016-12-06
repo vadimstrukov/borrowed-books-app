@@ -10,6 +10,7 @@ import {User} from "../model/User";
 import {hashSync} from "bcryptjs";
 import {ModalBehaviour} from "./moda.directive";
 import {Constants} from "../utils/Constants";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "login",
@@ -25,7 +26,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
   private formType:string = FormType[FormType.LOGIN];
   public buttonName:string = "Sign up";
 
-  constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService){
+  constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService,  private router:Router){
     super();
   }
 
@@ -41,11 +42,18 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
   public onSubmit(value:any):void{
     switch (this.formType){
       case FormType[FormType.LOGIN]:
-
         this.auth.authenticate(value.email, value.password).subscribe(() => {
           this.closeLogin();
-          location.reload(); }, () => { this.error = true; });
+        }, () => {
+          this.error = true
+        }, ()=>{
+          setTimeout(()=>{
+            location.reload();
+            this.router.navigate(['/library']);
+          }, 500);
+        });
         break;
+
 
       case FormType[FormType.REGISTER]:
 
