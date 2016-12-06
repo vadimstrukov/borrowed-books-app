@@ -294,6 +294,27 @@ span.chip{
   font-size: 11px;
 }
 
+.u-loader--styles{
+  position: absolute;
+  right: 0 !important;
+  top: 16rem;
+}
+
+.u-bookUser--info{
+  padding: 10px !important;
+  border-top: none !important;
+  position: relative;
+  bottom: -0.5rem;
+}
+
+.u-height--410px{
+  height: 410px;
+}
+
+.u-bookUser--info span.chip{
+  font-size: 11px;
+}
+
 input[type="text"]{
   width: 200px;
   min-width: 200px;
@@ -364,6 +385,9 @@ input[type=text].valid{
 
 /* Larger than tablet */
 @media (min-width: 750px) {
+  .u-loader--styles{
+    top: 14rem;
+  }
   .btn-flat,
   button.chip,
   span.chip{
@@ -428,12 +452,28 @@ input[type=text].valid{
   }
 
   .u-width--145px{
-    width: 225px;
+    /*width: 225px;*/
+    width: 127px;
   }
 }
 
   /* Larger than desktop */
 @media (min-width: 1000px) {
+  .u-height--410px{
+    height: auto;
+  }
+
+  .u-loader--styles{
+    top: 10rem;
+    right: auto !important;
+    margin-left: 1rem !important;
+  }
+
+  .u-information--wrapper h4{
+    float: right;
+    width: 75%;
+  }
+
   .u-makeit--center > div{
     margin-right: 5% !important;
   }
@@ -457,6 +497,12 @@ input[type=text].valid{
 
   .u-thumbnail--box{
     margin: 0 0 0.5% 0;
+    float: left;
+  }
+
+  .u-display--right{
+    float: right;
+    width: 75%;
   }
 }
 
@@ -467,4 +513,16 @@ input[type=text].valid{
     min-width: 90%;
     top: 10% !important;
   }
+}
+
+@media (min-width: 1400px) {
+  .u-information--wrapper h4{
+    width: 85%;
+  }
+
+  .u-display--right.l9{
+    width: 82% !important;
+  }
+
+
 }
