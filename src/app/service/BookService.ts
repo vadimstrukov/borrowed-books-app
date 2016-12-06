@@ -38,6 +38,10 @@ export class BookService{
     );
   }
 
+  public getBookWithoutCheck(id:string):Observable<Book>{
+    return this.http.get(Constants.GoogleAPI + '/' + id).map(response=>response.json());
+  }
+
   public getUserBooks():Observable<Array<OwnedBook>>{
     return this.http.get(Constants.Books, {headers: this.auth.setAuthHeaders()})
       .map(response => response.json());
@@ -48,8 +52,8 @@ export class BookService{
       .map(response=>response.json());
   }
 
-  public saveBook(book:Book):Observable<Book>{
-    return this.http.post(Constants.Books, JSON.stringify(book), {headers: this.auth.setAuthHeaders()})
+  public saveBook(ownedBook:OwnedBook):Observable<OwnedBook>{
+    return this.http.post(Constants.Books, JSON.stringify(ownedBook), {headers: this.auth.setAuthHeaders()})
       .map(response => response.json());
   }
 
