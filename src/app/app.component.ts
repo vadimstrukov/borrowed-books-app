@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
       .subscribe((value : string) => {
         if(value.length>0){
           router.navigate(['/search'], {queryParams : {q: value}});
-          this.adjustArrow('slow', false);
+          this.fadeInArrow('slow');
         }
         else{
           router.navigate(['/search'], {queryParams : {}});
-          this.adjustArrow('fast', true);
+          this.fadeOutArrow('fast');
         }
       });
   }
@@ -44,13 +44,22 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/library']);
   }
 
-  private adjustArrow(duration:string, addOrRemove:boolean):void{
+  private fadeInArrow(duration:string):void{
     if ($(window).width() < 500){
-      $('.jq-right').fadeToggle(duration);
-      $('.u-search--div').toggleClass('u-make--wider', addOrRemove);
+      $('.jq-right').fadeIn(duration);
+      $('.u-search--div').addClass('u-make--wider');
     }
-    $('.u-arrow--delete').fadeToggle(duration);
-    $('.u-go--top').fadeToggle(duration);
+    $('.u-arrow--delete').fadeIn(duration);
+    $('.u-go--top').fadeIn(duration);
+  }
+
+  private fadeOutArrow(duration:string):void{
+    if ($(window).width() < 500){
+      $('.jq-right').fadeOut(duration);
+      $('.u-search--div').removeClass('u-make--wider');
+    }
+    $('.u-arrow--delete').fadeOut(duration);
+    $('.u-go--top').fadeOut(duration);
   }
 
 
