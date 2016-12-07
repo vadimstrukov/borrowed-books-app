@@ -14,13 +14,7 @@ import {SearchBooks} from "./directives/searchbooks.directive";
 import {BookService} from "./service/BookService";
 import {UserService} from "./service/UserService";
 import {BookInfoModal} from "./directives/bookinfo.directive";
-
-const appRoutes: Routes = [
-  {path: '', redirectTo: 'search', pathMatch: 'full'},
-  {path: 'search', component:SearchBooks},
-  {path: 'library', component: UserBooks, canActivate: [CanActivateViaAuth]}
-];
-
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +30,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [Authentication, CanActivateViaAuth, BookService, UserService],
   bootstrap: [AppComponent]
