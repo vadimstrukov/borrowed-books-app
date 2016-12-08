@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: "login",
   templateUrl: "./login.html",
-  styleUrls: ['./login-styles.css']
+  styleUrls: ['login-styles.scss']
 })
 export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 

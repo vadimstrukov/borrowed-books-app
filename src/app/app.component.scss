@@ -1,0 +1,456 @@
+/*************************************************IMPORTS************************************************/
+@import "generalClasses";
+/*************************************************IMPORTS************************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************VARIABLES**********************************************/
+/*Colors*/
+$color_gray: gray;
+$color_almost_gray: #9e9e9e;
+$color_yellow: #fdd835;
+/*Colors*/
+
+/*positions*/
+$relative: relative;
+$fixed: fixed;
+/*positions*/
+
+/*visibility*/
+$hidden: hidden;
+/*visibility*/
+
+/*additional*/
+$none: none;
+$auto: auto;
+$inherit: inherit;
+/*additional*/
+
+/*URLS*/
+$menuImageUrl: url(../assets/books.jpg);
+/*URLS*/
+/*************************************************VARIABLES**********************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************MIXINS*************************************************/
+@mixin modal( $minHeight: 95%, $minWidth: 95%, $top: 2.5% ){
+  .modal{
+    min-height: $minHeight;
+    min-width: $minWidth;
+    top: $top $important;
+  }
+}
+@mixin animation( $for: all, $time: 0.2s, $animationType: linear){
+  transition: $for $time $animationType;
+}
+@mixin elementsHideManipulations( $dType_1: none, $dType_2: block ){
+  .u-hide--onSmall{
+    @include displayType($dType_1);
+  }
+
+  .u-hide--onHuge{
+    @include displayType($dType_2);
+  }
+}
+@mixin booksCardContentWidth( $contWidth, $contFloat: $right ){
+  .u-information--wrapper h4{
+    width: $contWidth;
+    float: $contFloat;
+  }
+}
+@mixin changebleContent( $margin, $floatType, $centreFy, $margin-right, $top, $width){
+  .u-thumbnail--box{
+    margin: $margin;
+    float: $floatType;
+  }
+
+  .u-makeit--center > div{
+    @include displayType(inline-block);
+    text-align: $centreFy;
+    margin-right: $margin-right;
+  }
+
+  .u-information--about > hr{
+    @include displayType();
+    top: $top;
+  }
+
+  .u-width--145px{
+    width: $width;
+  }
+}
+/*************************************************MIXINS*************************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************INCLUDES***********************************************/
+@include elementsHideManipulations();
+@include btnSpanChip();
+@include modal();
+@include scrollBarStyles();
+/*************************************************INCLUDES***********************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************COMPONENTS***********************************************/
+
+/*************************************************COMPONENTS***********************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+
+/* Mobile first queries */
+ul{
+  > ul {
+    min-width: 100% $important;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) $important;
+  }
+  &:hover{
+    ul{
+      opacity: 1;
+      @include displayType();
+    }
+  }
+}
+
+.u-search--div{
+  position: $relative;
+  @include displayType(inline-block);
+  height: $inherit;
+  @extend .u-float--left;
+  text-align: $left;
+  margin-left: 1%;
+  > .u-search--icon{
+    position: $relative;
+    left: 0.5rem;
+    vertical-align: middle;
+    @include displayType(inline-block);
+  }
+  >.u-arrow--delete{
+    position: $absolute;
+    top: 0;
+    right: 1rem;
+    vertical-align: middle;
+    cursor: $pointer;
+  }
+}
+.u-width--145px{
+  width: 150px;
+  margin: 0 $auto;
+  > img{
+    height: 100%;
+  }
+}
+.right{
+  width: 6rem;
+  height: $inherit;
+  overflow: $hidden;
+  > .dropdown-button{
+    height: $inherit;
+  }
+}
+.side-nav{
+  text-align: $left;
+  ul{
+    @extend .u-text--center;
+  }
+}
+.u-go--top{
+  position: $fixed;
+  z-index: 1000;
+  right: 20px;
+  bottom: 20px;
+  cursor: $pointer;
+  opacity: 0.45;
+  > i{
+    font-size: 55px;
+    transform: rotate(-90deg);
+    @include animation();
+    > &:hover{
+      color: $color_dark_green;
+      @include animation();
+    }
+  }
+}
+.loader-preview{
+  padding-top: 300px;
+  @extend .u-text--center;
+  > h4{
+    color: $color_gray;
+    padding-top: 20px;
+  }
+}
+.u-information--about{
+  @extend .u-text--center;
+  hr{
+    @include displayType(none);
+  }
+  .u-fontsize--1rem{
+    @include displayType(none);
+  }
+}
+.u-makeit--center{
+  > div{
+    margin-top: 1.5rem;
+    > span.chip {
+      @include displayType();
+      height: $auto $important;
+      @extend .u-float--left;
+      width: 100%;
+    }
+  }
+}
+.u-thumbnail--box{
+  @include displayType(inline-block);
+  height: 350px;
+  width: 250px;
+  margin: 0 20px 0 0;
+  > img {
+    min-height: 50%;
+    max-height: 100%;
+    width: 100%;
+  }
+  + h4{
+    @extend .u-text--center;
+  }
+}
+.u-bookUser--info{
+  span.chip{
+    font-size: 11px;
+  }
+}
+input[type="text"]{
+  width: 200px;
+  min-width: 200px;
+  @extend .u-text--center;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 30px;
+  &:invalid{
+    width: 200px;
+    min-width: 200px;
+  }
+  &:focus:not([readonly]),
+  &.valid{
+    box-shadow: $none;
+    width: 95%;
+  }
+}
+.u-display--block_{
+  @include displayType();
+  margin-bottom: 10px;
+}
+.limit {
+  overflow: $hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.u-make--wider{
+  width: 17rem;
+}
+.u-input--search{
+  border-bottom: $none $important;
+  margin-left: -1.8rem;
+}
+.u-height--245px_{
+  height: 345px;
+  @include animation();
+}
+.button-collapse{
+  @include displayType(block $important);
+  cursor: $pointer;
+}
+.u-position--fixed_{
+  position: $fixed;
+  z-index: 1000;
+}
+.u-paddingbot--150px_{
+  padding: 80px 0 150px 0;
+}
+.nav-wrapper{
+  background-color: $color_dark_green;
+}
+.u-position--absolute_{
+  position: $absolute;
+  top: 15px;
+  right: 5px;
+}
+.u-lineheight--21px{
+  line-height: 21px $important;
+}
+.u-border--top_{
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
+  padding-top: 10px;
+  padding-bottom: 2rem;
+}
+.u-height--75px{
+  height: 75px;
+}
+.nav-wrapper{
+  @extend .u-text--center;
+}
+.u-image--box{
+  height: 200px;
+  background: $color_almost_gray $menuImageUrl;
+  background-size: cover;
+}
+.card.horizontal{
+  @include displayType();
+}
+.clicked_{
+  min-width: 100% $important;
+}
+.u-information--about{
+  @extend .u-text--center;
+  position: $relative;
+  padding-bottom: 2rem;
+}
+.u-additional--information{
+  @extend .u-text--center;
+}
+.u-btn--add{
+  @include border-radius(30px);
+}
+.u-information--wrapper{
+  @extend .u-text--center;
+}
+.col{
+  float: $none;
+}
+.u-close--modal{
+  @extend .u-float--right;
+  margin: 10px;
+  cursor: $pointer;
+}
+.u-library--indicator{
+  margin: 10px;
+  color: $color_white $important;
+  background-color: $color_dark_green;
+  text-transform: uppercase;
+}
+button.u-library--indicator{
+  background-color: $color_yellow;
+}
+.u-loader--styles{
+  position: $absolute;
+  right: 0 $important;
+  top: 16rem;
+}
+.u-bookUser--info{
+  padding: 10px $important;
+  border-top: $none $important;
+  position: $relative;
+  bottom: -0.5rem;
+}
+.u-height--410px{
+  height: 410px;
+}
+::-webkit-input-placeholder {
+  color: $color_white;
+}
+:-moz-placeholder {
+  color: $color_white;
+}
+::-moz-placeholder {
+  color: $color_white;
+}
+:-ms-input-placeholder {
+  color: $color_white;
+}
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+  .col{
+    //@extend .u-float--left;
+    float: $left;
+  }
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+  /*************************************************INCLUDES***********************************************/
+  @include btnSpanChip(90px, 14px);
+  @include elementsHideManipulations(block, none);
+  @include changebleContent(0 0 10px 0, $none, $center $important, 1%,  4.4rem, 127px);
+  /*************************************************INCLUDES***********************************************/
+
+  .u-chip--wrapper{
+    max-width: 150px;
+    min-width: 100px;
+    height: $auto;
+  }
+  .right{
+    width: $auto;
+  }
+
+  .u-search--div{
+    width: 30rem;
+  }
+
+  .u-arrow--delete{
+    right: 2rem $important;
+  }
+
+  .u-information--about > hr{
+    left: 0;
+    right: 0;
+    position: $absolute;
+    top: 4.4rem;
+    border: 2px solid $color_gray;
+    border-radius: 20px;
+  }
+
+  .u-fontsize--1rem{
+    @include displayType(block $important);
+    margin: 1.5rem 0 1.5rem 0;
+    font-size: 1rem;
+    color: $color_gray;
+  }
+}
+
+  /* Larger than desktop */
+@media (min-width: 1000px) {
+  /*************************************************INCLUDES***********************************************/
+  @include booksCardContentWidth(75%);
+  @include changebleContent(0 0 0.5% 0, $left, $center $important, 5% $important, 4.36rem , 145px);
+  /*************************************************INCLUDES***********************************************/
+
+  .u-height--410px{
+    height: $auto;
+  }
+
+  .card.horizontal{
+    @include displayType(flex);
+  }
+
+  .u-height--245px_{
+    font-size: 14px;
+    height: 245px;
+  }
+
+  .u-display--right{
+    float: $right;
+    //@extend .u-float--right;
+    width: 75%;
+  }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+  /*************************************************INCLUDES***********************************************/
+  @include modal(80%, 90%, 10%);
+  /*************************************************INCLUDES***********************************************/
+}
+
+@media (min-width: 1400px) {
+  /*************************************************INCLUDES***********************************************/
+  @include booksCardContentWidth(85%);
+  /*************************************************INCLUDES***********************************************/
+
+  .u-display--right.l9{
+    width: 82% $important;
+  }
+}
