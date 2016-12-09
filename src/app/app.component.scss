@@ -53,33 +53,6 @@ $menuImageUrl: url(../assets/books.jpg);
     @include displayType($dType_2);
   }
 }
-@mixin booksCardContentWidth( $contWidth, $contFloat: $right ){
-  .u-information--wrapper h4{
-    width: $contWidth;
-    float: $contFloat;
-  }
-}
-@mixin changebleContent( $margin, $floatType, $centreFy, $margin-right, $top, $width){
-  .u-thumbnail--box{
-    margin: $margin;
-    float: $floatType;
-  }
-
-  .u-makeit--center > div{
-    @include displayType(inline-block);
-    text-align: $centreFy;
-    margin-right: $margin-right;
-  }
-
-  .u-information--about > hr{
-    @include displayType();
-    top: $top;
-  }
-
-  .u-width--145px{
-    width: $width;
-  }
-}
 /*************************************************MIXINS*************************************************/
 
 /*<-----------------------------------------------BREAK-------------------------------------------------*/
@@ -200,6 +173,14 @@ ul{
       width: 100%;
     }
   }
+  > hr{
+    left: 0;
+    right: 0;
+    position: $absolute;
+    top: 4.4rem;
+    border: 2px solid $color_gray;
+    border-radius: 20px;
+  }
 }
 .u-thumbnail--box{
   @include displayType(inline-block);
@@ -313,6 +294,7 @@ input[type="text"]{
 }
 .u-information--wrapper{
   @extend .u-text--center;
+  @include displayType();
 }
 .col{
   float: $none;
@@ -331,11 +313,6 @@ input[type="text"]{
 button.u-library--indicator{
   background-color: $color_yellow;
 }
-.u-loader--styles{
-  position: $absolute;
-  right: 0 $important;
-  top: 16rem;
-}
 .u-bookUser--info{
   padding: 10px $important;
   border-top: $none $important;
@@ -345,6 +322,11 @@ button.u-library--indicator{
 .u-height--410px{
   height: 410px;
 }
+
+.u-book--title{
+  @extend .u-text--center;
+}
+
 ::-webkit-input-placeholder {
   color: $color_white;
 }
@@ -364,7 +346,6 @@ button.u-library--indicator{
 /* Larger than phablet */
 @media (min-width: 550px) {
   .col{
-    //@extend .u-float--left;
     float: $left;
   }
 }
@@ -374,8 +355,36 @@ button.u-library--indicator{
   /*************************************************INCLUDES***********************************************/
   @include btnSpanChip(90px, 14px);
   @include elementsHideManipulations(block, none);
-  @include changebleContent(0 0 10px 0, $none, $center $important, 1%,  4.4rem, 127px);
   /*************************************************INCLUDES***********************************************/
+  .u-information--wrapper{
+    @include displayType(flex);
+  }
+
+  .u-book--title{
+    text-align: $left;
+  }
+
+  .u-makeit--center{
+    @include displayType(flex);
+    > div{
+      @include displayType(flex);
+      width: 20%;
+      flex-direction: column;
+      align-items: center;
+      > span.chip, div {
+        width: 100%;
+      }
+    }
+    > hr{
+      @include displayType(flex);
+      align-self: center;
+      position: $absolute;
+      left: 0;
+      right: 0;
+      border: 2px solid $color_gray;
+      border-radius: 20px;
+    }
+  }
 
   .u-chip--wrapper{
     max-width: 150px;
@@ -394,15 +403,6 @@ button.u-library--indicator{
     right: 2rem $important;
   }
 
-  .u-information--about > hr{
-    left: 0;
-    right: 0;
-    position: $absolute;
-    top: 4.4rem;
-    border: 2px solid $color_gray;
-    border-radius: 20px;
-  }
-
   .u-fontsize--1rem{
     @include displayType(block $important);
     margin: 1.5rem 0 1.5rem 0;
@@ -413,10 +413,11 @@ button.u-library--indicator{
 
   /* Larger than desktop */
 @media (min-width: 1000px) {
-  /*************************************************INCLUDES***********************************************/
-  @include booksCardContentWidth(75%);
-  @include changebleContent(0 0 0.5% 0, $left, $center $important, 5% $important, 4.36rem , 145px);
-  /*************************************************INCLUDES***********************************************/
+  .u-makeit--center{
+    > hr{
+      margin-top: 6.6px;
+    }
+  }
 
   .u-height--410px{
     height: $auto;
@@ -430,27 +431,15 @@ button.u-library--indicator{
     font-size: 14px;
     height: 245px;
   }
-
-  .u-display--right{
-    float: $right;
-    //@extend .u-float--right;
-    width: 75%;
-  }
 }
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
-  /*************************************************INCLUDES***********************************************/
   @include modal(80%, 90%, 10%);
-  /*************************************************INCLUDES***********************************************/
 }
 
 @media (min-width: 1400px) {
-  /*************************************************INCLUDES***********************************************/
-  @include booksCardContentWidth(85%);
-  /*************************************************INCLUDES***********************************************/
-
-  .u-display--right.l9{
-    width: 82% $important;
+  .u-text--justify{
+    width: 100% - 21% $important;
   }
 }
