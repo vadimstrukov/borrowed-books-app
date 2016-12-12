@@ -13,7 +13,7 @@ import {OwnedBook} from "../model/OwnedBook";
 @Component({
   selector: 'bookinfo',
   templateUrl: './bookinfo.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 export class BookInfoModal extends ModalBehaviour implements OnInit{
 

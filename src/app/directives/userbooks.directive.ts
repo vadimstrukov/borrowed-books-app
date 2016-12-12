@@ -7,7 +7,7 @@ import {OwnedBook} from "../model/OwnedBook";
 
 @Component({
   templateUrl: './userbooks.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 
 export class UserBooks implements OnInit{

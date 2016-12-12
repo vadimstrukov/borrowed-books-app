@@ -6,8 +6,8 @@
   </button>
   <div class="modal-content">
     <div class="row">
+      <h4 CLASS="u-book--title">{{selectedBook?.volumeInfo.title}}</h4>
       <div class="u-information--wrapper">
-        <h4>{{selectedBook?.volumeInfo.title}}</h4>
         <div class="u-thumbnail--box">
           <img [src]="selectedBook?.volumeInfo.imageLinks.medium || selectedBook?.volumeInfo.imageLinks.smallThumbnail"
           onerror="src='../../assets/img_loading.gif';"/>
@@ -15,43 +15,43 @@
         <div [innerHTML]="selectedBook?.volumeInfo.description" class="u-text--justify u-display--right col s12 m12 l9"></div>
       </div>
       <div class="u-information--about col s12 m12 l12">
-        <hr/>
         <div class="u-makeit--center col s12 m12 l12">
-        <div class="u-author" *ngIf="selectedBook?.volumeInfo.authors">
-          <div>
-            Author
+          <hr/>
+          <div class="u-author" *ngIf="selectedBook?.volumeInfo.authors">
+            <div>
+              Author
+            </div>
+            <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
+            <span class="u-inf--1 chip u-chip--wrapper">{{selectedBook?.volumeInfo.authors}}</span>
           </div>
-          <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--1 chip u-chip--wrapper">{{selectedBook?.volumeInfo.authors}}</span>
-        </div>
-        <div class="u-language" *ngIf="selectedBook?.volumeInfo.language">
-          <div>
-            Language
+          <div class="u-language" *ngIf="selectedBook?.volumeInfo.language">
+            <div>
+              Language
+            </div>
+            <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
+            <span class="u-inf--2 chip u-chip--wrapper">{{selectedBook?.volumeInfo.language}}</span>
           </div>
-          <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--2 chip u-chip--wrapper">{{selectedBook?.volumeInfo.language}}</span>
-        </div>
-        <div class="u-pageCount" *ngIf="selectedBook?.volumeInfo.pageCount">
-          <div>
-            Pages
+          <div class="u-pageCount" *ngIf="selectedBook?.volumeInfo.pageCount">
+            <div>
+              Pages
+            </div>
+            <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
+            <span class="u-inf--3 chip u-chip--wrapper">{{selectedBook?.volumeInfo.pageCount}}</span>
           </div>
-          <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--3 chip u-chip--wrapper">{{selectedBook?.volumeInfo.pageCount}}</span>
-        </div>
-        <div class="u-publisher" *ngIf="selectedBook?.volumeInfo.publisher">
-          <div>
-            Publisher
+          <div class="u-publisher" *ngIf="selectedBook?.volumeInfo.publisher">
+            <div>
+              Publisher
+            </div>
+            <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
+            <span class="u-inf--4 chip u-chip--wrapper">{{selectedBook?.volumeInfo.publisher}}</span>
           </div>
-          <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--4 chip u-chip--wrapper">{{selectedBook?.volumeInfo.publisher}}</span>
-        </div>
-        <div class="u-publishDate" *ngIf="selectedBook?.volumeInfo.publishedDate">
-          <div>
-            Publish date
+          <div class="u-publishDate" *ngIf="selectedBook?.volumeInfo.publishedDate">
+            <div>
+              Publish date
+            </div>
+            <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
+            <span class="u-inf--5 chip u-chip--wrapper">{{selectedBook?.volumeInfo.publishedDate}}</span>
           </div>
-          <i class="material-icons u-fontsize--1rem">fiber_manual_record</i>
-          <span class="u-inf--5 chip u-chip--wrapper">{{selectedBook?.volumeInfo.publishedDate}}</span>
-        </div>
         </div>
       </div>
     </div>

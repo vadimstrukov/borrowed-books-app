@@ -13,7 +13,7 @@ import {BookInfoModal} from "./bookinfo.directive";
 import {Constants} from "../utils/Constants";
 @Component({
   templateUrl: './searchbook.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 export class SearchBooks implements OnInit, OnDestroy{
 
