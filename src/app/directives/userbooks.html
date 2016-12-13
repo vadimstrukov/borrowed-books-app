@@ -12,24 +12,24 @@
       </div>
     </div>
     <div class="card-action u-bookUser--info">
-      <span class="chip u-float--left u-read--status">Status: {{userBook.readStatus}}</span>
+      <span class="chip u-float--left u-read--status" (click)="bookClicked(userBook)">Status: {{userBook.readStatus}}</span>
       <span class="chip u-float--right">Added: {{userBook.date_added | date}}</span>
     </div>
-    <div class="card-action u-bookUser--info u-options--container">
-      <form action="#">
-        <p>
-          <input name="group1" type="radio" id="test1" />
-          <label for="test1">Done</label>
-        </p>
-        <p>
-          <input name="group1" type="radio" id="test2" checked/>
-          <label for="test2">Unread</label>
-        </p>
-        <p>
-          <input name="group1" type="radio" id="test3" />
-          <label for="test3">In process</label>
-        </p>
-      </form>
-    </div>
+  </div>
+  <div class="card-action u-bookUser--info u-options--container" *ngIf="statusExpanded">
+    <form action="#">
+      <p>
+        <input name="group1" type="radio" id="test1" />
+        <label for="test1">Done</label>
+      </p>
+      <p>
+        <input name="group1" type="radio" id="test2" checked/>
+        <label for="test2">Unread</label>
+      </p>
+      <p>
+        <input name="group1" type="radio" id="test3" />
+        <label for="test3">In process</label>
+      </p>
+    </form>
   </div>
 </div>
