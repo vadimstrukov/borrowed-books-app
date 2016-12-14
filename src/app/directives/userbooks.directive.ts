@@ -22,22 +22,16 @@ export class UserBooks implements OnInit{
     this.bookService.getUserBooks().subscribe(data=>this.userBooks = data);
   }
 
-  private selectBook(event:any, expandable:boolean){
-    if(!expandable)
-      this.parentId = null;
-    else
-      this.parentId = event.target.parentNode.id;
-    this.statusExpanded = expandable;
-  };
-
   public expandEditPanel(event:any, userBook:OwnedBook){
     switch (this.parentId){
       case userBook.book.id:
-        this.selectBook(null, false);
+        this.statusExpanded = false;
+        this.parentId = null;
         console.log("Close expandable, Old Book");
         break;
       default:
-        this.selectBook(event, true);
+        this.statusExpanded = true;
+        this.parentId = event.target.parentNode.id;
         console.log("Open expandable, New Book", this.parentId);
     }
   }
