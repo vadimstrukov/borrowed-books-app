@@ -4,6 +4,7 @@
 import {Component, OnInit} from "@angular/core";
 import {BookService} from "../service/BookService";
 import {OwnedBook} from "../model/OwnedBook";
+import {element} from "protractor";
 
 @Component({
   templateUrl: './userbooks.html',
@@ -11,9 +12,9 @@ import {OwnedBook} from "../model/OwnedBook";
 })
 
 export class UserBooks implements OnInit{
-  userBooks:Array<OwnedBook>;
-  selectedUserBook:OwnedBook;
-  statusExpanded:boolean = false;
+  public userBooks:Array<OwnedBook>;
+  public parentId:string;
+  private statusExpanded:boolean = false;
 
   constructor(private bookService:BookService){}
 
@@ -21,20 +22,23 @@ export class UserBooks implements OnInit{
     this.bookService.getUserBooks().subscribe(data=>this.userBooks = data);
   }
 
-  private selectBook(book:OwnedBook, expandable:boolean){
-    this.selectedUserBook = book;
+  private selectBook(event:any, expandable:boolean){
+    if(!expandable)
+      this.parentId = null;
+    else
+      this.parentId = event.target.parentNode.id;
     this.statusExpanded = expandable;
   };
 
-  public bookClicked(book:OwnedBook){
-    switch (this.selectedUserBook){
-      case book:
+  public expandEditPanel(event:any, userBook:OwnedBook){
+    switch (this.parentId){
+      case userBook.book.id:
         this.selectBook(null, false);
-        console.log("Close expandable, Old Book", this.selectedUserBook);
+        console.log("Close expandable, Old Book");
         break;
       default:
-        this.selectBook(book, true);
-        console.log("Open expandable, New Book", this.selectedUserBook);
+        this.selectBook(event, true);
+        console.log("Open expandable, New Book", this.parentId);
     }
   }
 }
