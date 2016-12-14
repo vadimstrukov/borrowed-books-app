@@ -24,6 +24,11 @@ $important: !important;
 $pointer: pointer;
 /*cursor*/
 
+/*URL*/
+$small_images_sprite: url(../assets/small_images_sprite.png);
+$big_images_sprite: url(../assets/big_images_sprite.png);
+/*URL*/
+
 /*************************************************VARIABLES**********************************************/
 
 /*<-----------------------------------------------BREAK-------------------------------------------------*/
@@ -56,6 +61,11 @@ $pointer: pointer;
     min-width: $min-width;
     font-size: $font-size;
   }
+}
+@mixin images_sprite($url: $small_images_sprite, $horizontal: 0px, $vertical: 0px){
+  background-image: $url;
+  background-position: $horizontal $vertical;
+  background-repeat: no-repeat;
 }
 /*************************************************MIXINS*************************************************/
 

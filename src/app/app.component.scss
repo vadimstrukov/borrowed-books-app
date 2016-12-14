@@ -78,6 +78,41 @@ $menuImageUrl: url(../assets/books.jpg);
 
 
 /* Mobile first queries */
+.u-menu--button{
+  @include images_sprite( $small_images_sprite, 7px, 20px);
+  width: 40px;
+  height: 46px;
+}
+.u-go--top,
+.u-icon--delete,
+.u-icon--remainder{
+  height: 55px;
+  width: 55px;
+}
+.u-icon--delete,
+.u-icon--remainder,
+.u-icon--edit{
+  @include displayType();
+}
+.u-icon--remainder{
+  @include images_sprite( $big_images_sprite, 3px, -45px );
+  -webkit-background-size: 92%;
+  background-size: 92%;
+}
+.u-icon--delete{
+  @include images_sprite( $big_images_sprite, 4px, -90px );
+}
+.u-icon--edit{
+  position: $absolute;
+  height: 26px;
+  width: 22px;
+  right: 10px;
+  top: 10px;
+  @include images_sprite( $small_images_sprite, -30px, -52px );
+}
+.u-flex--center{
+  justify-content: $center $important;
+}
 ul{
   > ul {
     min-width: 100% $important;
@@ -103,13 +138,19 @@ ul{
     left: 0.5rem;
     vertical-align: middle;
     @include displayType(inline-block);
+    @include images_sprite( $small_images_sprite, 0px, -54px );
+    width: 22px;
+    height: 26px;
   }
   >.u-arrow--delete{
     position: $absolute;
-    top: 0;
+    top: 19px;
     right: 1rem;
     vertical-align: middle;
     cursor: $pointer;
+    @include images_sprite( $small_images_sprite, 0px, -25px );
+    width: 22px;
+    height: 26px;
   }
 }
 .u-width--145px{
@@ -140,15 +181,11 @@ ul{
   bottom: 20px;
   cursor: $pointer;
   opacity: 0.45;
-  > i{
-    font-size: 55px;
-    transform: rotate(-90deg);
-    @include animation();
-    > &:hover{
-      color: $color_dark_green;
-      @include animation();
-    }
-  }
+  transform: rotate(-90deg);
+  @include animation();
+  @include images_sprite( $big_images_sprite, 0px, 0px );
+  -webkit-background-size: 100%;
+  background-size: 100%;
 }
 .loader-preview{
   padding-top: 300px;
@@ -212,17 +249,16 @@ ul{
   margin-top: -15px;
   height: 50px;
   background-color: $color_white;
-  + .u-options--container{
-
-      margin-top: 5px;
-      form{
-        @include displayType(flex);
-        justify-content: space-around;
-        margin-top: -11px;
-        p{
-          @include displayType(inline-block);
-        }
-      }
+}
+.u-options--container {
+  margin-top: 5px;
+  form {
+    @include displayType(flex);
+    justify-content: space-around;
+    margin-top: -11px;
+    p {
+      @include displayType(inline-block);
+    }
   }
 }
 .card-action{
@@ -332,6 +368,7 @@ input[type="text"]{
   @extend .u-float--right;
   margin: 10px;
   cursor: $pointer;
+  background-image: $small_images_sprite;
 }
 .u-library--indicator{
   margin: 10px;
