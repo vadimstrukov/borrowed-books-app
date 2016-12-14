@@ -5,6 +5,7 @@
         <img [src]="userBook.book.volumeInfo.imageLinks?.smallThumbnail">
       </div>
       <div class="card-stacked">
+        <span class="u-icon--edit"></span>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{userBook.book.volumeInfo.title}}</span>
           <p class="limit u-border--top_ u-height--75px" [innerHTML]="userBook.book.volumeInfo.description"></p>
@@ -28,6 +29,14 @@
         <p>
           <input name="group1" type="radio" id="test3" />
           <label for="test3">In process</label>
+        </p>
+      </form>
+      <form action="#" class="u-flex--center">
+        <p>
+          <span class="u-icon--delete"></span>
+        </p>
+        <p>
+          <span class="u-icon--remainder"></span>
         </p>
       </form>
     </div>
