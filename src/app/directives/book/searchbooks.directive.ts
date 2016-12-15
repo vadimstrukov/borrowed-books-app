@@ -2,18 +2,18 @@
  * Created by strukov on 30.11.16.
  */
 import {Component, OnInit, OnDestroy, ViewChild, ViewChildren} from "@angular/core";
-import {BookService} from "../service/BookService";
-import {BookItems} from "../model/BookItems";
-import {Book} from "../model/Book";
+import {BookService} from "../../service/BookService";
+import {BookItems} from "../../model/BookItems";
+import {Book} from "../../model/Book";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
-import {User} from "../model/User";
-import {Authentication} from "../utils/Authentication";
+import {User} from "../../model/User";
+import {Authentication} from "../../utils/Authentication";
 import {BookInfoModal} from "./bookinfo.directive";
-import {Constants} from "../utils/Constants";
+import {Constants} from "../../utils/Constants";
 @Component({
-  templateUrl: './searchbook.html',
-  styleUrls: ['../app.component.scss']
+  templateUrl: 'searchbook.html',
+  styleUrls: ['../../app.component.scss']
 })
 export class SearchBooks implements OnInit, OnDestroy{
 

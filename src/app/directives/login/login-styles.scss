@@ -1,5 +1,5 @@
 /*************************************************IMPORTS************************************************/
-@import "../generalClasses";
+@import "../../generalClasses";
 /*************************************************IMPORTS************************************************/
 
 /*<-----------------------------------------------BREAK-------------------------------------------------*/
@@ -41,7 +41,7 @@
   right: 20px;
   top: 15px;
   cursor: $pointer;
-  @include images_sprite(url("../../assets/small_images_sprite.png"), -2px, -82px);
+  @include images_sprite(url("../../../assets/small_images_sprite.png"), -2px, -82px);
 
 }
 

@@ -2,13 +2,13 @@
  * Created by strukov on 30.11.16.
  */
 import {Component, OnInit} from "@angular/core";
-import {BookService} from "../service/BookService";
-import {OwnedBook} from "../model/OwnedBook";
+import {BookService} from "../../service/BookService";
+import {OwnedBook} from "../../model/OwnedBook";
 import {element} from "protractor";
 
 @Component({
-  templateUrl: './userbooks.html',
-  styleUrls: ['../app.component.scss']
+  templateUrl: 'userbooks.html',
+  styleUrls: ['../../app.component.scss']
 })
 
 export class UserBooks implements OnInit{

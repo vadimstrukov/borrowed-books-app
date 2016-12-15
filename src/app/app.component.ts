@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {LoginRegisterModal} from "./directives/login.directive";
+import {LoginRegisterModal} from "./directives/login/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {Router} from "@angular/router";
 
