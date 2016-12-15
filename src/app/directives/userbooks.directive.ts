@@ -22,6 +22,12 @@ export class UserBooks implements OnInit{
     this.bookService.getUserBooks().subscribe(data=>this.userBooks = data);
   }
 
+  public deleteUserBook(userBook:OwnedBook):void{
+    this.bookService.deleteUserBook(userBook.id).subscribe(()=>{
+      this.userBooks.splice(this.userBooks.indexOf(userBook), 1);
+    });
+  }
+
   public expandEditPanel(event:any, userBook:OwnedBook){
     switch (this.parentId){
       case userBook.book.id:

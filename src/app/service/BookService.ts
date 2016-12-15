@@ -27,7 +27,7 @@ export class BookService{
     return this.http.get(Constants.GoogleAPI, {search: params}).map(response => response.json());
   }
 
-  public getBookAndCheckStatus(id:string):Observable<any>{
+  public getBookWithCheck(id:string):Observable<any>{
     let params = new URLSearchParams();
     params.set("id", id);
     return Observable.forkJoin(
@@ -47,9 +47,10 @@ export class BookService{
       .map(response => response.json());
   }
 
-  public deleteUserBook(userBook:OwnedBook):Observable<OwnedBook>{
-    return this.http.delete(Constants.Books, {headers: this.auth.setAuthHeaders(), body: JSON.stringify(userBook)})
-      .map(response=>response.json());
+  public deleteUserBook(id:number):Observable<Response>{
+    let params = new URLSearchParams();
+    params.set("id", id.toString());
+    return this.http.delete(Constants.Books, {search: params, headers: this.auth.setAuthHeaders()});
   }
 
   public saveBook(ownedBook:OwnedBook):Observable<OwnedBook>{

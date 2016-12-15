@@ -48,7 +48,7 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
 
   public openInfo(bookId:string):void{
     if(this.auth.isLoggedIn())
-      this.bookService.getBookAndCheckStatus(bookId).subscribe(data=>{
+      this.bookService.getBookWithCheck(bookId).subscribe(data=>{
         if(data[1].status=="EXISTS")
           this.setIsInLibrary(true);
         else

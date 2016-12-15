@@ -33,7 +33,7 @@
         </form>
         <form action="#" class="u-flex--center">
           <p>
-            <span class="u-icon--delete"></span>
+            <span class="u-icon--delete" (click)="deleteUserBook(userBook)"></span>
           </p>
           <p>
             <span class="u-icon--remainder"></span>
@@ -41,4 +41,7 @@
         </form>
       </div>
     </div>
+</div>
+<div *ngIf="!userBooks">
+  No books in your library yet...
 </div>
