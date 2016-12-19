@@ -14,6 +14,7 @@ $justify: justify;
 
 /*positions*/
 $absolute: absolute;
+$relative: relative;
 /*positions*/
 
 /*additional*/
@@ -86,5 +87,8 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
 }
 .u-text--justify{
   text-align: $justify;
+}
+.u-position--relative{
+  position: $relative;
 }
 /*************************************************COMPONENTS***********************************************/

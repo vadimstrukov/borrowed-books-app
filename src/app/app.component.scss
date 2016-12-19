@@ -12,7 +12,6 @@ $color_yellow: #fdd835;
 /*Colors*/
 
 /*positions*/
-$relative: relative;
 $fixed: fixed;
 /*positions*/
 
@@ -78,16 +77,22 @@ $menuImageUrl: url(../assets/books.jpg);
 
 
 /* Mobile first queries */
+.jq-right{
+  @extend .u-display--none;
+}
 .u-menu--button{
   @include images_sprite( $small_images_sprite, 7px, 20px);
   width: 40px;
   height: 46px;
 }
-.u-go--top,
-.u-icon--delete,
-.u-icon--remainder{
+.u-go--top{
   height: 55px;
   width: 55px;
+}
+.u-icon--delete,
+.u-icon--remainder{
+  height: 26px;
+  width: 22px;
 }
 .u-icon--delete,
 .u-icon--remainder,
@@ -95,20 +100,41 @@ $menuImageUrl: url(../assets/books.jpg);
   @include displayType();
 }
 .u-icon--remainder{
-  @include images_sprite( $big_images_sprite, 3px, -45px );
-  -webkit-background-size: 92%;
-  background-size: 92%;
+  @include images_sprite( $big_images_sprite, -1.7px, -52px );
+  background-size: 27px;
 }
 .u-icon--delete{
-  @include images_sprite( $big_images_sprite, 4px, -90px );
+  @include images_sprite( $big_images_sprite, -3.7px, -32px );
+  background-size: 30px;
+}
+.u-p-remainder,
+.u-p--delete{
+  height: 51px;
+  width: 50px;
+  margin-top: 0px;
+  justify-content: center;
+  display: flex $important;
+  > span{
+    align-self: center;
+  }
+}
+.u-p-remainder{
+  margin-right: -10px;
+  background-color: #43a047;
+}
+.u-p--delete{
+  margin-left: -10px;
+  background-color: #e53935;
 }
 .u-icon--edit{
   position: $absolute;
   height: 26px;
   width: 22px;
-  right: 10px;
-  top: 10px;
+  right: 20px;
+  top: 15px;
   @include images_sprite( $small_images_sprite, -30px, -52px );
+  z-index: 999;
+  cursor: $pointer;
 }
 .u-flex--center{
   justify-content: $center $important;
@@ -125,7 +151,6 @@ ul{
     }
   }
 }
-
 .u-search--div{
   position: $relative;
   @include displayType(inline-block);
@@ -254,10 +279,13 @@ ul{
   margin-top: 5px;
   form {
     @include displayType(flex);
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: -11px;
     p {
       @include displayType(inline-block);
+    }
+    label{
+      padding-left: 27px;
     }
   }
 }
@@ -312,6 +340,8 @@ input[type="text"]{
 }
 .u-paddingbot--150px_{
   padding: 80px 0 150px 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 .nav-wrapper{
   background-color: $color_dark_green;
@@ -388,9 +418,11 @@ button.u-library--indicator{
 .u-height--410px{
   height: 410px;
 }
-
 .u-book--title{
   @extend .u-text--center;
+}
+.u-height--350px{
+  margin-bottom: 35px;
 }
 
 ::-webkit-input-placeholder {
@@ -405,7 +437,6 @@ button.u-library--indicator{
 :-ms-input-placeholder {
   color: $color_white;
 }
-
 /* Larger than mobile */
 @media (min-width: 400px) {}
 
@@ -425,11 +456,12 @@ button.u-library--indicator{
   .u-information--wrapper{
     @include displayType(flex);
   }
-
+  .jq-right{
+    @include displayType();
+  }
   .u-book--title{
     text-align: $left;
   }
-
   .u-makeit--center{
     @include displayType(flex);
     > div{
@@ -451,7 +483,6 @@ button.u-library--indicator{
       border-radius: 20px;
     }
   }
-
   .u-chip--wrapper{
     max-width: 150px;
     min-width: 100px;
@@ -460,15 +491,12 @@ button.u-library--indicator{
   .right{
     width: $auto;
   }
-
   .u-search--div{
     width: 30rem;
   }
-
   .u-arrow--delete{
     right: 2rem $important;
   }
-
   .u-fontsize--1rem{
     @include displayType(block $important);
     margin: 1.5rem 0 1.5rem 0;
@@ -479,20 +507,27 @@ button.u-library--indicator{
 
   /* Larger than desktop */
 @media (min-width: 1000px) {
+  .u-paddingbot--150px_{
+    @include displayType();
+  }
+  .u-height--350px{
+    margin-bottom: 0px;
+    height: 350px;
+  }
+  .u-library--height{
+    height: 202px;
+  }
   .u-makeit--center{
     > hr{
       margin-top: 6.6px;
     }
   }
-
   .u-height--410px{
     height: $auto;
   }
-
   .card.horizontal{
     @include displayType(flex);
   }
-
   .u-height--245px_{
     font-size: 14px;
     height: 245px;
@@ -507,5 +542,8 @@ button.u-library--indicator{
 @media (min-width: 1400px) {
   .u-text--justify{
     width: 100% - 21% $important;
+  }
+  .l4{
+    width: 25% $important;
   }
 }
