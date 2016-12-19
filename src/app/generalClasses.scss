@@ -1,0 +1,94 @@
+/*************************************************VARIABLES**********************************************/
+/*Colors*/
+$color_white: white;
+$color_dark_green: #00897b;
+$color_soft_gray: #c1c1c1;
+/*Colors*/
+
+/*floats/text*/
+$left: left;
+$right: right;
+$center: center;
+$justify: justify;
+/*floats/text*/
+
+/*positions*/
+$absolute: absolute;
+$relative: relative;
+/*positions*/
+
+/*additional*/
+$important: !important;
+/*additional*/
+
+/*cursor*/
+$pointer: pointer;
+/*cursor*/
+
+/*URL*/
+$small_images_sprite: url(../assets/small_images_sprite.png);
+$big_images_sprite: url(../assets/big_images_sprite.png);
+/*URL*/
+
+/*************************************************VARIABLES**********************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************MIXINS*************************************************/
+@mixin border-radius( $radius ){
+  border-radius: $radius;
+}
+@mixin scrollBarStyles(){
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @include border-radius(10px);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @include border-radius(10px);
+    background-color: $color_soft_gray;
+  }
+}
+@mixin displayType( $disType: block ){
+  display: $disType;
+}
+@mixin btnSpanChip( $min-width: 90px, $font-size: 11px ){
+  .btn-flat,
+  button.chip,
+  span.chip{
+    min-width: $min-width;
+    font-size: $font-size;
+  }
+}
+@mixin images_sprite($url: $small_images_sprite, $horizontal: 0px, $vertical: 0px){
+  background-image: $url;
+  background-position: $horizontal $vertical;
+  background-repeat: no-repeat;
+}
+/*************************************************MIXINS*************************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************COMPONENTS***********************************************/
+.u-float--right{
+  float: $right;
+}
+.u-float--left{
+  float: $left $important;
+}
+.u-display--none{
+  @include displayType(none);
+}
+.u-text--center{
+  text-align: $center;
+}
+.u-text--justify{
+  text-align: $justify;
+}
+.u-position--relative{
+  position: $relative;
+}
+/*************************************************COMPONENTS***********************************************/

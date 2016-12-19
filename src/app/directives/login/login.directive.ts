@@ -3,19 +3,19 @@
  */
 import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {Authentication} from "../utils/Authentication";
-import {FormType} from "../utils/FormType";
-import {UserService} from "../service/UserService";
-import {User} from "../model/User";
+import {Authentication} from "../../utils/Authentication";
+import {FormType} from "../../utils/FormType";
+import {UserService} from "../../service/UserService";
+import {User} from "../../model/User";
 import {hashSync} from "bcryptjs";
-import {ModalBehaviour} from "./moda.directive";
-import {Constants} from "../utils/Constants";
+import {ModalBehaviour} from "../modal.directive";
+import {Constants} from "../../utils/Constants";
 import {Router} from "@angular/router";
 
 @Component({
   selector: "login",
-  templateUrl: "./login.html",
-  styleUrls: ['./login-styles.css']
+  templateUrl: "login.html",
+  styleUrls: ['login-styles.scss']
 })
 export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 

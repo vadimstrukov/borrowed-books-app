@@ -1,6 +1,6 @@
 import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
-import {UserBooks} from "./directives/userbooks.directive";
-import {SearchBooks} from "./directives/searchbooks.directive";
+import {UserBooks} from "./directives/book/userbooks.directive";
+import {SearchBooks} from "./directives/book/searchbooks.directive";
 import {Routes, RouterModule} from "@angular/router";
 import {NgModule} from "@angular/core";
 /**
@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'library', component: UserBooks, canActivate: [CanActivateViaAuth]}
 ];
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, {useHash: true}) ],
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule{}

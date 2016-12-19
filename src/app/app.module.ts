@@ -5,15 +5,15 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
-import {LoginRegisterModal} from "./directives/login.directive";
+import {LoginRegisterModal} from "./directives/login/login.directive";
 import {Routes, RouterModule} from "@angular/router";
-import {UserBooks} from "./directives/userbooks.directive";
+import {UserBooks} from "./directives/book/userbooks.directive";
 import {Authentication} from "./utils/Authentication";
 import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
-import {SearchBooks} from "./directives/searchbooks.directive";
+import {SearchBooks} from "./directives/book/searchbooks.directive";
 import {BookService} from "./service/BookService";
 import {UserService} from "./service/UserService";
-import {BookInfoModal} from "./directives/bookinfo.directive";
+import {BookInfoModal} from "./directives/book/bookinfo.directive";
 import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({

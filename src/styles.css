@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/materialize-css/dist/css/materialize.css";
 
+body{
+  background-color: rgba(220, 220, 220, 0.23);
+}
+
 .loader-preview{
   padding-top: 150px;
   text-align: center;

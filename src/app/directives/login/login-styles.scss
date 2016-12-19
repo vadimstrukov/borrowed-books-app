@@ -1,0 +1,50 @@
+/*************************************************IMPORTS************************************************/
+@import "../../generalClasses";
+/*************************************************IMPORTS************************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************VARIABLES**********************************************/
+
+/*************************************************VARIABLES**********************************************/
+
+/*<-----------------------------------------------BREAK-------------------------------------------------*/
+
+/*************************************************INCLUDES***********************************************/
+@include scrollBarStyles();
+@include btnSpanChip();
+/*************************************************INCLUDES***********************************************/
+
+.modal-content > h4,
+.modal-footer{
+  @extend .u-text--center;
+}
+
+.u-float--left{
+  @extend .u-float--left;
+}
+
+.u-display--none{
+  @extend .u-display--none;
+}
+
+.modal-footer > button, a{
+  background-color: $color_dark_green;
+  color: $color_white;
+}
+
+.u-close--modal{
+  @include displayType();
+  position: $absolute;
+  height: 20px;
+  width: 20px;
+  right: 20px;
+  top: 15px;
+  cursor: $pointer;
+  @include images_sprite(url("../../../assets/small_images_sprite.png"), -2px, -82px);
+
+}
+
+@media (min-width: 750px) {
+  @include btnSpanChip(90px, 14px);
+}
