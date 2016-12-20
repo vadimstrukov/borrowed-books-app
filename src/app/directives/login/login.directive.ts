@@ -19,11 +19,11 @@ import {SubmitForm} from "./form.interface";
 })
 export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 
-  public submitForm: FormGroup;
-  public authError: boolean = false;
-  public buttonName:string;
+  private submitForm: FormGroup;
+  private authError: boolean = false;
+  private buttonName:string;
 
-  public FORM_TYPE = {
+  private FORM_TYPE = {
     LOGIN: 'login',
     REGISTRATION: 'registration'
   };
@@ -44,7 +44,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     this.setFormType(this.FORM_TYPE.LOGIN);
   }
 
-  initFormTypeGroup() {
+  private initFormTypeGroup():FormGroup {
     return this.fb.group({
       type: [''],
       login: this.fb.group(this.initLoginModel()),
@@ -52,7 +52,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     });
   }
 
-  subscribeFormTypeChanges() {
+  private subscribeFormTypeChanges() :void {
 
     const pmCtrl = (<any>this.submitForm).controls.formType;
     const loginCtrl = pmCtrl.controls.login;
@@ -85,24 +85,24 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     });
   }
 
-  initRegistrationModel() {
+  private initRegistrationModel(): any {
     return {
       fullname: ['', [<any>Validators.required, Validators.minLength(10), Validators.maxLength(50)]]
     };
   }
 
-  initLoginModel() {
+  private initLoginModel(): any {
     return {
       isHuman: [false, Validators.pattern('true')]
     };
   }
 
-  setFormType(type: string) {
+  private setFormType(type: string): void {
     const ctrl: FormControl = (<any>this.submitForm).controls.formType.controls.type;
     ctrl.setValue(type);
   }
 
-  onSubmit(model: SubmitForm, isValid: boolean) {
+  private onSubmit(model: SubmitForm, isValid: boolean): void{
     switch (model.formType.type){
       case this.FORM_TYPE.LOGIN:
         this.auth.authenticate(model.email, model.password).subscribe(() => {
