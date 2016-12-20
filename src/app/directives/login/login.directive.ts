@@ -20,7 +20,7 @@ import {Router} from "@angular/router";
 export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 
   public submitForm: FormGroup;
-  public error: boolean = false;
+  public authError: boolean = false;
 
   public isRegister: boolean = false;
   private formType:string = FormType[FormType.LOGIN];
@@ -34,9 +34,10 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     super.ngOnInit();
     this.submitForm = this.formBuilder.group({
       email: ['',[<any>Validators.required]],
-      password: ['', [<any>Validators.required]],
-      fullname: ['', [<any>Validators.required]]
+      password: ['', [<any>Validators.required, Validators.minLength(8), Validators.maxLength(30)]],
+      fullname: ['', [<any>Validators.required, Validators.minLength(10), Validators.maxLength(50)]]
     });
+    $('input#firstn_prefix, input#password_first_prefix').characterCounter();
   }
 
   public onSubmit(value:any):void{
@@ -45,7 +46,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
         this.auth.authenticate(value.email, value.password).subscribe(() => {
           this.closeLogin();
         }, () => {
-          this.error = true
+          this.authError = true
         }, ()=>{
           setTimeout(()=>{
             location.reload();
@@ -63,7 +64,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
         user.pass = hashSync(value.password, 4);
         this.userService.register(user).subscribe(() => {
           this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');}, () => {
-          this.error = true; });
+          this.authError = true; });
         break;
     }
   }

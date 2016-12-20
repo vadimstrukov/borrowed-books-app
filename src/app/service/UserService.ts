@@ -17,6 +17,6 @@ export class UserService{
 
     return this.http.post(Constants.Register, JSON.stringify(user), options)
       .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error:any) => Observable.throw(error.json().error || 'Server authError'));
   }
 }
