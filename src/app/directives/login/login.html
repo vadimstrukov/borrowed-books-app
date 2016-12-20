@@ -11,7 +11,7 @@
             <label for="firstn_prefix">Fullname</label>
             <div *ngIf="submitForm.controls['fullname'].hasError('required') && submitForm.controls['fullname'].touched" class="alert alert-danger">Fullname is required!</div>
             <div *ngIf="submitForm.controls['fullname'].hasError('minlength') && submitForm.controls['fullname'].touched" class="alert alert-danger">Your fullname must be at least 10 characters long.</div>
-            <div *ngIf="submitForm.controls['fullname'].hasError('maxlength') && submitForm.controls['fullname'].touched" class="alert alert-danger">Your fullname cannot exceed 30 characters.</div>
+            <div *ngIf="submitForm.controls['fullname'].hasError('maxlength') && submitForm.controls['fullname'].touched" class="alert alert-danger">Your fullname cannot exceed 50 characters.</div>
           </div>
           <div class="input-field col s12">
             <i class="material-icons prefix">email</i>
@@ -25,8 +25,8 @@
             <input id="password_first_prefix" type="password" class="validate" formControlName="password">
             <label for="password_first_prefix">Password</label>
             <div *ngIf="submitForm.controls['password'].hasError('required') && submitForm.controls['password'].touched" class="alert alert-danger">Password is required!</div>
-            <div *ngIf="submitForm.controls['password'].hasError('minlength') && submitForm.controls['password'].touched" class="alert alert-danger">Your password must be at least 5 characters long.</div>
-            <div *ngIf="submitForm.controls['password'].hasError('maxlength') && submitForm.controls['password'].touched" class="alert alert-danger">Your passowrd cannot exceed 8 characters.</div>
+            <div *ngIf="submitForm.controls['password'].hasError('minlength') && submitForm.controls['password'].touched" class="alert alert-danger">Your password must be at least 8 characters long.</div>
+            <div *ngIf="submitForm.controls['password'].hasError('maxlength') && submitForm.controls['password'].touched" class="alert alert-danger">Your passowrd cannot exceed 30 characters.</div>
           </div>
         </div>
         <div class="modal-footer">
