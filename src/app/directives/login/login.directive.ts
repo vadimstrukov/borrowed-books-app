@@ -2,15 +2,15 @@
  * Created by strukov on 20.11.16.
  */
 import {Component, OnInit} from "@angular/core";
-import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
 import {Authentication} from "../../utils/Authentication";
-import {FormType} from "../../utils/FormType";
 import {UserService} from "../../service/UserService";
 import {User} from "../../model/User";
 import {hashSync} from "bcryptjs";
 import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {Router} from "@angular/router";
+import {SubmitForm} from "./form.interface";
 
 @Component({
   selector: "login",
@@ -21,29 +21,91 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 
   public submitForm: FormGroup;
   public authError: boolean = false;
+  public buttonName:string;
 
-  public isRegister: boolean = false;
-  private formType:string = FormType[FormType.LOGIN];
-  public buttonName:string = "Sign up";
+  public FORM_TYPE = {
+    LOGIN: 'login',
+    REGISTRATION: 'registration'
+  };
 
-  constructor(private formBuilder:FormBuilder, private auth:Authentication, private userService:UserService,  private router:Router){
+
+  constructor(private fb:FormBuilder, private auth:Authentication, private userService:UserService,  private router:Router){
     super();
   }
 
-  ngOnInit(): void {
+  ngOnInit():void{
     super.ngOnInit();
-    this.submitForm = this.formBuilder.group({
-      email: ['',[<any>Validators.required]],
+    this.submitForm = this.fb.group({
+      email: ['', [<any>Validators.required, Validators.maxLength(30)]],
       password: ['', [<any>Validators.required, Validators.minLength(8), Validators.maxLength(30)]],
-      fullname: ['', [<any>Validators.required, Validators.minLength(10), Validators.maxLength(50)]]
+      formType: this.initFormTypeGroup()
     });
-    $('input#firstn_prefix, input#password_first_prefix').characterCounter();
+    this.subscribeFormTypeChanges();
+    this.setFormType(this.FORM_TYPE.LOGIN);
   }
 
-  public onSubmit(value:any):void{
-    switch (this.formType){
-      case FormType[FormType.LOGIN]:
-        this.auth.authenticate(value.email, value.password).subscribe(() => {
+  initFormTypeGroup() {
+    return this.fb.group({
+      type: [''],
+      login: this.fb.group(this.initLoginModel()),
+      registration: this.fb.group(this.initRegistrationModel()),
+    });
+  }
+
+  subscribeFormTypeChanges() {
+
+    const pmCtrl = (<any>this.submitForm).controls.formType;
+    const loginCtrl = pmCtrl.controls.login;
+    const regCtrl = pmCtrl.controls.registration;
+
+    pmCtrl.controls.type.valueChanges.subscribe(formType => {
+      if (formType === this.FORM_TYPE.LOGIN) {
+        Object.keys(loginCtrl.controls).forEach(key => {
+          loginCtrl.controls[key].setValidators(this.initLoginModel()[key][1]);
+          loginCtrl.controls[key].updateValueAndValidity();
+        });
+        Object.keys(regCtrl.controls).forEach(key => {
+          regCtrl.controls[key].setValidators(null);
+          regCtrl.controls[key].updateValueAndValidity();
+        });
+        this.buttonName = "Sign in";
+      }
+
+      if (formType === this.FORM_TYPE.REGISTRATION) {
+        Object.keys(loginCtrl.controls).forEach(key => {
+          loginCtrl.controls[key].setValidators(null);
+          loginCtrl.controls[key].updateValueAndValidity();
+        });
+        Object.keys(regCtrl.controls).forEach(key => {
+          regCtrl.controls[key].setValidators(this.initRegistrationModel()[key][1]);
+          regCtrl.controls[key].updateValueAndValidity();
+        });
+        this.buttonName = "Sign up";
+      }
+    });
+  }
+
+  initRegistrationModel() {
+    return {
+      fullname: ['', [<any>Validators.required, Validators.minLength(10), Validators.maxLength(50)]]
+    };
+  }
+
+  initLoginModel() {
+    return {
+      isHuman: [false, Validators.pattern('true')]
+    };
+  }
+
+  setFormType(type: string) {
+    const ctrl: FormControl = (<any>this.submitForm).controls.formType.controls.type;
+    ctrl.setValue(type);
+  }
+
+  onSubmit(model: SubmitForm, isValid: boolean) {
+    switch (model.formType.type){
+      case this.FORM_TYPE.LOGIN:
+        this.auth.authenticate(model.email, model.password).subscribe(() => {
           this.closeLogin();
         }, () => {
           this.authError = true
@@ -54,34 +116,22 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
           }, 500);
         });
         break;
-
-
-      case FormType[FormType.REGISTER]:
-
+      case this.FORM_TYPE.REGISTRATION:
         let user = new User();
-        user.email = value.email;
-        user.fullname = value.fullname;
-        user.pass = hashSync(value.password, 4);
+        user.email = model.email;
+        user.fullname = model.formType.registration.fullname;
+        user.pass = hashSync(model.password, 4);
         this.userService.register(user).subscribe(() => {
-          this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');}, () => {
-          this.authError = true; });
+          this.setFormType(this.FORM_TYPE.LOGIN);
+        },
+          () => {
+          this.authError = true;
+        });
         break;
     }
+    console.log(model, isValid);
   }
 
-  public changeFormType():void{
-    if(!this.isRegister)
-      this.setFormType(true, "Sign in", FormType[FormType.REGISTER], 'Registration');
-    else
-      this.setFormType(false, "Sign up", FormType[FormType.LOGIN], 'Login');
-  }
-
-  private setFormType(isRegister:boolean, buttonName:string, formType:string, hText:string):void{
-    this.isRegister = isRegister;
-    this.formType = formType;
-    this.buttonName = buttonName;
-    $('.modal-content > h4').text(hText);
-  }
 
   public openLogin():void{
     this.openModal(Constants.LoginModal);
