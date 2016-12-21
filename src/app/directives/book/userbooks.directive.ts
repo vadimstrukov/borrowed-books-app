@@ -1,10 +1,12 @@
 /**
  * Created by strukov on 30.11.16.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {BookService} from "../../service/BookService";
 import {OwnedBook} from "../../model/OwnedBook";
 import {element} from "protractor";
+import {Book} from "../../model/Book";
+import {BookInfoModal} from "./bookinfo.directive";
 
 @Component({
   templateUrl: 'userbooks.html',
@@ -15,6 +17,8 @@ export class UserBooks implements OnInit{
   public userBooks:Array<OwnedBook>;
   public parentId:string;
   private statusExpanded:boolean = false;
+  @ViewChild('bookinfo')
+  public bookInfoModal:BookInfoModal;
 
   constructor(private bookService:BookService){}
 
@@ -26,6 +30,10 @@ export class UserBooks implements OnInit{
     this.bookService.deleteUserBook(userBook.id).subscribe(()=>{
       this.userBooks.splice(this.userBooks.indexOf(userBook), 1);
     });
+  }
+
+  public openAdditionalInfo(book:Book) : void{
+    this.bookInfoModal.openInfo(book.id);
   }
 
   public expandEditPanel(event:any, userBook:OwnedBook){

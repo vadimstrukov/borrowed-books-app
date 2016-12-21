@@ -129,7 +129,6 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
         });
         break;
     }
-    console.log(model, isValid);
   }
 
 
