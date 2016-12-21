@@ -25,7 +25,7 @@ export class UserBooks implements OnInit{
   selectedOption:Options;
   options = [
     new Options('READING'),
-    new Options('READED'),
+    new Options('DONE'),
     new Options('UNREAD'),
   ];
 

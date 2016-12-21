@@ -25,19 +25,6 @@
             <input [id]="option.name" type="radio" name="status" [checked]="option.name == selectedOption.name" (click)="getValue(option.name)" value= {{option.name}}>
             <label [attr.for]="option.name">{{option.name}}</label>
           </p>
-
-          <!--<p>-->
-            <!--<input name="status" type="radio" id="done" />-->
-            <!--<label for="done">Done</label>-->
-          <!--</p>-->
-          <!--<p>-->
-            <!--<input name="status" type="radio" id="unread"/>-->
-            <!--<label for="unread">Unread</label>-->
-          <!--</p>-->
-          <!--<p>-->
-            <!--<input name="status" type="radio" id="process" />-->
-            <!--<label for="process">Process</label>-->
-          <!--</p>-->
           <p class="u-p-remainder waves-effect waves-light">
             <span class="u-icon--remainder"></span>
           </p>
