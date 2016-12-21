@@ -15,7 +15,7 @@ import {OwnedBook} from "../../model/OwnedBook";
   templateUrl: 'bookinfo.html',
   styleUrls: ['../../app.component.scss']
 })
-export class BookInfoModal extends ModalBehaviour implements OnInit{
+export class BookInfoModal extends ModalBehaviour{
 
   public selectedBook:Book;
   private ownedBook:OwnedBook;
@@ -23,10 +23,6 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
 
   constructor(private bookService:BookService, public auth:Authentication, private route: ActivatedRoute){
     super();
-  }
-
-  ngOnInit(): void {
-    $('.modal').modal({dismissible: false});
   }
 
   public addBook():void{
