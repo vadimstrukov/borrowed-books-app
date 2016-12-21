@@ -58,4 +58,9 @@ export class BookService{
       .map(response => response.json());
   }
 
+  public updateUserBook(ownedBook:OwnedBook){
+    return this.http.put(Constants.Books, JSON.stringify(ownedBook), {headers: this.auth.setAuthHeaders()})
+      .map(response=>response.json());
+  }
+
 }
