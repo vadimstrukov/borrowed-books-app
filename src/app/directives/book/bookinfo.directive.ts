@@ -36,7 +36,6 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
       {
         readStatus: "UNREAD",
         book: this.selectedBook,
-        user: this.auth.user,
         date_added: new Date()})
       .subscribe(()=>{
       this.setIsInLibrary(true);
