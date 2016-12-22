@@ -15,7 +15,7 @@ import {OwnedBook} from "../../model/OwnedBook";
   templateUrl: 'bookinfo.html',
   styleUrls: ['../../app.component.scss']
 })
-export class BookInfoModal extends ModalBehaviour{
+export class BookInfoModal extends ModalBehaviour implements OnInit{
 
   public selectedBook:Book;
   private ownedBook:OwnedBook;
@@ -23,6 +23,12 @@ export class BookInfoModal extends ModalBehaviour{
 
   constructor(private bookService:BookService, public auth:Authentication, private route: ActivatedRoute){
     super();
+  }
+
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.initModalName(Constants.BookInfoModal);
   }
 
   public addBook():void{
@@ -55,11 +61,11 @@ export class BookInfoModal extends ModalBehaviour{
       this.bookService.getBookWithoutCheck(bookId).subscribe(data =>{
         this.selectedBook = data;
       });
-    this.openModal(Constants.BookInfoModal);
+    this.openModal();
   }
 
   public closeInfo():void{
-    this.closeModal(Constants.BookInfoModal);
+    this.closeModal();
     this.selectedBook = null;
   }
 }

@@ -34,6 +34,8 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
   }
 
   ngOnInit():void{
+    super.ngOnInit();
+    this.initModalName(Constants.LoginModal);
     this.submitForm = this.fb.group({
       email: ['', [<any>Validators.required, Validators.maxLength(30)]],
       password: ['', [<any>Validators.required, Validators.minLength(8), Validators.maxLength(30)]],
@@ -132,9 +134,9 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 
 
   public openLogin():void{
-    this.openModal(Constants.LoginModal);
+    this.openModal();
   }
   public closeLogin():void{
-    this.closeModal(Constants.LoginModal);
+    this.closeModal();
   }
 }

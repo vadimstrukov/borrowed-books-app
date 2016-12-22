@@ -2,17 +2,25 @@ import {OnInit} from "@angular/core";
 /**
  * Created by strukov on 3.12.16.
  */
-export class ModalBehaviour{
+export abstract class ModalBehaviour implements OnInit{
 
-  constructor() {
+  private modalName:JQuery;
+
+  constructor(){}
+
+  ngOnInit(): void {
     $('.modal').modal({dismissible: false});
   }
 
-  public openModal(modalName:JQuery):void{
-    modalName.modal('open');
+  protected initModalName(modalName:JQuery){
+    this.modalName = modalName;
   }
 
-  public closeModal(modalName:JQuery):void{
-    modalName.modal('close');
+  protected openModal():void{
+    this.modalName.modal('open');
+  }
+
+  protected closeModal():void{
+    this.modalName.modal('close');
   }
 }
