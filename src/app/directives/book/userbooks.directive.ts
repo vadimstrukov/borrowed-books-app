@@ -30,7 +30,6 @@ import {BorrowBookModal} from "./borrowbook.directive";
 })
 
 export class UserBooks implements OnInit{
-  public userBooks:Array<OwnedBook>;
   public selectedBook:OwnedBook;
   public parentId:string;
   private statusExpanded:boolean = false;
@@ -45,12 +44,10 @@ export class UserBooks implements OnInit{
     new Options('UNREAD'),
   ];
 
-  constructor(private bookService:BookService){}
+  constructor(public bookService:BookService){}
 
   ngOnInit():void{
-    this.bookService.getUserBooks().subscribe(data=>{
-      this.userBooks = data;
-    });
+    this.bookService.getUserBooks();
   }
 
   private getValue(name:string) {
@@ -62,9 +59,7 @@ export class UserBooks implements OnInit{
   }
 
   public deleteUserBook(userBook:OwnedBook):void{
-    this.bookService.deleteUserBook(userBook.id).subscribe(()=>{
-      this.userBooks.splice(this.userBooks.indexOf(userBook), 1);
-    });
+    this.bookService.deleteUserBook(userBook);
   }
 
   public openAdditionalInfo(book:Book) : void{

@@ -1,6 +1,6 @@
-<div *ngIf="userBooks" class="row u-paddingbot--150px_">
-    <div *ngFor="let userBook of userBooks" class="col s12 m6 l4 u-position--relative u-height--350px" >
-      <div [id]="userBook.book.id" *ngIf="!userBook.borrowed">
+<div *ngIf="bookService.userBooks" class="row u-paddingbot--150px_">
+    <div [id]="userBook.book.id"  *ngFor="let userBook of bookService.userBooks" class="col s12 m6 l4 u-position--relative u-height--350px" >
+      <div *ngIf="!userBook.borrowed">
       <span class="u-icon--edit" (click)="expandEditPanel($event, userBook)"></span>
       <span class="u-icon--read" (click)="openAdditionalInfo(userBook.book)"></span>
       <div class="card horizontal waves-effect u-library--height">
@@ -37,6 +37,6 @@
 </div>
 <bookinfo #bookinfo></bookinfo>
 <borrowbook #borrowbook></borrowbook>
-<div *ngIf="!userBooks" class="u-if--empty">
+<div *ngIf="!bookService.userBooks" class="u-if--empty">
   No books in your library yet...
 </div>
