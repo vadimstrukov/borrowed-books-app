@@ -78,7 +78,7 @@ export class UserBooks implements OnInit{
         break;
       default:
         this.statusExpanded = true;
-        this.parentId = event.target.parentNode.parentNode.id;
+        this.parentId = event.target.parentNode.id;
         this.selectedOption = new Options(userBook.readStatus);
         this.selectedBook = userBook;
     }
