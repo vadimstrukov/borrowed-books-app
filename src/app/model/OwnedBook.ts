@@ -7,5 +7,6 @@ export class OwnedBook {
   id?: number;
   readStatus:string;
   date_added:Date;
+  borrowed:boolean;
   book:Book;
 }
