@@ -52,6 +52,11 @@ export class BookService{
       });
   }
 
+  public getBorrowedBooks():Observable<Array<BorrowedBook>>{
+    return this.http.get(Constants.BorrowedBooks, {headers: this.auth.setAuthHeaders()})
+      .map(response=>response.json());
+  }
+
   public deleteUserBook(userBook:OwnedBook):Subscription{
     let params = new URLSearchParams();
     params.set("id", userBook.id.toString());
