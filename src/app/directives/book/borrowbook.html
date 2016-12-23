@@ -1,0 +1,29 @@
+<div id="borrowbook" class="modal">
+  <span (click)="closeBorrow()"><i class="material-icons u-close--modal">clear</i></span>
+  <div class="row">
+    <div class="card horizontal waves-effect u-library--height">
+      <div class="card-image u-width--145px">
+        <img [src]="selectedUserBook?.book.volumeInfo.imageLinks?.smallThumbnail">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{selectedUserBook?.book.volumeInfo.title}}</span>
+          <p class="limit u-border--top_ u-height--75px" [innerHTML]="selectedUserBook?.book.volumeInfo.description"></p>
+        </div>
+      </div>
+    </div>
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea #description id="description" class="materialize-textarea"></textarea>
+          <label for="description">Description</label>
+        </div>
+        <input #return_date id="return_date" type="date" class="datepicker">
+        <label for="return_date">Date return</label>
+      </div>
+    </form>
+    <button (click)="borrowBook(description.value, return_date.value)" type="submit" class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
+      Borrow book
+    </button>
+  </div>
+</div>
