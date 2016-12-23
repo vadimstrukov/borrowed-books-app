@@ -11,7 +11,7 @@
         <a *ngIf="auth.user" class='dropdown-button u-hide--onSmall'  data-activates='dropdown1' >{{auth.user.fullname}}</a>
         <ul *ngIf="auth.user" id='dropdown1' class='dropdown-content'>
           <li class="divider"></li>
-          <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
+          <li class="u-hide--onSmall"><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
         </ul>
 
       </ul>
