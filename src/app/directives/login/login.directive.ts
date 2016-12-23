@@ -11,11 +11,24 @@ import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {Router} from "@angular/router";
 import {SubmitForm} from "./form.interface";
+import {Input, trigger, state, style, transition, animate} from '@angular/core';
 
 @Component({
   selector: "login",
   templateUrl: "login.html",
-  styleUrls: ['login-styles.scss']
+  styleUrls: ['login-styles.scss'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({opacity: '1', '-webkit-transform': 'none', transform: 'none'})),
+      transition('void => *', [
+        style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}),
+        animate(200)
+      ]),
+      transition('* => void', [
+        animate(50, style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}))
+      ])
+    ])
+  ]
 })
 export class LoginRegisterModal extends ModalBehaviour implements OnInit{
 
