@@ -4,7 +4,12 @@
 body{
   background-color: rgba(220, 220, 220, 0.23);
 }
-
+.indicator{
+  background-color: white !important;
+}
+.u-padding--0px{
+  padding: 0 !important;
+}
 .loader-preview{
   padding-top: 150px;
   text-align: center;

@@ -1,6 +1,7 @@
 <div *ngIf="userBooks" class="row u-paddingbot--150px_">
-    <div [id]="userBook.book.id" *ngFor="let userBook of userBooks" class="col s12 m6 l4 u-position--relative u-height--350px">
+    <div [id]="userBook.book.id" *ngFor="let userBook of userBooks" class="col s12 m6 l4 u-position--relative u-height--350px" >
       <span class="u-icon--edit" (click)="expandEditPanel($event, userBook)"></span>
+      <span class="u-icon--read" (click)="openAdditionalInfo(userBook.book)"></span>
       <div class="card horizontal waves-effect u-library--height">
         <div class="card-image u-width--145px">
           <img [src]="userBook.book.volumeInfo.imageLinks?.smallThumbnail">
@@ -16,22 +17,14 @@
         <span class="chip u-float--left">Status: {{userBook.readStatus}}</span>
         <span class="chip u-float--right">Added: {{userBook.date_added | date}}</span>
       </div>
-      <div class="card-action u-bookUser--info u-options--container" *ngIf="userBook.book.id === parentId">
-        <form action="#">
+      <div class="card-action u-bookUser--info u-options--container" *ngIf="userBook.book.id === parentId"  [@flyInOut]>
+        <form>
           <p class="u-p--delete waves-effect waves-light">
             <span class="u-icon--delete" (click)="deleteUserBook(userBook)"></span>
           </p>
-          <p>
-            <input name="group1" type="radio" id="test1" />
-            <label for="test1">Done</label>
-          </p>
-          <p>
-            <input name="group1" type="radio" id="test2" checked/>
-            <label for="test2">Unread</label>
-          </p>
-          <p>
-            <input name="group1" type="radio" id="test3" />
-            <label for="test3">Process</label>
+          <p *ngFor="let option of options">
+            <input [id]="option.name" type="radio" name="status" [checked]="option.name == selectedOption.name" (click)="getValue(option.name)" value= {{option.name}}>
+            <label [attr.for]="option.name">{{option.name}}</label>
           </p>
           <p class="u-p-remainder waves-effect waves-light">
             <span class="u-icon--remainder"></span>
@@ -40,6 +33,7 @@
       </div>
     </div>
 </div>
-<div *ngIf="!userBooks">
+<bookinfo #bookinfo></bookinfo>
+<div *ngIf="!userBooks" class="u-if--empty">
   No books in your library yet...
 </div>

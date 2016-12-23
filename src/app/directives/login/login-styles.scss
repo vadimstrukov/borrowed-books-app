@@ -38,13 +38,103 @@
   position: $absolute;
   height: 20px;
   width: 20px;
-  right: 20px;
-  top: 15px;
+  right: 3px;
+  top: 12.5px;
   cursor: $pointer;
-  @include images_sprite(url("../../../assets/small_images_sprite.png"), -2px, -82px);
+  @include images_sprite(url("../../../assets/small_images_sprite.png"), -2px, -28px);
 
+}
+.u-close--modal{
+  z-index: 1001;
+}
+.indicator{
+  display: none;
+}
+.input-field{
+  margin-top: 40px;
+}
+.u-margin--top90px{
+  margin-top: 90px;
+}
+.u-tabs--container{
+  position: absolute;
+  left: 0 $important;
+  right: -1px $important;
+  background-color: #00897b;
+  z-index: 999;
+  box-shadow: 0px 0px 10px gray;
+}
+.u-reg--form{
+  margin-left: -15px $important;
+  input[type="text"]{
+    border-radius: 0px;
+    min-width: 97% !important;
+    text-align: $left;
+    &:invalid{
+      width: auto $important;
+    }
+    &:valid{
+      width: auto $important;
+    }
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus{
+    -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
+  }
+}
+.alert-danger{
+  @include displayType(flex);
+  justify-content: center;
+  text-align: center;
+  background-color: #ef5350;
+  margin-left: 15px $important;
+  color: white;
+  min-height: 50px;
+  margin-bottom: 10px;
+  > span{
+    align-self: center;
+  }
+}
+.tabs{
+  background-color: transparent;
+  overflow: hidden;
+  @extend .u-text--center;
+  > li{
+    float: none $important;
+    cursor: $pointer;
+    > a{
+      background-color: transparent $important;
+      color: $color_white;
+      font-size: 10px;
+      &:hover{
+        background-color: transparent $important;
+      }
+    }
+  }
+}
+.u-human--check{
+  margin-top: 0;
+  margin-bottom: 20px;
+  > label{
+    font-size: 13px;
+  }
+}
+.modal{
+  overflow: hidden;
+  &:hover{
+    overflow-y: auto;
+  }
 }
 
 @media (min-width: 750px) {
   @include btnSpanChip(90px, 14px);
+  .u-close--modal{
+    right: 8px;
+  }
+  .tabs{
+    a{
+      font-size: 14px $important;
+    }
+  }
 }
+

@@ -18,6 +18,7 @@ $relative: relative;
 /*positions*/
 
 /*additional*/
+$none: none;
 $important: !important;
 /*additional*/
 
@@ -45,6 +46,7 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
 
   ::-webkit-scrollbar-track {
     @include border-radius(10px);
+    background-color: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -90,5 +92,25 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
 }
 .u-position--relative{
   position: $relative;
+}
+input[type="text"]{
+  width: 200px;
+  min-width: 200px;
+  @extend .u-text--center;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 30px;
+  &:invalid{
+    width: 200px;
+    min-width: 200px;
+  }
+  &:focus:not([readonly]),
+  &.valid{
+    box-shadow: $none;
+    width: 95%;
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus{
+  -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
 }
 /*************************************************COMPONENTS***********************************************/

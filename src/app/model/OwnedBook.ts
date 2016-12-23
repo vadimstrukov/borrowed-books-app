@@ -8,5 +8,4 @@ export class OwnedBook {
   readStatus:string;
   date_added:Date;
   book:Book;
-  user:User;
 }

@@ -25,8 +25,10 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
     super();
   }
 
+
   ngOnInit(): void {
-    $('.modal').modal({dismissible: false});
+    super.ngOnInit();
+    this.initModalName(Constants.BookInfoModal);
   }
 
   public addBook():void{
@@ -34,7 +36,6 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
       {
         readStatus: "UNREAD",
         book: this.selectedBook,
-        user: this.auth.user,
         date_added: new Date()})
       .subscribe(()=>{
       this.setIsInLibrary(true);
@@ -59,11 +60,11 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
       this.bookService.getBookWithoutCheck(bookId).subscribe(data =>{
         this.selectedBook = data;
       });
-    this.openModal(Constants.BookInfoModal);
+    this.openModal();
   }
 
   public closeInfo():void{
-    this.closeModal(Constants.BookInfoModal);
+    this.closeModal();
     this.selectedBook = null;
   }
 }

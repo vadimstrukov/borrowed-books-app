@@ -20,7 +20,6 @@ $hidden: hidden;
 /*visibility*/
 
 /*additional*/
-$none: none;
 $auto: auto;
 $inherit: inherit;
 /*additional*/
@@ -77,11 +76,11 @@ $menuImageUrl: url(../assets/books.jpg);
 
 
 /* Mobile first queries */
-.jq-right{
+/*.jq-right{
   @extend .u-display--none;
-}
+}*/
 .u-menu--button{
-  @include images_sprite( $small_images_sprite, 7px, 20px);
+  @include images_sprite( $small_images_sprite, 9px, 18px);
   width: 40px;
   height: 46px;
 }
@@ -96,7 +95,8 @@ $menuImageUrl: url(../assets/books.jpg);
 }
 .u-icon--delete,
 .u-icon--remainder,
-.u-icon--edit{
+.u-icon--edit,
+.u-icon--read{
   @include displayType();
 }
 .u-icon--remainder{
@@ -126,15 +126,20 @@ $menuImageUrl: url(../assets/books.jpg);
   margin-left: -10px;
   background-color: #e53935;
 }
-.u-icon--edit{
+.u-icon--edit,
+.u-icon--read{
   position: $absolute;
   height: 26px;
   width: 22px;
   right: 20px;
-  top: 15px;
+  top: 5px;
   @include images_sprite( $small_images_sprite, -30px, -52px );
   z-index: 999;
   cursor: $pointer;
+}
+.u-icon--read{
+  top: 40px;
+  @include images_sprite( $small_images_sprite, -30px, 0px );
 }
 .u-flex--center{
   justify-content: $center $important;
@@ -169,8 +174,8 @@ ul{
   }
   >.u-arrow--delete{
     position: $absolute;
-    top: 19px;
-    right: 1rem;
+    top: 14.5px;
+    right: 1.3rem;
     vertical-align: middle;
     cursor: $pointer;
     @include images_sprite( $small_images_sprite, 0px, -25px );
@@ -186,7 +191,7 @@ ul{
   }
 }
 .right{
-  width: 6rem;
+  width: 5rem;
   height: $inherit;
   overflow: $hidden;
   > .dropdown-button{
@@ -286,28 +291,13 @@ ul{
     }
     label{
       padding-left: 27px;
+      font-size: 10px;
     }
   }
 }
 .card-action{
   span:first-child{
     cursor: $pointer;
-  }
-}
-input[type="text"]{
-  width: 200px;
-  min-width: 200px;
-  @extend .u-text--center;
-  background-color: rgba(255,255,255,0.3);
-  border-radius: 30px;
-  &:invalid{
-    width: 200px;
-    min-width: 200px;
-  }
-  &:focus:not([readonly]),
-  &.valid{
-    box-shadow: $none;
-    width: 95%;
   }
 }
 .u-display--block_{
@@ -340,11 +330,12 @@ input[type="text"]{
 }
 .u-paddingbot--150px_{
   padding: 80px 0 150px 0;
-  display: flex;
-  flex-wrap: wrap;
+  /*display: flex;
+  flex-wrap: wrap;*/
 }
 .nav-wrapper{
   background-color: $color_dark_green;
+  overflow: $hidden;
 }
 .u-position--absolute_{
   position: $absolute;
@@ -422,7 +413,16 @@ button.u-library--indicator{
   @extend .u-text--center;
 }
 .u-height--350px{
-  margin-bottom: 35px;
+  height: 470px;
+}
+.u-if--empty{
+  padding-top: 80%;
+  font-size: 22px;
+  color: gray;
+  @extend .u-text--center;
+}
+.u-library--height{
+  height: 350px;
 }
 
 ::-webkit-input-placeholder {
@@ -437,6 +437,7 @@ button.u-library--indicator{
 :-ms-input-placeholder {
   color: $color_white;
 }
+
 /* Larger than mobile */
 @media (min-width: 400px) {}
 
@@ -495,6 +496,7 @@ button.u-library--indicator{
     width: 30rem;
   }
   .u-arrow--delete{
+    top: 17.5px $important;
     right: 2rem $important;
   }
   .u-fontsize--1rem{
@@ -502,6 +504,22 @@ button.u-library--indicator{
     margin: 1.5rem 0 1.5rem 0;
     font-size: 1rem;
     color: $color_gray;
+  }
+  .u-if--empty{
+    padding-top: 60%;
+    font-size: 42px;
+  }
+  .u-options--container {
+      label{
+        font-size: 14px !important;
+      }
+  }
+  .u-icon--edit{
+    top: 15px;
+  }
+  .u-icon--read{
+    top: 45px;
+    background-position: -31px 0px;
   }
 }
 
@@ -537,13 +555,37 @@ button.u-library--indicator{
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
   @include modal(80%, 90%, 10%);
+  .u-arrow--delete {
+    top: 20px $important;
+  }
+  .u-if--empty{
+    padding-top: 40%;
+    font-size: 62px;
+  }
+  .u-icon--edit,
+  .u-icon--read{
+    top: 175px;
+  }
+  .u-icon--read{
+    right: 50px;
+  }
 }
 
 @media (min-width: 1400px) {
+  .u-if--empty{
+    padding-top: 20%;
+  }
   .u-text--justify{
     width: 100% - 21% $important;
   }
   .l4{
     width: 25% $important;
+  }
+}
+
+@media (max-height: 730px) and (min-width: 1200px) {
+  .u-if--empty{
+    padding-top: 20%;
+    font-size: 50px;
   }
 }
