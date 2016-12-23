@@ -44,6 +44,11 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/library']);
   }
 
+  public openBorrowed():void{
+    $('.button-collapse').sideNav('hide');
+    this.router.navigate(['/borrowed']);
+  }
+
   private fadeInArrow(duration:string):void{
     if ($(window).width() < 500){
       $('.jq-right').fadeIn(duration);

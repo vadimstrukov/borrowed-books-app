@@ -16,6 +16,7 @@ import {UserService} from "./service/UserService";
 import {BookInfoModal} from "./directives/book/bookinfo.directive";
 import {AppRoutingModule} from "./app-routing.module";
 import {BorrowBookModal} from "./directives/book/borrowbook.directive";
+import {BorrowedBooks} from "./directives/book/borrowedbooks.directive";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {BorrowBookModal} from "./directives/book/borrowbook.directive";
     LoginRegisterModal,
     BookInfoModal,
     BorrowBookModal,
+    BorrowedBooks,
     UserBooks,
     SearchBooks
   ],
