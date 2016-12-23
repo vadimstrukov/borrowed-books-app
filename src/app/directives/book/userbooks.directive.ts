@@ -10,6 +10,7 @@ import {BookInfoModal} from "./bookinfo.directive";
 import {FormGroup, FormBuilder} from "@angular/forms";
 import {Options} from "./radio.options";
 import {Input, trigger, state, style, transition, animate} from '@angular/core';
+import {BorrowBookModal} from "./borrowbook.directive";
 
 @Component({
   templateUrl: 'userbooks.html',
@@ -35,6 +36,8 @@ export class UserBooks implements OnInit{
   private statusExpanded:boolean = false;
   @ViewChild('bookinfo')
   public bookInfoModal:BookInfoModal;
+  @ViewChild('borrowbook')
+  public borrowBookModal: BorrowBookModal;
   selectedOption:Options;
   options = [
     new Options('READING'),
@@ -68,6 +71,10 @@ export class UserBooks implements OnInit{
     this.bookInfoModal.openInfo(book.id);
   }
 
+  public borrowBook(userBook:OwnedBook): void{
+    this.borrowBookModal.openBorrow(userBook);
+  }
+
   public expandEditPanel(event:any, userBook:OwnedBook){
     switch (this.parentId){
       case userBook.book.id:
@@ -76,7 +83,7 @@ export class UserBooks implements OnInit{
         break;
       default:
         this.statusExpanded = true;
-        this.parentId = event.target.parentNode.id;
+        this.parentId = event.target.parentNode.parentNode.id;
         this.selectedOption = new Options(userBook.readStatus);
         this.selectedBook = userBook;
     }
