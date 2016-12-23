@@ -5,7 +5,7 @@ import 'rxjs/Rx';
 import {Book} from "../model/Book";
 import {Authentication} from "../utils/Authentication";
 import {OwnedBook} from "../model/OwnedBook";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {BookItems} from "../model/BookItems";
 import {BorrowedBook} from "../model/BorrowedBook";
 /**
@@ -15,7 +15,7 @@ import {BorrowedBook} from "../model/BorrowedBook";
 @Injectable()
 export class BookService{
   public startIndex: any;
-  public ownedBooks:Array<OwnedBook>;
+  public userBooks:Array<OwnedBook>;
   constructor(private http:Http, private auth:Authentication){}
 
   public getBooksByTitle(title:string):Observable<BookItems>{
@@ -44,15 +44,25 @@ export class BookService{
     return this.http.get(Constants.GoogleAPI + '/' + id).map(response=>response.json());
   }
 
-  public getUserBooks():Observable<Array<OwnedBook>>{
+  public getUserBooks():Subscription{
     return this.http.get(Constants.OwnedBooks, {headers: this.auth.setAuthHeaders()})
-      .map(response => response.json());
+      .map(response => response.json())
+      .subscribe(data=>{
+        this.userBooks = data;
+      });
   }
 
-  public deleteUserBook(id:number):Observable<Response>{
+  public deleteUserBook(userBook:OwnedBook):Subscription{
     let params = new URLSearchParams();
-    params.set("id", id.toString());
-    return this.http.delete(Constants.OwnedBooks, {search: params, headers: this.auth.setAuthHeaders()});
+    params.set("id", userBook.id.toString());
+    return this.http.delete(Constants.OwnedBooks, {search: params, headers: this.auth.setAuthHeaders()})
+      .subscribe(()=>{
+      this.deleteUserBookFromMem(userBook);
+    });
+  }
+
+  public deleteUserBookFromMem(userBook:OwnedBook){
+    this.userBooks.splice(this.userBooks.indexOf(userBook), 1);
   }
 
   public saveBook(ownedBook:OwnedBook):Observable<OwnedBook>{
