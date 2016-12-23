@@ -3,6 +3,7 @@
     <div>Description: {{userBook.borrowDescription}}</div>
     <div>Return date: {{userBook.returnDate | date }}</div>
     <div>Borrow date: {{userBook.borrowDate | date}}</div>
+    <div>Reading status: {{userBook.ownedBook.readStatus}}</div>
     <div class="card horizontal waves-effect u-library--height">
       <div class="card-image u-width--145px">
         <img [src]="userBook.ownedBook.book.volumeInfo.imageLinks?.smallThumbnail">
