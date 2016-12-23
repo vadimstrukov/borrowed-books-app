@@ -33,8 +33,8 @@
       </div>
       </div>
 </div>
-<bookinfo #bookinfo></bookinfo>
-<borrowbook #borrowbook></borrowbook>
-<div *ngIf="!bookService.userBooks" class="u-if--empty">
+<div *ngIf="bookService.userBooks?.length == 0" class="u-if--empty">
   No books in your library yet...
 </div>
+<bookinfo #bookinfo></bookinfo>
+<borrowbook #borrowbook></borrowbook>
