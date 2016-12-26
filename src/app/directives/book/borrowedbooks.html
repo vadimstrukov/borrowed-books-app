@@ -1,10 +1,11 @@
 <div *ngIf="borrowedBooks" class="row u-paddingbot--150px_">
-  <div  *ngFor="let userBook of borrowedBooks" class="col s12 m6 l4 u-position--relative u-height--350px" >
-    <div>Description: {{userBook.borrowDescription}}</div>
-    <div>Return date: {{userBook.returnDate | date }}</div>
-    <div>Borrow date: {{userBook.borrowDate | date}}</div>
-    <div>Reading status: {{userBook.ownedBook.readStatus}}</div>
-    <div class="card horizontal waves-effect u-library--height">
+  <div  *ngFor="let userBook of borrowedBooks" class="col s12 m6 l4 u-position--relative u-height--350px u-borrowed--height" >
+    <div class="u-bookmark--action">
+      <img src="../../../assets/borrowed.png" alt="">
+    </div>
+    <span class="u-icon--edit" (click)="expandEditPanel($event, userBook)"></span>
+    <span class="u-icon--read" (click)="openAdditionalInfo(userBook.book)"></span>
+    <div class="card horizontal u-library--height">
       <div class="card-image u-width--145px">
         <img [src]="userBook.ownedBook.book.volumeInfo.imageLinks?.smallThumbnail">
       </div>
@@ -14,6 +15,14 @@
           <p class="limit u-border--top_ u-height--75px" [innerHTML]="userBook.ownedBook.book.volumeInfo.description"></p>
         </div>
       </div>
+    </div>
+    <div class="u-borrow-information">
+      <div class="u-left--line"></div>
+      <div class="u-right--line"></div>
+      <div>Description: {{userBook.borrowDescription}}</div><hr/>
+      <div>Return date: {{userBook.returnDate | date }}</div><hr/>
+      <div>Borrow date: {{userBook.borrowDate | date}}</div><hr/>
+      <div>Reading status: {{userBook.ownedBook.readStatus}}</div><hr/>
     </div>
   </div>
 </div>
