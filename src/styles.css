@@ -10,20 +10,22 @@ body{
 .u-padding--0px{
   padding: 0 !important;
 }
+.picker__holder{
+  margin-top: 49.9%;
+  bottom: -150px;
+}
+/*******************************************************LOADER****************************************************************/
 .loader-preview{
   padding-top: 150px;
   text-align: center;
 }
-
 .loader-preview > h4{
   color: gray;
   padding-top: 20px;
 }
-
 .animation, .animation:before, .animation:after{
   border: 3px solid transparent;
 }
-
 .animation{
   position: relative;
   margin: 0 auto;
@@ -35,7 +37,6 @@ body{
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
-
 .animation:after{
   content: '';
   position: absolute;
@@ -49,7 +50,6 @@ body{
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
-
 .animation:before{
   content: '';
   position: absolute;
@@ -63,7 +63,6 @@ body{
   animation-duration: 3s;
   animation-iteration-count: infinite;
 }
-
 @-webkit-keyframes logo {
   from {
     -webkit-transform: rotate(0deg);
@@ -85,5 +84,12 @@ body{
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+/*******************************************************LOADER****************************************************************/
+@media (min-width: 1200px) {
+  .picker__holder{
+    margin-top: 0;
+    bottom: 0;
   }
 }
