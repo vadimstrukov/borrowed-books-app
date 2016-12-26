@@ -9,7 +9,7 @@ import {Book} from "../../model/Book";
 import {BookInfoModal} from "./bookinfo.directive";
 import {FormGroup, FormBuilder} from "@angular/forms";
 import {Options} from "./radio.options";
-import {Input, trigger, state, style, transition, animate} from '@angular/core';
+import {Input, trigger, state, style, transition, animate, keyframes} from '@angular/core';
 import {BorrowBookModal} from "./borrowbook.directive";
 
 @Component({
@@ -17,13 +17,24 @@ import {BorrowBookModal} from "./borrowbook.directive";
   styleUrls: ['../../app.component.scss'],
   animations: [
     trigger('flyInOut', [
-      state('in', style({opacity: '1', '-webkit-transform': 'none', transform: 'none'})),
-      transition('void => *', [
-        style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}),
-        animate(100)
-      ]),
+      state('in', style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 90deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)'})),
+        transition('void => *', [
+          animate(300, keyframes([
+            style({opacity: 1, '-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 90deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'}),
+            style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -20deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'}),
+            style({opacity: 1, '-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 10deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)'}),
+            style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -5deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
+            style({'-webkit-transform': 'perspective(400px)', transform: 'perspective(400px)'})
+          ]))
+        ]),
       transition('* => void', [
-        animate(100, style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}))
+        animate(100, keyframes([
+        style({'-webkit-transform': 'perspective(400px)', transform: 'perspective(400px)'}),
+        style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -5deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
+        style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 10deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)'}),
+        style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -20deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'}),
+        style({opacity: 1, '-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 90deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'})
+        ]))
       ])
     ])
   ]
