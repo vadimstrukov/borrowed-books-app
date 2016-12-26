@@ -3,11 +3,24 @@ import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {Router} from "@angular/router";
+import {Input, trigger, state, style, transition, animate} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({opacity: '1', '-webkit-transform': 'none', transform: 'none'})),
+      transition('void => *', [
+        style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}),
+        animate(200)
+      ]),
+      transition('* => void', [
+        animate(50, style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}))
+      ])
+    ])
+  ]
 })
 
 export class AppComponent implements OnInit {

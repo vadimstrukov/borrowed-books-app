@@ -94,11 +94,11 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
   position: $relative;
 }
 input[type="text"]{
+  @extend .u-text--center;
+  @include border-radius(30px);
   width: 200px;
   min-width: 200px;
-  @extend .u-text--center;
   background-color: rgba(255,255,255,0.3);
-  border-radius: 30px;
   &:invalid{
     width: 200px;
     min-width: 200px;
