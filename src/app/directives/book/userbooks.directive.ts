@@ -81,7 +81,7 @@ export class UserBooks implements OnInit{
   }
 
   public borrowBook(userBook:OwnedBook): void{
-    this.borrowBookModal.openBorrow(userBook, "SAVE");
+    this.borrowBookModal.openBorrow(userBook);
   }
 
   public expandEditPanel(event:any, userBook:OwnedBook){

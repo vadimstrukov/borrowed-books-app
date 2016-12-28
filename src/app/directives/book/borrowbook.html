@@ -1,34 +1,29 @@
 <div id="borrowbook" class="modal" xmlns="http://www.w3.org/1999/html">
   <span (click)="closeBorrow()"><i class="material-icons u-close--modal">clear</i></span>
   <div class="row u-borrowed--book">
-    <!--<div class="card horizontal waves-effect u-library&#45;&#45;height">-->
-      <!--<div class="card-image u-width&#45;&#45;145px">-->
-        <!--<img [src]="selectedBook?.book.volumeInfo.imageLinks?.smallThumbnail">-->
-      <!--</div>-->
-      <!--<div class="card-stacked">-->
-        <!--<div class="card-content">-->
-          <!--<span class="card-title activator grey-text text-darken-4 u-lineheight&#45;&#45;21px u-display&#45;&#45;block_">{{selectedBook?.book.volumeInfo.title}}</span>-->
-          <!--<p class="limit u-border&#45;&#45;top_ u-height&#45;&#45;75px" [innerHTML]="selectedBook?.book.volumeInfo.description"></p>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div class="card horizontal waves-effect u-library--height">
+      <div class="card-image u-width--145px">
+        <img [src]="bookToBorrow?.volumeInfo.imageLinks?.smallThumbnail">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{bookToBorrow?.volumeInfo.title}}</span>
+          <p class="limit u-border--top_ u-height--75px" [innerHTML]="bookToBorrow?.volumeInfo.description"></p>
+        </div>
+      </div>
+    </div>
     <form class="col s12">
       <div class="row">
         <label for="return_date">Date return</label>
-        <input #return_date id="return_date" type="date" class="datepicker"> {{selectedBook?.returnDate | date}}
+        <input #return_date id="return_date" type="date" class="datepicker">
         <div class="input-field">
           <textarea #description id="description" class="materialize-textarea">{{selectedBook?.borrowDescription}}</textarea>
           <label for="description">Description</label>
         </div>
-
       </div>
     </form>
-    <button *ngIf="actionType=='SAVE'" (click)="borrowBook(description.value, return_date.value)" type="submit" class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
+    <button (click)="borrowBook(description.value, return_date.value)" type="submit" class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
       Borrow book
-    </button>
-
-    <button *ngIf="actionType=='UPDATE'" (click)="updateBorrowed(description.value, return_date.value)" type="submit" class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
-      Update borrowed book
     </button>
   </div>
 </div>

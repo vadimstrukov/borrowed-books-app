@@ -25,7 +25,7 @@ export class BorrowedBooks{
   }
 
   public updateBorrowed(borrowedBook:BorrowedBook){
-    this.borrowBookModal.openBorrow(borrowedBook, "UPDATE");
+    this.borrowBookModal.openBorrow(borrowedBook);
   }
 
 }
