@@ -17,7 +17,7 @@ export class BorrowedBooks{
   public borrowedBooks:Array<BorrowedBook>;
 
   constructor(private bookService:BookService){
-    this.bookService.getList(Constants.BorrowedBooks).subscribe(
+    this.bookService.getItems(Constants.BorrowedBooks).subscribe(
       data=>this.borrowedBooks=data,
       e=>Toast.getToast(e),
       ()=>Toast.getToast("Books successfully loaded!"));
