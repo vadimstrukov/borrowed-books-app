@@ -9,6 +9,7 @@ import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {ActivatedRoute} from "@angular/router";
 import {OwnedBook} from "../../model/OwnedBook";
+import {Toast} from "../../utils/Toast";
 
 @Component({
   selector: 'bookinfo',
@@ -41,6 +42,7 @@ export class BookInfoModal extends ModalBehaviour implements OnInit{
       .subscribe(()=>{
       this.setIsInLibrary(true);
     });
+    Toast.getToast("Book added to your library successfully!");
   }
 
   private setIsInLibrary(isInLibrary:boolean){

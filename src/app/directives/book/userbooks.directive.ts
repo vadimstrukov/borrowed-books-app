@@ -11,6 +11,7 @@ import {FormGroup, FormBuilder} from "@angular/forms";
 import {Options} from "./radio.options";
 import {Input, trigger, state, style, transition, animate, keyframes} from '@angular/core';
 import {BorrowBookModal} from "./borrowbook.directive";
+import {Toast} from "../../utils/Toast";
 
 @Component({
   templateUrl: 'userbooks.html',
@@ -71,6 +72,8 @@ export class UserBooks implements OnInit{
 
   public deleteUserBook(userBook:OwnedBook):void{
     this.bookService.deleteUserBook(userBook);
+    Toast.getToast("Book deleted successfully!");
+
   }
 
   public openAdditionalInfo(book:Book) : void{

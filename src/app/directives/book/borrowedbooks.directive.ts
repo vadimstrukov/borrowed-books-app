@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {BorrowedBook} from "../../model/BorrowedBook";
 import {BookService} from "../../service/BookService";
+import {Toast} from "../../utils/Toast";
 /**
  * Created by strukov on 23.12.16.
  */
@@ -17,6 +18,7 @@ export class BorrowedBooks{
   public returnBook(borrowedBook:BorrowedBook):void{
     borrowedBook.ownedBook.borrowed = false;
     this.bookService.returnBook(borrowedBook);
+    Toast.getToast("Book successfully returned to your library!");
   }
 
 }

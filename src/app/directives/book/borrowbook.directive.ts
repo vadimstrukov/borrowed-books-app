@@ -7,6 +7,7 @@ import {Constants} from "../../utils/Constants";
 import {BookService} from "../../service/BookService";
 import {OwnedBook} from "../../model/OwnedBook";
 import {BorrowedBook} from "../../model/BorrowedBook";
+import {Toast} from "../../utils/Toast";
 @Component({
   selector: 'borrowbook',
   templateUrl: './borrowbook.html',
@@ -47,6 +48,8 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
       console.log("Book borrowed successfully!");
       this.closeBorrow();
     });
+    Toast.getToast("Book borrowed successfully!");
+
   }
 
   public closeBorrow():void{
