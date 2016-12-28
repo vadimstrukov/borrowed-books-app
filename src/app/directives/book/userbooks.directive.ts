@@ -2,7 +2,7 @@
  * Created by strukov on 30.11.16.
  */
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {BookService} from "../../service/BookService";
+import {BookService, deleteBookFromMem} from "../../service/BookService";
 import {OwnedBook} from "../../model/OwnedBook";
 import {element} from "protractor";
 import {Book} from "../../model/Book";
@@ -59,7 +59,7 @@ export class UserBooks {
   ];
 
   constructor(public bookService:BookService){
-    this.bookService.getList(Constants.OwnedBooks).subscribe(
+    this.bookService.getItems(Constants.OwnedBooks).subscribe(
         data=>this.userBooks=data,
         e=>Toast.getToast(e),
         ()=>Toast.getToast("Books successfully loaded!"));
@@ -68,7 +68,7 @@ export class UserBooks {
   public updateBookStatus(name:string) :void{
     this.selectedOption = this.options.filter((item)=> item.name == name)[0];
     this.selectedBook.readStatus = this.selectedOption.name;
-    this.bookService.update(this.selectedBook, Constants.OwnedBooks).subscribe(
+    this.bookService.updateItem(this.selectedBook, Constants.OwnedBooks).subscribe(
       () => console.log("Updating!"),
        e => Toast.getToast(e),
       () => Toast.getToast("Book status successfully updated!")
@@ -77,9 +77,11 @@ export class UserBooks {
   }
 
   public deleteUserBook(userBook:OwnedBook):void{
-    this.bookService.deleteUserBook(userBook);
-    Toast.getToast("Book deleted successfully!");
-
+    this.bookService.deleteItem(userBook.id.toString(), Constants.OwnedBooks)
+      .subscribe(
+        ()=> deleteBookFromMem(userBook, this.userBooks),
+        e=>Toast.getToast(e),
+        ()=>Toast.getToast("Book deleted successfully!"));
   }
 
   public openAdditionalInfo(book:Book) : void{
