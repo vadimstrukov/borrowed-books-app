@@ -11,9 +11,28 @@ import {User} from "../../model/User";
 import {Authentication} from "../../utils/Authentication";
 import {BookInfoModal} from "./bookinfo.directive";
 import {Constants} from "../../utils/Constants";
+import {trigger, state, style, transition, animate, keyframes} from '@angular/core';
+
 @Component({
   templateUrl: 'searchbook.html',
-  styleUrls: ['../../app.component.scss']
+  styleUrls: ['../../app.component.scss'],
+  animations: [
+    trigger('zoomIn', [
+      state('in', style({'-webkit-transform': 'scale3d(1, 1, 1)',  transform: 'scale3d(1, 1, 1)'})),
+      transition('void => *', [
+        animate(300, keyframes([
+          style({opacity: 0, '-webkit-transform': 'scale3d(.3, .3, .3)',  transform: 'scale3d(.3, .3, .3)'}),
+          style({opacity: 1, '-webkit-transform': 'scale3d(1, 1, 1)',  transform: 'scale3d(1, 1, 1)'})
+        ]))
+      ]),
+      transition('* => void', [
+        animate(100, keyframes([
+          style({opacity: 1, '-webkit-transform': 'scale3d(1, 1, 1)',  transform: 'scale3d(1, 1, 1)'}),
+          style({opacity: 0, '-webkit-transform': 'scale3d(.3, .3, .3)',  transform: 'scale3d(.3, .3, .3)'})
+        ]))
+      ])
+    ])
+  ]
 })
 export class SearchBooks implements OnInit, OnDestroy{
 

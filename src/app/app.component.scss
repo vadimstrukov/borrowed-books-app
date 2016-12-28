@@ -25,7 +25,7 @@ $inherit: inherit;
 /*additional*/
 
 /*shadow*/
-$materialSgadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) $important;
+$materialShadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) $important;
 /*shadow*/
 
 /*URLS*/
@@ -33,9 +33,6 @@ $menuImageUrl: url(../assets/books.jpg);
 /*URLS*/
 /*************************************************VARIABLES**********************************************/
 
-/*<-----------------------------------------------BREAK-------------------------------------------------*/
-
-/*************************************************MIXINS*************************************************/
 @mixin modal( $minHeight: 95%, $minWidth: 95%, $top: 2.5% ){
   .modal{
     min-height: $minHeight;
@@ -55,30 +52,69 @@ $menuImageUrl: url(../assets/books.jpg);
     @include displayType($dType_2);
   }
 }
-/*************************************************MIXINS*************************************************/
+@mixin booksLines( $lineHeight, $marginTop, $color){
+  .u-left--line,
+  .u-right--line{
+    @include border-radius(5px);
+    height: $lineHeight;
+    width: 5px;
+    top: $marginTop;
+    position: $absolute;
+    background-color: $color;
+    z-index: 900;
+    box-shadow: 0 0 3px $color_gray;
+  }
+  .u-left--line{
+    //position: $absolute;
+    left: 5px;
+  }
+  .u-right--line{
+    //position: $absolute;
+    right: 5px;
+  }
+}
 
-/*<-----------------------------------------------BREAK-------------------------------------------------*/
-
-/*************************************************INCLUDES***********************************************/
 @include elementsHideManipulations();
 @include btnSpanChip();
 @include modal();
 @include scrollBarStyles();
-/*************************************************INCLUDES***********************************************/
-
-/*<-----------------------------------------------BREAK-------------------------------------------------*/
-
-/*************************************************COMPONENTS***********************************************/
-
-/*************************************************COMPONENTS***********************************************/
-
-/*<-----------------------------------------------BREAK-------------------------------------------------*/
-
 
 /* Mobile first queries */
-/*.jq-right{
-  @extend .u-display--none;
-}*/
+
+.u-search--div,
+.u-search--div > .u-search--icon,
+.u-information--about,
+.u-bookUser--info,
+.u-borrow-information{
+  @extend .u-position--relative;
+}
+
+.side-nav ul,
+.u-thumbnail--box + h4,
+.loader-preview,
+.u-information--about,
+.nav-wrapper,
+.u-additional--information,
+.u-information--wrapper,
+.u-book--title,
+.u-if--empty,
+.u-borrowed--book,
+.u-borrow-information{
+  @extend .u-text--center;
+}
+
+.u-icon--delete,
+.u-icon--remainder,
+.u-icon--edit,
+.u-icon--read,
+.u-display--block_,
+.u-makeit--center > div > span.chip,
+.card.horizontal,
+.u-information--wrapper,
+.u-borrowed--book label{
+  @include displayType();
+}
+
 .u-menu--button{
   @include images_sprite( $small_images_sprite, 9px, 18px);
   width: 40px;
@@ -93,12 +129,6 @@ $menuImageUrl: url(../assets/books.jpg);
   height: 26px;
   width: 22px;
 }
-.u-icon--delete,
-.u-icon--remainder,
-.u-icon--edit,
-.u-icon--read{
-  @include displayType();
-}
 .u-icon--remainder{
   @include images_sprite( $big_images_sprite, -1.7px, -52px );
   background-size: 27px;
@@ -107,15 +137,31 @@ $menuImageUrl: url(../assets/books.jpg);
   @include images_sprite( $big_images_sprite, -3.7px, -32px );
   background-size: 30px;
 }
+.u-icon--edit,
+.u-icon--read{
+  position: $absolute;
+  height: 26px;
+  width: 22px;
+  right: 20px;
+  top: 15px;
+  @include images_sprite( $small_images_sprite, -30px, -52px );
+  z-index: 997;
+  cursor: $pointer;
+}
+.u-icon--read{
+  top: 45px;
+  @include images_sprite( $small_images_sprite, -32px, 0px );
+}
+
 .u-p-remainder,
 .u-p--delete{
   height: 51px;
   width: 50px;
-  margin-top: 0px;
-  justify-content: center;
+  margin-top: 1px;
+  justify-content: $center;
   display: flex $important;
   > span{
-    align-self: center;
+    align-self: $center;
   }
 }
 .u-p-remainder{
@@ -126,45 +172,16 @@ $menuImageUrl: url(../assets/books.jpg);
   margin-left: -10px;
   background-color: #e53935;
 }
-.u-icon--edit,
-.u-icon--read{
-  position: $absolute;
-  height: 26px;
-  width: 22px;
-  right: 20px;
-  top: 5px;
-  @include images_sprite( $small_images_sprite, -30px, -52px );
-  z-index: 999;
-  cursor: $pointer;
-}
-.u-icon--read{
-  top: 40px;
-  @include images_sprite( $small_images_sprite, -30px, 0px );
-}
 .u-flex--center{
   justify-content: $center $important;
 }
-ul{
-  > ul {
-    min-width: 100% $important;
-    box-shadow: $materialSgadow;
-  }
-  &:hover{
-    ul{
-      opacity: 1;
-      @include displayType();
-    }
-  }
-}
 .u-search--div{
-  position: $relative;
   @include displayType(inline-block);
   height: $inherit;
   @extend .u-float--left;
   text-align: $left;
   margin-left: 1%;
   > .u-search--icon{
-    position: $relative;
     left: 0.5rem;
     vertical-align: middle;
     @include displayType(inline-block);
@@ -188,6 +205,7 @@ ul{
   margin: 0 $auto;
   > img{
     height: 100%;
+    margin-left: 5%;
   }
 }
 .right{
@@ -200,9 +218,6 @@ ul{
 }
 .side-nav{
   text-align: $left;
-  ul{
-    @extend .u-text--center;
-  }
 }
 .u-go--top{
   position: $fixed;
@@ -219,14 +234,13 @@ ul{
 }
 .loader-preview{
   padding-top: 300px;
-  @extend .u-text--center;
   > h4{
     color: $color_gray;
     padding-top: 20px;
   }
 }
 .u-information--about{
-  @extend .u-text--center;
+  padding-bottom: 2rem;
   hr{
     @include displayType(none);
   }
@@ -238,7 +252,6 @@ ul{
   > div{
     margin-top: 1.5rem;
     > span.chip {
-      @include displayType();
       height: $auto $important;
       @extend .u-float--left;
       width: 100%;
@@ -250,7 +263,7 @@ ul{
     position: $absolute;
     top: 4.4rem;
     border: 2px solid $color_gray;
-    border-radius: 20px;
+    @include border-radius(20px);
   }
 }
 .u-thumbnail--box{
@@ -263,9 +276,6 @@ ul{
     max-height: 100%;
     width: 100%;
   }
-  + h4{
-    @extend .u-text--center;
-  }
 }
 .card.horizontal{
   .u-bookUser--info{
@@ -275,7 +285,7 @@ ul{
   }
 }
 .u-bookUser--info{
-  box-shadow: $materialSgadow;
+  box-shadow: $materialShadow;
   margin-top: -15px;
   height: 50px;
   background-color: $color_white;
@@ -301,7 +311,6 @@ ul{
   }
 }
 .u-display--block_{
-  @include displayType();
   margin-bottom: 10px;
 }
 .limit {
@@ -330,12 +339,9 @@ ul{
 }
 .u-paddingbot--150px_{
   padding: 80px 0 150px 0;
-  /*display: flex;
-  flex-wrap: wrap;*/
 }
 .nav-wrapper{
   background-color: $color_dark_green;
-  overflow: $hidden;
 }
 .u-position--absolute_{
   position: $absolute;
@@ -353,34 +359,16 @@ ul{
 .u-height--75px{
   height: 75px;
 }
-.nav-wrapper{
-  @extend .u-text--center;
-}
 .u-image--box{
   height: 200px;
   background: $color_almost_gray $menuImageUrl;
   background-size: cover;
 }
-.card.horizontal{
-  @include displayType();
-}
 .clicked_{
   min-width: 100% $important;
 }
-.u-information--about{
-  @extend .u-text--center;
-  position: $relative;
-  padding-bottom: 2rem;
-}
-.u-additional--information{
-  @extend .u-text--center;
-}
 .u-btn--add{
   @include border-radius(30px);
-}
-.u-information--wrapper{
-  @extend .u-text--center;
-  @include displayType();
 }
 .col{
   float: $none;
@@ -403,26 +391,19 @@ button.u-library--indicator{
 .u-bookUser--info{
   padding: 10px $important;
   border-top: $none $important;
-  position: $relative;
   bottom: -0.5rem;
 }
 .u-height--410px{
   height: 410px;
 }
-.u-book--title{
-  @extend .u-text--center;
-}
 .u-height--350px{
   height: 470px;
+  overflow: $hidden;
 }
 .u-if--empty{
-  padding-top: 80%;
+  padding-top: 0;
   font-size: 22px;
-  color: gray;
-  @extend .u-text--center;
-}
-.u-library--height{
-  height: 350px;
+  color: $color_gray;
 }
 
 ::-webkit-input-placeholder {
@@ -437,14 +418,97 @@ button.u-library--indicator{
 :-ms-input-placeholder {
   color: $color_white;
 }
+/***************************************************USER-BOOK************************************************************/
+.u-bookmark--action{
+  position: $absolute;
+  height: 158px;
+  width: 50px;
+  z-index: 899;
+  right: 22px;
+  top: 4px;
+  > img{
+    height: 71%;
+  }
+}
+.u-bookUser--info{
+  @include booksLines(30px, -18px, #e4e4e4);
+}
+.u-library--height{
+  height: 350px;
+}
+/***************************************************USER-BOOK************************************************************/
+
+/***************************************************BORROWED-BOOK************************************************************/
+.u-borrowed--height{
+  min-height: 470px;
+  height: $auto $important;
+  .u-icon--read{
+    top: 55px;
+    background-position: -32px -30px;
+  }
+}
+.u-borrowed--book{
+  .u-library--height{
+    box-shadow: none;
+    background-color: transparent;
+    margin: 45px 5px 5px 5px;
+  }
+  .card-stacked{
+    @extend .u-text--justify;
+  }
+  label{
+    width: 100%;
+    font-size: 14px;
+  }
+  label,
+  .row{
+    @extend .u-text--center;
+  }
+  input[type="text"]{
+    width: 200px;
+    min-width: 0;
+    background-color: transparent;
+    @include border-radius(0);
+  }
+}
+.u-borrow-information{
+  padding: 5px;
+  color: #737373;
+  border: 3px solid $color_yellow;
+  background-color: $color_white;
+  box-shadow: $materialShadow;
+  hr{
+    width: 10%;
+    border: 2px solid rgba(128, 128, 128, 0.36);
+    @include border-radius(5px);
+  }
+  @include booksLines(50px, -35px, $color_yellow);
+}
+#borrowbook{
+  top: 1% $important;
+  min-height: 98%;
+}
+/***************************************************BORROWED-BOOK************************************************************/
 
 /* Larger than mobile */
 @media (min-width: 400px) {}
+
+@media (max-width: 540px) {
+  .modal .modal-content{
+    padding: 5px;
+  }
+}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
   .col{
     float: $left;
+  }
+}
+
+@media (max-width: 740px) {
+  .nav-wrapper{
+    overflow: $hidden;
   }
 }
 
@@ -469,19 +533,19 @@ button.u-library--indicator{
       @include displayType(flex);
       width: 20%;
       flex-direction: column;
-      align-items: center;
+      align-items: $center;
       > span.chip, div {
         width: 100%;
       }
     }
     > hr{
       @include displayType(flex);
-      align-self: center;
+      @include border-radius(20px);
+      align-self: $center;
       position: $absolute;
       left: 0;
       right: 0;
       border: 2px solid $color_gray;
-      border-radius: 20px;
     }
   }
   .u-chip--wrapper{
@@ -506,7 +570,7 @@ button.u-library--indicator{
     color: $color_gray;
   }
   .u-if--empty{
-    padding-top: 60%;
+    padding-top: 20%;
     font-size: 42px;
   }
   .u-options--container {
@@ -519,7 +583,24 @@ button.u-library--indicator{
   }
   .u-icon--read{
     top: 45px;
-    background-position: -31px 0px;
+    background-position: -32px 2px;
+  }
+  ul{
+    > ul {
+      min-width: 100% $important;
+      box-shadow: $materialShadow;
+    }
+    &:hover{
+      ul{
+        opacity: 1;
+        @include displayType();
+      }
+    }
+  }
+  .u-width--145px{
+    > img{
+      margin-left: 0;
+    }
   }
 }
 
@@ -529,7 +610,7 @@ button.u-library--indicator{
     @include displayType();
   }
   .u-height--350px{
-    margin-bottom: 0px;
+    margin-bottom: 0;
     height: 350px;
   }
   .u-library--height{
@@ -565,9 +646,27 @@ button.u-library--indicator{
   .u-icon--edit,
   .u-icon--read{
     top: 175px;
+    right: 25px;
   }
   .u-icon--read{
     right: 50px;
+  }
+  .u-borrowed--height{
+    .u-icon--read{
+      top: 178px;
+    }
+  }
+  .materialize-textarea{
+    width: 600px;
+  }
+  .u-bookmark--action{
+    transform: rotate(90deg);
+    top: 95px;
+    right: 61px;
+  }
+  .u-icon--read{
+    background-position: -32px -2px;
+    right: 55px;
   }
 }
 

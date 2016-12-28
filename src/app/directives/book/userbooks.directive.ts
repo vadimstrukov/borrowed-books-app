@@ -9,32 +9,46 @@ import {Book} from "../../model/Book";
 import {BookInfoModal} from "./bookinfo.directive";
 import {FormGroup, FormBuilder} from "@angular/forms";
 import {Options} from "./radio.options";
-import {Input, trigger, state, style, transition, animate} from '@angular/core';
+import {Input, trigger, state, style, transition, animate, keyframes} from '@angular/core';
+import {BorrowBookModal} from "./borrowbook.directive";
+import {Toast} from "../../utils/Toast";
 
 @Component({
   templateUrl: 'userbooks.html',
   styleUrls: ['../../app.component.scss'],
   animations: [
     trigger('flyInOut', [
-      state('in', style({opacity: '1', '-webkit-transform': 'none', transform: 'none'})),
-      transition('void => *', [
-        style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}),
-        animate(100)
-      ]),
+      state('in', style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 90deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)'})),
+        transition('void => *', [
+          animate(300, keyframes([
+            style({opacity: 1, '-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 90deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'}),
+            style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -20deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'}),
+            style({opacity: 1, '-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 10deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)'}),
+            style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -5deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
+            style({'-webkit-transform': 'perspective(400px)', transform: 'perspective(400px)'})
+          ]))
+        ]),
       transition('* => void', [
-        animate(100, style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}))
+        animate(100, keyframes([
+        style({'-webkit-transform': 'perspective(400px)', transform: 'perspective(400px)'}),
+        style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -5deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
+        style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 10deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)'}),
+        style({'-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, -20deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'}),
+        style({opacity: 1, '-webkit-transform': 'perspective(400px) rotate3d(1, 0, 0, 90deg)', transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)', '-webkit-animation-timing-function': 'ease-in', 'animation-timing-function': 'ease-in'})
+        ]))
       ])
     ])
   ]
 })
 
 export class UserBooks implements OnInit{
-  public userBooks:Array<OwnedBook>;
   public selectedBook:OwnedBook;
   public parentId:string;
   private statusExpanded:boolean = false;
   @ViewChild('bookinfo')
   public bookInfoModal:BookInfoModal;
+  @ViewChild('borrowbook')
+  public borrowBookModal: BorrowBookModal;
   selectedOption:Options;
   options = [
     new Options('READING'),
@@ -42,12 +56,10 @@ export class UserBooks implements OnInit{
     new Options('UNREAD'),
   ];
 
-  constructor(private bookService:BookService){}
+  constructor(public bookService:BookService){}
 
   ngOnInit():void{
-    this.bookService.getUserBooks().subscribe(data=>{
-      this.userBooks = data;
-    });
+    this.bookService.getUserBooks();
   }
 
   private getValue(name:string) {
@@ -59,13 +71,17 @@ export class UserBooks implements OnInit{
   }
 
   public deleteUserBook(userBook:OwnedBook):void{
-    this.bookService.deleteUserBook(userBook.id).subscribe(()=>{
-      this.userBooks.splice(this.userBooks.indexOf(userBook), 1);
-    });
+    this.bookService.deleteUserBook(userBook);
+    Toast.getToast("Book deleted successfully!");
+
   }
 
   public openAdditionalInfo(book:Book) : void{
     this.bookInfoModal.openInfo(book.id);
+  }
+
+  public borrowBook(userBook:OwnedBook): void{
+    this.borrowBookModal.openBorrow(userBook);
   }
 
   public expandEditPanel(event:any, userBook:OwnedBook){

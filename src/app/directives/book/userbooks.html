@@ -1,8 +1,11 @@
-<div *ngIf="userBooks" class="row u-paddingbot--150px_">
-    <div [id]="userBook.book.id" *ngFor="let userBook of userBooks" class="col s12 m6 l4 u-position--relative u-height--350px" >
+<div *ngIf="bookService.userBooks" class="row u-paddingbot--150px_">
+    <div [id]="userBook.book.id"  *ngFor="let userBook of bookService.userBooks" class="col s12 m6 l4 u-position--relative u-height--350px" >
+      <div class="u-bookmark--action">
+        <img src="../../../assets/bookmark.png" alt="">
+      </div>
       <span class="u-icon--edit" (click)="expandEditPanel($event, userBook)"></span>
       <span class="u-icon--read" (click)="openAdditionalInfo(userBook.book)"></span>
-      <div class="card horizontal waves-effect u-library--height">
+      <div class="card horizontal u-library--height">
         <div class="card-image u-width--145px">
           <img [src]="userBook.book.volumeInfo.imageLinks?.smallThumbnail">
         </div>
@@ -14,10 +17,14 @@
         </div>
       </div>
       <div class="card-action u-bookUser--info">
+        <div class="u-left--line"></div>
+        <div class="u-right--line"></div>
         <span class="chip u-float--left">Status: {{userBook.readStatus}}</span>
         <span class="chip u-float--right">Added: {{userBook.date_added | date}}</span>
       </div>
       <div class="card-action u-bookUser--info u-options--container" *ngIf="userBook.book.id === parentId"  [@flyInOut]>
+        <div class="u-left--line"></div>
+        <div class="u-right--line"></div>
         <form>
           <p class="u-p--delete waves-effect waves-light">
             <span class="u-icon--delete" (click)="deleteUserBook(userBook)"></span>
@@ -27,13 +34,14 @@
             <label [attr.for]="option.name">{{option.name}}</label>
           </p>
           <p class="u-p-remainder waves-effect waves-light">
-            <span class="u-icon--remainder"></span>
+            <span class="u-icon--remainder" (click)="borrowBook(userBook)"></span>
           </p>
         </form>
       </div>
-    </div>
+      </div>
 </div>
-<bookinfo #bookinfo></bookinfo>
-<div *ngIf="!userBooks" class="u-if--empty">
+<div *ngIf="bookService.userBooks?.length == 0" class="u-if--empty">
   No books in your library yet...
 </div>
+<bookinfo #bookinfo></bookinfo>
+<borrowbook #borrowbook></borrowbook>
