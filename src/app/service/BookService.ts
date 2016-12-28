@@ -94,16 +94,11 @@ export class BookService{
       this.deleteBookFromMem(borrowedBook, this.borrowedBooks);
     });
   }
+  
 
-  public updateUserBook(ownedBook:OwnedBook){
-    return this.http.put(Constants.OwnedBooks, JSON.stringify(ownedBook), {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json());
-  }
-
-  public updateBorrowedBook(borrowedBook:BorrowedBook){
-    return this.http.put(Constants.BorrowedBooks, JSON.stringify(borrowedBook), {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json());
-
-  }
-
+}
+function handleError (error: any) {
+  let errorMsg = error.message || 'There was a problem with our API, try again...';
+  console.error(errorMsg);
+  return Observable.throw(errorMsg);
 }
