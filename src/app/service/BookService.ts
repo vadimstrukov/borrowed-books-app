@@ -63,12 +63,12 @@ export class BookService{
     params.set("id", userBook.id.toString());
     return this.http.delete(Constants.OwnedBooks, {search: params, headers: this.auth.setAuthHeaders()})
       .subscribe(()=>{
-      this.deleteUserBookFromMem(userBook);
+      this.deleteBookFromMem(userBook, this.userBooks);
     });
   }
 
-  public deleteUserBookFromMem(userBook:OwnedBook){
-    this.userBooks.splice(this.userBooks.indexOf(userBook), 1);
+  public deleteBookFromMem<T>(book:T, array:Array<T>):void{
+    array.splice(array.indexOf(book), 1);
   }
 
   public saveBook(ownedBook:OwnedBook):Observable<OwnedBook>{
@@ -82,6 +82,17 @@ export class BookService{
         .map(response => response.json()),
       this.http.put(Constants.OwnedBooks, JSON.stringify(borrowedBook.ownedBook), {headers: this.auth.setAuthHeaders()})
         .map(response => response.json()));
+  }
+
+  public returnBook(borrowedBook:BorrowedBook):Subscription{
+    let params = new URLSearchParams();
+    params.set("id", borrowedBook.id.toString());
+    return Observable.forkJoin(
+      this.http.delete(Constants.BorrowedBooks, {search: params, headers: this.auth.setAuthHeaders()}),
+      this.http.put(Constants.OwnedBooks, JSON.stringify(borrowedBook.ownedBook), {headers: this.auth.setAuthHeaders()})
+    ).subscribe(()=>{
+      this.deleteBookFromMem(borrowedBook, this.borrowedBooks);
+    });
   }
 
   public updateUserBook(ownedBook:OwnedBook){
