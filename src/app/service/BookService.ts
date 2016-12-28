@@ -43,20 +43,6 @@ export class BookService{
     return this.http.get(Constants.GoogleAPI + '/' + id).map(response=>response.json());
   }
 
-
-  public deleteUserBook(userBook:OwnedBook):Subscription{
-    let params = new URLSearchParams();
-    params.set("id", userBook.id.toString());
-    return this.http.delete(Constants.OwnedBooks, {search: params, headers: this.auth.setAuthHeaders()})
-      .subscribe(()=>{
-      this.deleteBookFromMem(userBook, this.userBooks);
-    });
-  }
-
-  public deleteBookFromMem<T>(book:T, array:Array<T>):void{
-    array.splice(array.indexOf(book), 1);
-  }
-
   public saveBook(ownedBook:OwnedBook):Observable<OwnedBook>{
     return this.http.post(Constants.OwnedBooks, JSON.stringify(ownedBook), {headers: this.auth.setAuthHeaders()})
       .map(response => response.json());
@@ -77,24 +63,35 @@ export class BookService{
       this.http.delete(Constants.BorrowedBooks, {search: params, headers: this.auth.setAuthHeaders()}),
       this.http.put(Constants.OwnedBooks, JSON.stringify(borrowedBook.ownedBook), {headers: this.auth.setAuthHeaders()})
     ).subscribe(()=>{
-      this.deleteBookFromMem(borrowedBook, this.borrowedBooks);
+      deleteBookFromMem(borrowedBook, this.borrowedBooks);
     });
   }
 
-  public getList<T>(url:string):Observable<any>{
+  public deleteItem<T>(id:string, url:string):Observable<T>{
+    let params = new URLSearchParams();
+    params.set("id", id);
+    return this.http.delete(url, {search: params, headers: this.auth.setAuthHeaders()})
+      .catch(handleError);
+  }
+
+  public getItems<T>(url:string):Observable<any>{
     return this.http.get(url, {headers: this.auth.setAuthHeaders()})
       .map(response=>response.json())
       .catch(handleError);
   }
 
-  public update<T>(book:T, url:string): Observable<T>{
-    return this.http.put(url, JSON.stringify(book), {headers: this.auth.setAuthHeaders()})
+  public updateItem<T>(item:T, url:string): Observable<T>{
+    return this.http.put(url, JSON.stringify(item), {headers: this.auth.setAuthHeaders()})
       .catch(handleError);
   }
-
 }
+
 function handleError (error: any) {
   let errorMsg = error.message || 'There was a problem with our API, try again...';
   console.error(errorMsg);
   return Observable.throw(errorMsg);
+}
+
+export function deleteBookFromMem<T>(book:T, array:Array<T>):void{
+  array.splice(array.indexOf(book), 1);
 }
