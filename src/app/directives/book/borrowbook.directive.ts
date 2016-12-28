@@ -56,14 +56,16 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
         console.log("Book borrowed successfully!");
         this.closeBorrow();
       });
+      Toast.getToast("Book borrowed successfully!");
     }
     else {
       this.selectedBook.borrowDescription = description;
       this.selectedBook.returnDate = return_date;
       this.bookService.updateBorrowedBook(this.selectedBook).subscribe(()=> {
-        console.log("Borrowed bookToBorrow updated!");
         this.closeBorrow();
       });
+      Toast.getToast("Borrowed book updated successfully!");
+
     }
   }
 
