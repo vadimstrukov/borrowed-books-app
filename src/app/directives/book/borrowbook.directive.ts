@@ -8,14 +8,15 @@ import {BookService} from "../../service/BookService";
 import {OwnedBook} from "../../model/OwnedBook";
 import {BorrowedBook} from "../../model/BorrowedBook";
 import {Toast} from "../../utils/Toast";
+import {Book} from "../../model/Book";
 @Component({
   selector: 'borrowbook',
   templateUrl: './borrowbook.html',
   styleUrls: ['../../app.component.scss']
 })
 export class BorrowBookModal extends ModalBehaviour implements OnInit{
-  selectedBook:any;
-  actionType:string;
+  selectedBook:BorrowedBook|OwnedBook;
+  bookToBorrow:Book;
   borrowedBook:BorrowedBook;
 
   constructor(private bookService:BookService){
@@ -32,35 +33,38 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
     });
   }
 
-  public openBorrow<T>(book:T, actionType:string):void{
-    this.actionType = actionType;
-    this.selectedBook = book;
+  public openBorrow(bookToBorrow: OwnedBook | BorrowedBook):void{
+    if(isBorrowed(bookToBorrow))
+      this.bookToBorrow = bookToBorrow.ownedBook.book;
+    else
+      this.bookToBorrow = bookToBorrow.book;
+    this.selectedBook = bookToBorrow;
     this.openModal();
   }
 
   public borrowBook(description:string, return_date:Date):void{
-    this.selectedBook.borrowed = true;
-    this.bookService.borrowBook(
-      this.borrowedBook = {
-      ownedBook: this.selectedBook,
-      borrowDate: new Date(),
-      returnDate: return_date,
-      borrowDescription: description
-    }).subscribe(()=>{
-      this.bookService.deleteBookFromMem(this.selectedBook, this.bookService.userBooks);
-      console.log("Book borrowed successfully!");
-      this.closeBorrow();
-    });
-    Toast.getToast("Book borrowed successfully!");
-  }
-
-  public updateBorrowed(description:string, return_date:Date){
-    this.selectedBook.borrowDescription = description;
-    this.selectedBook.returnDate = return_date;
-    this.bookService.updateBorrowedBook(this.selectedBook).subscribe(()=> {
-      console.log("Borrowed book updated!");
-      this.closeBorrow();
-    });
+    if(!isBorrowed(this.selectedBook)) {
+      this.selectedBook.borrowed = true;
+      this.bookService.borrowBook(
+        this.borrowedBook = {
+          ownedBook: this.selectedBook,
+          borrowDate: new Date(),
+          returnDate: return_date,
+          borrowDescription: description
+        }).subscribe(() => {
+        this.bookService.deleteBookFromMem(this.selectedBook, this.bookService.userBooks);
+        console.log("Book borrowed successfully!");
+        this.closeBorrow();
+      });
+    }
+    else {
+      this.selectedBook.borrowDescription = description;
+      this.selectedBook.returnDate = return_date;
+      this.bookService.updateBorrowedBook(this.selectedBook).subscribe(()=> {
+        console.log("Borrowed bookToBorrow updated!");
+        this.closeBorrow();
+      });
+    }
   }
 
   public closeBorrow():void{
@@ -68,3 +72,8 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
   }
 
 }
+
+function isBorrowed(book: BorrowedBook | OwnedBook): book is BorrowedBook {
+  return (<BorrowedBook>book).ownedBook !== undefined;
+}
+
