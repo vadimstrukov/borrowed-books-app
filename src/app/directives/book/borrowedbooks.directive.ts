@@ -13,4 +13,10 @@ export class BorrowedBooks{
   constructor(private bookService:BookService){
     this.bookService.getBorrowedBooks();
   }
+
+  public returnBook(borrowedBook:BorrowedBook):void{
+    borrowedBook.ownedBook.borrowed = false;
+    this.bookService.returnBook(borrowedBook);
+  }
+
 }
