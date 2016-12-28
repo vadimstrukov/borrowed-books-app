@@ -94,7 +94,11 @@ export class BookService{
       this.deleteBookFromMem(borrowedBook, this.borrowedBooks);
     });
   }
-  
+
+  public update<T>(book:T, url:string){
+    return this.http.put(url, JSON.stringify(book), {headers: this.auth.setAuthHeaders()})
+      .catch(handleError);
+  }
 
 }
 function handleError (error: any) {
