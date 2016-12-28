@@ -100,4 +100,10 @@ export class BookService{
       .map(response=>response.json());
   }
 
+  public updateBorrowedBook(borrowedBook:BorrowedBook){
+    return this.http.put(Constants.BorrowedBooks, JSON.stringify(borrowedBook), {headers: this.auth.setAuthHeaders()})
+      .map(response=>response.json());
+
+  }
+
 }

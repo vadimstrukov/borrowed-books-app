@@ -14,8 +14,10 @@ import {Toast} from "../../utils/Toast";
   styleUrls: ['../../app.component.scss']
 })
 export class BorrowBookModal extends ModalBehaviour implements OnInit{
-  selectedUserBook:OwnedBook;
+  selectedBook:any;
+  actionType:string;
   borrowedBook:BorrowedBook;
+
   constructor(private bookService:BookService){
     super();
   }
@@ -30,26 +32,35 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
     });
   }
 
-  public openBorrow(userBook:OwnedBook):void{
-    this.selectedUserBook = userBook;
+  public openBorrow<T>(book:T, actionType:string):void{
+    this.actionType = actionType;
+    this.selectedBook = book;
     this.openModal();
   }
 
   public borrowBook(description:string, return_date:Date):void{
-    this.selectedUserBook.borrowed = true;
+    this.selectedBook.borrowed = true;
     this.bookService.borrowBook(
       this.borrowedBook = {
-      ownedBook: this.selectedUserBook,
+      ownedBook: this.selectedBook,
       borrowDate: new Date(),
       returnDate: return_date,
       borrowDescription: description
     }).subscribe(()=>{
-      this.bookService.deleteBookFromMem(this.selectedUserBook, this.bookService.userBooks);
+      this.bookService.deleteBookFromMem(this.selectedBook, this.bookService.userBooks);
       console.log("Book borrowed successfully!");
       this.closeBorrow();
     });
     Toast.getToast("Book borrowed successfully!");
+  }
 
+  public updateBorrowed(description:string, return_date:Date){
+    this.selectedBook.borrowDescription = description;
+    this.selectedBook.returnDate = return_date;
+    this.bookService.updateBorrowedBook(this.selectedBook).subscribe(()=> {
+      console.log("Borrowed book updated!");
+      this.closeBorrow();
+    });
   }
 
   public closeBorrow():void{
