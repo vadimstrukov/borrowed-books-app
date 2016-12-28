@@ -95,7 +95,9 @@ export class BookService{
     });
   }
 
-  public update<T>(book:T, url:string){
+  
+
+  public update<T>(book:T, url:string): Observable<T>{
     return this.http.put(url, JSON.stringify(book), {headers: this.auth.setAuthHeaders()})
       .catch(handleError);
   }
