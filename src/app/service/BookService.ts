@@ -15,8 +15,6 @@ import {BorrowedBook} from "../model/BorrowedBook";
 @Injectable()
 export class BookService{
   public startIndex: any;
-  public userBooks:Array<OwnedBook>;
-  public borrowedBooks:Array<BorrowedBook>;
   constructor(private http:Http, private auth:Authentication){}
 
   public getBooksByTitle(title:string):Observable<BookItems>{
@@ -45,18 +43,6 @@ export class BookService{
     return this.http.get(Constants.GoogleAPI + '/' + id).map(response=>response.json());
   }
 
-  public getUserBooks():Subscription{
-    return this.http.get(Constants.OwnedBooks, {headers: this.auth.setAuthHeaders()})
-      .map(response => response.json())
-      .subscribe(data=>{
-        this.userBooks = data;
-      });
-  }
-
-  public getBorrowedBooks():Subscription{
-    return this.http.get(Constants.BorrowedBooks, {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json()).subscribe(data=>this.borrowedBooks =data);
-  }
 
   public deleteUserBook(userBook:OwnedBook):Subscription{
     let params = new URLSearchParams();
@@ -95,7 +81,11 @@ export class BookService{
     });
   }
 
-  
+  public getList<T>(url:string):Observable<any>{
+    return this.http.get(url, {headers: this.auth.setAuthHeaders()})
+      .map(response=>response.json())
+      .catch(handleError);
+  }
 
   public update<T>(book:T, url:string): Observable<T>{
     return this.http.put(url, JSON.stringify(book), {headers: this.auth.setAuthHeaders()})
