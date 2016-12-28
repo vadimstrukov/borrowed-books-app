@@ -42,8 +42,8 @@ import {Constants} from "../../utils/Constants";
   ]
 })
 
-export class UserBooks implements OnInit{
-  private errorMessage: string = '';
+export class UserBooks {
+  public userBooks:Array<OwnedBook>;
   public selectedBook:OwnedBook;
   public parentId:string;
   private statusExpanded:boolean = false;
@@ -58,10 +58,11 @@ export class UserBooks implements OnInit{
     new Options('UNREAD'),
   ];
 
-  constructor(public bookService:BookService){}
-
-  ngOnInit():void{
-    this.bookService.getUserBooks();
+  constructor(public bookService:BookService){
+    this.bookService.getList(Constants.OwnedBooks).subscribe(
+        data=>this.userBooks=data,
+        e=>Toast.getToast(e),
+        ()=>Toast.getToast("Books successfully loaded!"));
   }
 
   public updateBookStatus(name:string) :void{
