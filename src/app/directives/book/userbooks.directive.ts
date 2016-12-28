@@ -12,6 +12,7 @@ import {Options} from "./radio.options";
 import {Input, trigger, state, style, transition, animate, keyframes} from '@angular/core';
 import {BorrowBookModal} from "./borrowbook.directive";
 import {Toast} from "../../utils/Toast";
+import {Constants} from "../../utils/Constants";
 
 @Component({
   templateUrl: 'userbooks.html',
@@ -42,6 +43,7 @@ import {Toast} from "../../utils/Toast";
 })
 
 export class UserBooks implements OnInit{
+  private errorMessage: string = '';
   public selectedBook:OwnedBook;
   public parentId:string;
   private statusExpanded:boolean = false;
@@ -62,12 +64,15 @@ export class UserBooks implements OnInit{
     this.bookService.getUserBooks();
   }
 
-  private getValue(name:string) {
+  public updateBookStatus(name:string) :void{
     this.selectedOption = this.options.filter((item)=> item.name == name)[0];
     this.selectedBook.readStatus = this.selectedOption.name;
-    this.bookService.updateUserBook(this.selectedBook).subscribe(()=>{
-      console.log("Status updated!");
-    });
+    this.bookService.update(this.selectedBook, Constants.OwnedBooks).subscribe(
+      () => console.log("Updating!"),
+       e => Toast.getToast(e),
+      () => Toast.getToast("Book status successfully updated!")
+  );
+
   }
 
   public deleteUserBook(userBook:OwnedBook):void{

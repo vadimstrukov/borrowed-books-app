@@ -61,11 +61,10 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
     else {
       this.selectedBook.borrowDescription = description;
       this.selectedBook.returnDate = return_date;
-      this.bookService.updateBorrowedBook(this.selectedBook).subscribe(()=> {
-        this.closeBorrow();
-      });
-      Toast.getToast("Borrowed book updated successfully!");
-
+      this.bookService.update(this.selectedBook, Constants.BorrowedBooks).subscribe(
+        ()=> this.closeBorrow(),
+        e => Toast.getToast(e),
+        ()=> Toast.getToast("Borrowed book updated successfully!"));
     }
   }
 

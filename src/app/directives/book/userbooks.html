@@ -30,7 +30,7 @@
             <span class="u-icon--delete" (click)="deleteUserBook(userBook)"></span>
           </p>
           <p *ngFor="let option of options">
-            <input [id]="option.name" type="radio" name="status" [checked]="option.name == selectedOption.name" (click)="getValue(option.name)" value= {{option.name}}>
+            <input [id]="option.name" type="radio" name="status" [checked]="option.name == selectedOption.name" (click)="updateBookStatus(option.name)" value= {{option.name}}>
             <label [attr.for]="option.name">{{option.name}}</label>
           </p>
           <p class="u-p-remainder waves-effect waves-light">
