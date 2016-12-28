@@ -43,7 +43,7 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
       returnDate: return_date,
       borrowDescription: description
     }).subscribe(()=>{
-      this.bookService.deleteUserBookFromMem(this.selectedUserBook);
+      this.bookService.deleteBookFromMem(this.selectedUserBook, this.bookService.userBooks);
       console.log("Book borrowed successfully!");
       this.closeBorrow();
     });
