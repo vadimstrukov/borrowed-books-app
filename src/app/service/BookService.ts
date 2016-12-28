@@ -16,6 +16,7 @@ import {BorrowedBook} from "../model/BorrowedBook";
 export class BookService{
   public startIndex: any;
   public userBooks:Array<OwnedBook>;
+  public borrowedBooks:Array<BorrowedBook>;
   constructor(private http:Http, private auth:Authentication){}
 
   public getBooksByTitle(title:string):Observable<BookItems>{
@@ -52,9 +53,9 @@ export class BookService{
       });
   }
 
-  public getBorrowedBooks():Observable<Array<BorrowedBook>>{
+  public getBorrowedBooks():Subscription{
     return this.http.get(Constants.BorrowedBooks, {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json());
+      .map(response=>response.json()).subscribe(data=>this.borrowedBooks =data);
   }
 
   public deleteUserBook(userBook:OwnedBook):Subscription{

@@ -9,9 +9,8 @@ import {BookService} from "../../service/BookService";
   styleUrls: ['../../app.component.scss']
 })
 export class BorrowedBooks{
-  borrowedBooks:Array<BorrowedBook>;
 
   constructor(private bookService:BookService){
-    this.bookService.getBorrowedBooks().subscribe(data=>this.borrowedBooks =data);
+    this.bookService.getBorrowedBooks();
   }
 }
