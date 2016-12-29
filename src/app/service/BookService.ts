@@ -8,6 +8,7 @@ import {OwnedBook} from "../model/OwnedBook";
 import {Observable, Subscription} from "rxjs";
 import {BookItems} from "../model/BookItems";
 import {BorrowedBook} from "../model/BorrowedBook";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 /**
  * Created by strukov on 15.11.16.
  */
@@ -29,12 +30,10 @@ export class BookService{
   }
 
   public getBookWithCheck(id:string):Observable<any>{
-    let params = new URLSearchParams();
-    params.set("id", id);
     return Observable.forkJoin(
       this.http.get(Constants.GoogleAPI + '/' + id)
         .map(response => response.json()),
-      this.http.get(Constants.CheckOwnedBook, {search: params, headers: this.auth.setAuthHeaders()})
+      this.http.get(Constants.CheckOwnedBook, {search: setIdURLParam(id), headers: this.auth.setAuthHeaders()})
         .map(response=>response.json())
     );
   }
@@ -57,10 +56,8 @@ export class BookService{
   }
 
   public returnBook(borrowedBook:BorrowedBook):Subscription{
-    let params = new URLSearchParams();
-    params.set("id", borrowedBook.id.toString());
     return Observable.forkJoin(
-      this.http.delete(Constants.BorrowedBooks, {search: params, headers: this.auth.setAuthHeaders()}),
+      this.http.delete(Constants.BorrowedBooks, {search: setIdURLParam(borrowedBook.id.toString()), headers: this.auth.setAuthHeaders()}),
       this.http.put(Constants.OwnedBooks, JSON.stringify(borrowedBook.ownedBook), {headers: this.auth.setAuthHeaders()})
     ).subscribe(()=>{
       deleteBookFromMem(borrowedBook, this.borrowedBooks);
@@ -68,9 +65,7 @@ export class BookService{
   }
 
   public deleteItem<T>(id:string, url:string):Observable<T>{
-    let params = new URLSearchParams();
-    params.set("id", id);
-    return this.http.delete(url, {search: params, headers: this.auth.setAuthHeaders()})
+    return this.http.delete(url, {search: setIdURLParam(id), headers: this.auth.setAuthHeaders()})
       .catch(handleError);
   }
 
@@ -86,10 +81,16 @@ export class BookService{
   }
 }
 
-function handleError (error: any) {
+function handleError (error: any): ErrorObservable {
   let errorMsg = error.message || 'There was a problem with our API, try again...';
   console.error(errorMsg);
   return Observable.throw(errorMsg);
+}
+
+function setIdURLParam(id:string): URLSearchParams{
+  let params = new URLSearchParams();
+  params.set("id", id);
+  return params;
 }
 
 export function deleteBookFromMem<T>(book:T, array:Array<T>):void{
