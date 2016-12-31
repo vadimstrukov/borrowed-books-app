@@ -1,7 +1,7 @@
 /**
  * Created by strukov on 23.12.16.
  */
-import {Component, OnInit, Host, Input} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {BookService, deleteBookFromMem} from "../../service/BookService";
@@ -9,7 +9,6 @@ import {OwnedBook} from "../../model/OwnedBook";
 import {BorrowedBook} from "../../model/BorrowedBook";
 import {Toast} from "../../utils/Toast";
 import {Book} from "../../model/Book";
-import {UserBooks} from "./userbooks.directive";
 @Component({
   selector: 'borrowbook',
   templateUrl: './borrowbook.html',
@@ -20,7 +19,7 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit {
   bookToBorrow: Book;
   borrowedBook: BorrowedBook;
   @Input()
-  bookList:Array<OwnedBook>;
+  bookList: Array<OwnedBook>;
 
   constructor(private bookService: BookService) {
     super();
@@ -55,7 +54,10 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit {
           returnDate: return_date,
           borrowDescription: description
         }).subscribe(
-        () => {this.closeBorrow(); deleteBookFromMem(this.selectedBook, this.bookList)},
+        () => {
+          this.closeBorrow();
+          deleteBookFromMem(this.selectedBook, this.bookList)
+        },
         e => Toast.getToast(e),
         () => Toast.getToast("Book borrowed successfully!")
       )

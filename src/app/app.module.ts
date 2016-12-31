@@ -1,12 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
-import { AppComponent } from './app.component';
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
+import {AppComponent} from "./app.component";
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import {LoginRegisterModal} from "./directives/login/login.directive";
-import {Routes, RouterModule} from "@angular/router";
 import {UserBooks} from "./directives/book/userbooks.directive";
 import {Authentication} from "./utils/Authentication";
 import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
@@ -39,4 +37,5 @@ import {BorrowedBooks} from "./directives/book/borrowedbooks.directive";
   providers: [Authentication, CanActivateViaAuth, BookService, UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

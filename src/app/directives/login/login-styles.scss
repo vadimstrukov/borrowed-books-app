@@ -16,24 +16,24 @@
 /*************************************************INCLUDES***********************************************/
 
 .modal-content > h4,
-.modal-footer{
+.modal-footer {
   @extend .u-text--center;
 }
 
-.u-float--left{
+.u-float--left {
   @extend .u-float--left;
 }
 
-.u-display--none{
+.u-display--none {
   @extend .u-display--none;
 }
 
-.modal-footer > button, a{
+.modal-footer > button, a {
   background-color: $color_dark_green;
   color: $color_white;
 }
 
-.u-close--modal{
+.u-close--modal {
   @include displayType();
   position: $absolute;
   height: 20px;
@@ -44,19 +44,24 @@
   @include images_sprite(url("../../../assets/small_images_sprite.png"), -2px, -28px);
 
 }
-.u-close--modal{
+
+.u-close--modal {
   z-index: 1001;
 }
-.indicator{
+
+.indicator {
   display: none;
 }
-.input-field{
+
+.input-field {
   margin-top: 40px;
 }
-.u-margin--top90px{
+
+.u-margin--top90px {
   margin-top: 90px;
 }
-.u-tabs--container{
+
+.u-tabs--container {
   position: absolute;
   left: 0 $important;
   right: -1px $important;
@@ -64,25 +69,27 @@
   z-index: 999;
   box-shadow: 0px 0px 10px gray;
 }
-.u-reg--form{
+
+.u-reg--form {
   margin-left: -15px $important;
-  input[type="text"]{
+  input[type="text"] {
     border-radius: 0px;
     min-width: 97% !important;
     text-align: $left;
-    &:invalid{
+    &:invalid {
       width: auto $important;
     }
-    &:valid{
+    &:valid {
       width: auto $important;
     }
   }
   input:-webkit-autofill,
-  input:-webkit-autofill:focus{
+  input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
   }
 }
-.alert-danger{
+
+.alert-danger {
   @include displayType(flex);
   justify-content: center;
   text-align: center;
@@ -91,48 +98,51 @@
   color: white;
   min-height: 50px;
   margin-bottom: 10px;
-  > span{
+  > span {
     align-self: center;
   }
 }
-.tabs{
+
+.tabs {
   background-color: transparent;
   overflow: hidden;
   @extend .u-text--center;
-  > li{
+  > li {
     float: none $important;
     cursor: $pointer;
-    > a{
+    > a {
       background-color: transparent $important;
       color: $color_white;
       font-size: 10px;
-      &:hover{
+      &:hover {
         background-color: transparent $important;
       }
     }
   }
 }
-.u-human--check{
+
+.u-human--check {
   margin-top: 0;
   margin-bottom: 20px;
-  > label{
+  > label {
     font-size: 13px;
   }
 }
-.modal{
+
+.modal {
   overflow: hidden;
-  &:hover{
+  &:hover {
     overflow-y: auto;
   }
 }
 
 @media (min-width: 750px) {
   @include btnSpanChip(90px, 14px);
-  .u-close--modal{
+  .u-close--modal {
     right: 8px;
   }
-  .tabs{
-    a{
+  .tabs {
+    a {
       font-size: 14px $important;
     }
   }

@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, trigger, state, style, transition, animate} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {Router} from "@angular/router";
-import {Input, trigger, state, style, transition, animate} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,11 @@ import {Input, trigger, state, style, transition, animate} from '@angular/core';
         animate(200)
       ]),
       transition('* => void', [
-        animate(50, style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}))
+        animate(50, style({
+          opacity: '0',
+          '-webkit-transform': 'translate3d(0, 100%, 0)',
+          transform: 'translate3d(0, 100%, 0)'
+        }))
       ])
     ])
   ]
@@ -27,24 +30,24 @@ export class AppComponent implements OnInit {
 
   public searchControl = new FormControl();
   @ViewChild('login')
-  private loginModal:LoginRegisterModal;
+  private loginModal: LoginRegisterModal;
 
-  constructor(public auth:Authentication, private router:Router){
+  constructor(public auth: Authentication, private router: Router) {
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
-      .subscribe((value : string) => {
-        if(value.length>0){
-          router.navigate(['/search'], {queryParams : {q: value}});
+      .subscribe((value: string) => {
+        if (value.length > 0) {
+          router.navigate(['/search'], {queryParams: {q: value}});
           this.fadeInArrow('slow');
         }
-        else{
-          router.navigate(['/search'], {queryParams : {}});
+        else {
+          router.navigate(['/search'], {queryParams: {}});
           this.fadeOutArrow('fast');
         }
       });
   }
 
   ngOnInit() {
-    setTimeout(()=>{
+    setTimeout(() => {
       $('.button-collapse').sideNav();
     }, 500);
     $('div').click(function () {
@@ -52,18 +55,18 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public openLibrary():void{
+  public openLibrary(): void {
     $('.button-collapse').sideNav('hide');
     this.router.navigate(['/library']);
   }
 
-  public openBorrowed():void{
+  public openBorrowed(): void {
     $('.button-collapse').sideNav('hide');
     this.router.navigate(['/borrowed']);
   }
 
-  private fadeInArrow(duration:string):void{
-    if ($(window).width() < 500){
+  private fadeInArrow(duration: string): void {
+    if ($(window).width() < 500) {
       $('.jq-right').fadeIn(duration);
       $('.u-search--div').addClass('u-make--wider');
     }
@@ -71,8 +74,8 @@ export class AppComponent implements OnInit {
     $('.u-go--top').fadeIn(duration);
   }
 
-  private fadeOutArrow(duration:string):void{
-    if ($(window).width() < 500){
+  private fadeOutArrow(duration: string): void {
+    if ($(window).width() < 500) {
       $('.jq-right').fadeOut(duration);
       $('.u-search--div').removeClass('u-make--wider');
     }
@@ -81,24 +84,24 @@ export class AppComponent implements OnInit {
   }
 
 
-  public openLogin():void{
+  public openLogin(): void {
     this.loginModal.openLogin();
   }
 
-  public logout():void{
-    this.auth.logout().subscribe(()=>{
+  public logout(): void {
+    this.auth.logout().subscribe(() => {
       location.reload();
       this.router.navigate(['/search'], {queryParams: {}});
     });
   }
 
 
- public scrollWindowToTop():void{
-    $("html, body").animate({ scrollTop: 0 }, "slow");
+  public scrollWindowToTop(): void {
+    $("html, body").animate({scrollTop: 0}, "slow");
   }
 
 
-  public clearSearchBox():void {
+  public clearSearchBox(): void {
     this.searchControl.setValue("");
   }
 

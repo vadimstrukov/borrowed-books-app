@@ -36,10 +36,11 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
 /*<-----------------------------------------------BREAK-------------------------------------------------*/
 
 /*************************************************MIXINS*************************************************/
-@mixin border-radius( $radius ){
+@mixin border-radius( $radius ) {
   border-radius: $radius;
 }
-@mixin scrollBarStyles(){
+
+@mixin scrollBarStyles() {
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -54,63 +55,75 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
     background-color: $color_soft_gray;
   }
 }
-@mixin displayType( $disType: block ){
+
+@mixin displayType( $disType: block ) {
   display: $disType;
 }
-@mixin btnSpanChip( $min-width: 90px, $font-size: 11px ){
+
+@mixin btnSpanChip( $min-width: 90px, $font-size: 11px ) {
   .btn-flat,
   button.chip,
-  span.chip{
+  span.chip {
     min-width: $min-width;
     font-size: $font-size;
   }
 }
-@mixin images_sprite($url: $small_images_sprite, $horizontal: 0px, $vertical: 0px){
+
+@mixin images_sprite($url: $small_images_sprite, $horizontal: 0px, $vertical: 0px) {
   background-image: $url;
   background-position: $horizontal $vertical;
   background-repeat: no-repeat;
 }
+
 /*************************************************MIXINS*************************************************/
 
 /*<-----------------------------------------------BREAK-------------------------------------------------*/
 
 /*************************************************COMPONENTS***********************************************/
-.u-float--right{
+.u-float--right {
   float: $right;
 }
-.u-float--left{
+
+.u-float--left {
   float: $left $important;
 }
-.u-display--none{
+
+.u-display--none {
   @include displayType(none);
 }
-.u-text--center{
+
+.u-text--center {
   text-align: $center;
 }
-.u-text--justify{
+
+.u-text--justify {
   text-align: $justify;
 }
-.u-position--relative{
+
+.u-position--relative {
   position: $relative;
 }
-input[type="text"]{
+
+input[type="text"] {
   @extend .u-text--center;
   @include border-radius(30px);
   width: 200px;
   min-width: 200px;
-  background-color: rgba(255,255,255,0.3);
-  &:invalid{
+  background-color: rgba(255, 255, 255, 0.3);
+  &:invalid {
     width: 200px;
     min-width: 200px;
   }
   &:focus:not([readonly]),
-  &.valid{
+  &.valid {
     box-shadow: $none;
     width: 95%;
   }
 }
+
 input:-webkit-autofill,
-input:-webkit-autofill:focus{
+input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
 }
+
 /*************************************************COMPONENTS***********************************************/

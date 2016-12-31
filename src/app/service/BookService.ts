@@ -8,7 +8,6 @@ import {Observable} from "rxjs";
 import {BookItems} from "../model/BookItems";
 import {BorrowedBook} from "../model/BorrowedBook";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
-import {OwnedBook} from "../model/OwnedBook";
 /**
  * Created by strukov on 15.11.16.
  */
@@ -28,7 +27,7 @@ export class BookService {
     params.set('filter', 'partial');
     params.set('projection', 'lite');
     params.set('key', Constants.API_KEY);
-    return this.http.get(Constants.GoogleAPI, {search: params}).map(response=>response.json());
+    return this.http.get(Constants.GoogleAPI, {search: params}).map(response => response.json());
   }
 
   public getBookWithCheck(id: string): Observable<any> {

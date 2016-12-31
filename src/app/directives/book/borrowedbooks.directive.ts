@@ -11,27 +11,27 @@ import {Constants} from "../../utils/Constants";
   templateUrl: './borrowedbooks.html',
   styleUrls: ['../../app.component.scss']
 })
-export class BorrowedBooks{
+export class BorrowedBooks {
   @ViewChild('borrowbook')
   public borrowBookModal: BorrowBookModal;
-  public borrowedBooks:Array<BorrowedBook>;
+  public borrowedBooks: Array<BorrowedBook>;
 
-  constructor(private bookService:BookService){
+  constructor(private bookService: BookService) {
     this.bookService.getItems(Constants.BorrowedBooks).subscribe(
-      data=>this.borrowedBooks=data,
-      e=>Toast.getToast(e),
-      ()=>Toast.getToast("Books successfully loaded!"));
+      data => this.borrowedBooks = data,
+      e => Toast.getToast(e),
+      () => Toast.getToast("Books successfully loaded!"));
   }
 
-  public returnBook(borrowedBook:BorrowedBook):void{
+  public returnBook(borrowedBook: BorrowedBook): void {
     borrowedBook.ownedBook.borrowed = false;
     this.bookService.returnBook(borrowedBook).subscribe(
-      ()=>deleteBookFromMem(borrowedBook, this.borrowedBooks),
-      e=>Toast.getToast(e),
-      ()=>Toast.getToast("Book successfully returned to your library!"));
+      () => deleteBookFromMem(borrowedBook, this.borrowedBooks),
+      e => Toast.getToast(e),
+      () => Toast.getToast("Book successfully returned to your library!"));
   }
 
-  public updateBorrowed(borrowedBook:BorrowedBook){
+  public updateBorrowed(borrowedBook: BorrowedBook) {
     this.borrowBookModal.openBorrow(borrowedBook);
   }
 
