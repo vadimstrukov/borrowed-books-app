@@ -1,6 +1,6 @@
 import {Component, ViewChild} from "@angular/core";
 import {BorrowedBook} from "../../model/BorrowedBook";
-import {BookService} from "../../service/BookService";
+import {BookService, deleteBookFromMem} from "../../service/BookService";
 import {Toast} from "../../utils/Toast";
 import {BorrowBookModal} from "./borrowbook.directive";
 import {Constants} from "../../utils/Constants";
@@ -25,8 +25,10 @@ export class BorrowedBooks{
 
   public returnBook(borrowedBook:BorrowedBook):void{
     borrowedBook.ownedBook.borrowed = false;
-    this.bookService.returnBook(borrowedBook);
-    Toast.getToast("Book successfully returned to your library!");
+    this.bookService.returnBook(borrowedBook).subscribe(
+      ()=>deleteBookFromMem(borrowedBook, this.borrowedBooks),
+      e=>Toast.getToast(e),
+      ()=>Toast.getToast("Book successfully returned to your library!"));
   }
 
   public updateBorrowed(borrowedBook:BorrowedBook){
