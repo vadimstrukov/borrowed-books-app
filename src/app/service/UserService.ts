@@ -6,6 +6,8 @@ import {Http, Response, RequestOptions, Headers} from "@angular/http";
 import {User} from "../model/User";
 import {Constants} from "../utils/Constants";
 import {Observable} from "rxjs";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+import "rxjs/Rx";
 @Injectable()
 export class UserService {
 
@@ -17,7 +19,13 @@ export class UserService {
     let options = new RequestOptions({headers: headers});
 
     return this.http.post(Constants.Register, JSON.stringify(user), options)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server authError'));
+      .map(response=>response.json())
+      .catch(handleError);
   }
+}
+
+function handleError(error: any): ErrorObservable {
+  let errorMsg = error.message || 'There was a problem, check your credentials!';
+  console.error(errorMsg);
+  return Observable.throw(errorMsg);
 }
