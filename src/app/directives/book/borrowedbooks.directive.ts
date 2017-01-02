@@ -19,16 +19,14 @@ export class BorrowedBooks {
   constructor(private bookService: BookService) {
     this.bookService.getItems(Constants.BorrowedBooks).subscribe(
       data => this.borrowedBooks = data,
-      e => Toast.getToast(e),
-      () => Toast.getToast("Books successfully loaded!"));
+      e => Toast.getToast(e));
   }
 
   public returnBook(borrowedBook: BorrowedBook): void {
     borrowedBook.ownedBook.borrowed = false;
     this.bookService.returnBook(borrowedBook).subscribe(
       () => deleteBookFromMem(borrowedBook, this.borrowedBooks),
-      e => Toast.getToast(e),
-      () => Toast.getToast("Book successfully returned to your library!"));
+      e => Toast.getToast(e));
   }
 
   public updateBorrowed(borrowedBook: BorrowedBook) {

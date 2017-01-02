@@ -96,8 +96,7 @@ export class UserBooks {
   constructor(public bookService: BookService) {
     this.bookService.getItems(Constants.OwnedBooks).subscribe(
       data => this.userBooks = data,
-      e => Toast.getToast(e),
-      () => Toast.getToast("Books successfully loaded!"));
+      e => Toast.getToast(e));
   }
 
   public updateBookStatus(name: string): void {
