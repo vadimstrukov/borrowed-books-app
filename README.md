@@ -4,6 +4,8 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 This project uses [Spring Boot RESTful API with OAuth2 implementation](https://github.com/vadimstrukov/borrowed-books-api) and [Google Books API](https://developers.google.com/books/docs/overview)
 
+You can see a live example here: https://books.strukov.eu 
+
 ![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/develop/git_pictures/search.png "Search")
 ![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/develop/git_pictures/book_info.png "Book info")
 ![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/develop/git_pictures/library.png "Library")
