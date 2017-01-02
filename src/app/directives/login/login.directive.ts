@@ -11,6 +11,7 @@ import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {Router} from "@angular/router";
 import {SubmitForm} from "./form.interface";
+import {Toast} from "../../utils/Toast";
 
 @Component({
   selector: "login",
@@ -36,7 +37,6 @@ import {SubmitForm} from "./form.interface";
 export class LoginRegisterModal extends ModalBehaviour implements OnInit {
 
   private submitForm: FormGroup;
-  private authError: boolean = false;
   private buttonName: string;
 
   private FORM_TYPE = {
@@ -122,11 +122,10 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit {
   private onSubmit(model: SubmitForm, isValid: boolean): void {
     switch (model.formType.type) {
       case this.FORM_TYPE.LOGIN:
-        this.auth.authenticate(model.email, model.password).subscribe(() => {
-          this.closeLogin();
-        }, () => {
-          this.authError = true
-        }, () => {
+        this.auth.authenticate(model.email, model.password).subscribe(
+          () => this.closeLogin(),
+          e => Toast.getToast(e),
+          () => {
           setTimeout(() => {
             location.reload();
             this.router.navigate(['/library']);
@@ -138,12 +137,9 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit {
         user.email = model.email;
         user.fullname = model.formType.registration.fullname;
         user.pass = hashSync(model.password, 4);
-        this.userService.register(user).subscribe(() => {
-            this.setFormType(this.FORM_TYPE.LOGIN);
-          },
-          () => {
-            this.authError = true;
-          });
+        this.userService.register(user).subscribe(
+          () => this.setFormType(this.FORM_TYPE.LOGIN),
+          e => Toast.getToast(e));
         break;
     }
   }
