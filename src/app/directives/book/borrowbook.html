@@ -15,7 +15,7 @@
     <form class="col s12">
       <div class="row">
         <label for="return_date">Date return</label>
-        <input #return_date id="return_date" type="date" class="datepicker" [value]="selectedBook?.returnDate | date">
+        <input #return_date id="return_date" type="date" class="datepicker" [value]="selectedBook?.returnDate | date : 'yyyy-MM-dd' ">
         <div class="input-field">
           <textarea #description id="description"
                     class="materialize-textarea">{{selectedBook?.borrowDescription}}</textarea>
