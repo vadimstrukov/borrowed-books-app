@@ -26,7 +26,8 @@ export class BorrowedBooks {
     borrowedBook.ownedBook.borrowed = false;
     this.bookService.returnBook(borrowedBook).subscribe(
       () => deleteBookFromMem(borrowedBook, this.borrowedBooks),
-      e => Toast.getToast(e));
+      e => Toast.getToast(e),
+      () => Toast.getToast("Book successfully returned to your library!"));
   }
 
   public updateBorrowed(borrowedBook: BorrowedBook) {
