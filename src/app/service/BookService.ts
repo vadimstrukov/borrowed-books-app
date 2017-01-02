@@ -1,25 +1,25 @@
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response} from "@angular/http";
 import {Constants} from "../utils/Constants";
-import 'rxjs/Rx';
+import "rxjs/Rx";
 import {Book} from "../model/Book";
 import {Authentication} from "../utils/Authentication";
-import {OwnedBook} from "../model/OwnedBook";
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {BookItems} from "../model/BookItems";
 import {BorrowedBook} from "../model/BorrowedBook";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 /**
  * Created by strukov on 15.11.16.
  */
 
 @Injectable()
-export class BookService{
+export class BookService {
   public startIndex: any;
-  public userBooks:Array<OwnedBook>;
-  public borrowedBooks:Array<BorrowedBook>;
-  constructor(private http:Http, private auth:Authentication){}
 
-  public getBooksByTitle(title:string):Observable<BookItems>{
+  constructor(private http: Http, private auth: Authentication) {
+  }
+
+  public getBooksByTitle(title: string): Observable<BookItems> {
     let params = new URLSearchParams();
     params.set('q', title);
     params.set('startIndex', this.startIndex);
@@ -30,80 +30,71 @@ export class BookService{
     return this.http.get(Constants.GoogleAPI, {search: params}).map(response => response.json());
   }
 
-  public getBookWithCheck(id:string):Observable<any>{
-    let params = new URLSearchParams();
-    params.set("id", id);
+  public getBookWithCheck(id: string): Observable<any> {
     return Observable.forkJoin(
-      this.http.get(Constants.GoogleAPI + '/' + id)
-        .map(response => response.json()),
-      this.http.get(Constants.CheckOwnedBook, {search: params, headers: this.auth.setAuthHeaders()})
-        .map(response=>response.json())
+      this.getItem(id, Constants.GoogleAPI),
+      this.http.get(Constants.CheckOwnedBook, {search: setIdURLParam(id), headers: this.auth.setAuthHeaders()})
+        .map(response => response.json())
+    ).catch(handleError);
+  }
+
+  public getBookWithoutCheck(id: string): Observable<Book> {
+    return this.getItem(id, Constants.GoogleAPI);
+  }
+
+  public borrowBook(borrowedBook: BorrowedBook): Observable<any> {
+    return Observable.forkJoin(
+      this.saveItem(borrowedBook, Constants.BorrowedBooks),
+      this.updateItem(borrowedBook.ownedBook, Constants.OwnedBooks)
     );
   }
 
-  public getBookWithoutCheck(id:string):Observable<Book>{
-    return this.http.get(Constants.GoogleAPI + '/' + id).map(response=>response.json());
+  public returnBook(borrowedBook: BorrowedBook) {
+    return Observable.forkJoin(
+      this.updateItem(borrowedBook.ownedBook, Constants.OwnedBooks),
+      this.deleteItem(borrowedBook.id, Constants.BorrowedBooks)
+    );
   }
 
-  public getUserBooks():Subscription{
-    return this.http.get(Constants.OwnedBooks, {headers: this.auth.setAuthHeaders()})
+  public saveItem<T>(item: T, url: string): Observable<Response> {
+    return this.http.post(url, JSON.stringify(item), {headers: this.auth.setAuthHeaders()})
+      .catch(handleError);
+  }
+
+  public deleteItem<T>(id: any, url: string): Observable<T> {
+    return this.http.delete(url, {search: setIdURLParam(id), headers: this.auth.setAuthHeaders()})
+      .catch(handleError);
+  }
+
+  public getItems<T>(url: string) {
+    return this.http.get(url, {headers: this.auth.setAuthHeaders()})
       .map(response => response.json())
-      .subscribe(data=>{
-        this.userBooks = data;
-      });
+      .catch(handleError);
   }
 
-  public getBorrowedBooks():Subscription{
-    return this.http.get(Constants.BorrowedBooks, {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json()).subscribe(data=>this.borrowedBooks =data);
+  public getItem<T>(id: any, url: string): Observable<any> {
+    return this.http.get(url + '/' + id)
+      .map(response => response.json()).catch(handleError);
   }
 
-  public deleteUserBook(userBook:OwnedBook):Subscription{
-    let params = new URLSearchParams();
-    params.set("id", userBook.id.toString());
-    return this.http.delete(Constants.OwnedBooks, {search: params, headers: this.auth.setAuthHeaders()})
-      .subscribe(()=>{
-      this.deleteBookFromMem(userBook, this.userBooks);
-    });
+  public updateItem<T>(item: T, url: string): Observable<T> {
+    return this.http.put(url, JSON.stringify(item), {headers: this.auth.setAuthHeaders()})
+      .catch(handleError);
   }
+}
 
-  public deleteBookFromMem<T>(book:T, array:Array<T>):void{
-    array.splice(array.indexOf(book), 1);
-  }
+function handleError(error: any): ErrorObservable {
+  let errorMsg = error.message || 'There was a problem with our API, try again...';
+  console.error(errorMsg);
+  return Observable.throw(errorMsg);
+}
 
-  public saveBook(ownedBook:OwnedBook):Observable<OwnedBook>{
-    return this.http.post(Constants.OwnedBooks, JSON.stringify(ownedBook), {headers: this.auth.setAuthHeaders()})
-      .map(response => response.json());
-  }
+function setIdURLParam(id: any): URLSearchParams {
+  let params = new URLSearchParams();
+  params.set("id", id.toString());
+  return params;
+}
 
-  public borrowBook(borrowedBook:BorrowedBook):Observable<any>{
-    return Observable.forkJoin(
-      this.http.post(Constants.BorrowedBooks, JSON.stringify(borrowedBook), {headers: this.auth.setAuthHeaders()})
-        .map(response => response.json()),
-      this.http.put(Constants.OwnedBooks, JSON.stringify(borrowedBook.ownedBook), {headers: this.auth.setAuthHeaders()})
-        .map(response => response.json()));
-  }
-
-  public returnBook(borrowedBook:BorrowedBook):Subscription{
-    let params = new URLSearchParams();
-    params.set("id", borrowedBook.id.toString());
-    return Observable.forkJoin(
-      this.http.delete(Constants.BorrowedBooks, {search: params, headers: this.auth.setAuthHeaders()}),
-      this.http.put(Constants.OwnedBooks, JSON.stringify(borrowedBook.ownedBook), {headers: this.auth.setAuthHeaders()})
-    ).subscribe(()=>{
-      this.deleteBookFromMem(borrowedBook, this.borrowedBooks);
-    });
-  }
-
-  public updateUserBook(ownedBook:OwnedBook){
-    return this.http.put(Constants.OwnedBooks, JSON.stringify(ownedBook), {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json());
-  }
-
-  public updateBorrowedBook(borrowedBook:BorrowedBook){
-    return this.http.put(Constants.BorrowedBooks, JSON.stringify(borrowedBook), {headers: this.auth.setAuthHeaders()})
-      .map(response=>response.json());
-
-  }
-
+export function deleteBookFromMem<T>(book: T, array: Array<T>): void {
+  array.splice(array.indexOf(book), 1);
 }

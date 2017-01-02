@@ -1,7 +1,7 @@
 /**
  * Created by strukov on 20.11.16.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, trigger, state, style, transition, animate} from "@angular/core";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
 import {Authentication} from "../../utils/Authentication";
 import {UserService} from "../../service/UserService";
@@ -11,7 +11,7 @@ import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {Router} from "@angular/router";
 import {SubmitForm} from "./form.interface";
-import {Input, trigger, state, style, transition, animate} from '@angular/core';
+import {Toast} from "../../utils/Toast";
 
 @Component({
   selector: "login",
@@ -25,16 +25,19 @@ import {Input, trigger, state, style, transition, animate} from '@angular/core';
         animate(200)
       ]),
       transition('* => void', [
-        animate(50, style({opacity: '0', '-webkit-transform': 'translate3d(0, 100%, 0)', transform: 'translate3d(0, 100%, 0)'}))
+        animate(50, style({
+          opacity: '0',
+          '-webkit-transform': 'translate3d(0, 100%, 0)',
+          transform: 'translate3d(0, 100%, 0)'
+        }))
       ])
     ])
   ]
 })
-export class LoginRegisterModal extends ModalBehaviour implements OnInit{
+export class LoginRegisterModal extends ModalBehaviour implements OnInit {
 
   private submitForm: FormGroup;
-  private authError: boolean = false;
-  private buttonName:string;
+  private buttonName: string;
 
   private FORM_TYPE = {
     LOGIN: 'login',
@@ -42,11 +45,11 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
   };
 
 
-  constructor(private fb:FormBuilder, private auth:Authentication, private userService:UserService,  private router:Router){
+  constructor(private fb: FormBuilder, private auth: Authentication, private userService: UserService, private router: Router) {
     super();
   }
 
-  ngOnInit():void{
+  ngOnInit(): void {
     super.ngOnInit();
     this.initModalName(Constants.LoginModal);
     this.submitForm = this.fb.group({
@@ -58,7 +61,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     this.setFormType(this.FORM_TYPE.LOGIN);
   }
 
-  private initFormTypeGroup():FormGroup {
+  private initFormTypeGroup(): FormGroup {
     return this.fb.group({
       type: [''],
       login: this.fb.group(this.initLoginModel()),
@@ -66,7 +69,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     });
   }
 
-  private subscribeFormTypeChanges() :void {
+  private subscribeFormTypeChanges(): void {
 
     const pmCtrl = (<any>this.submitForm).controls.formType;
     const loginCtrl = pmCtrl.controls.login;
@@ -116,15 +119,14 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
     ctrl.setValue(type);
   }
 
-  private onSubmit(model: SubmitForm, isValid: boolean): void{
-    switch (model.formType.type){
+  private onSubmit(model: SubmitForm, isValid: boolean): void {
+    switch (model.formType.type) {
       case this.FORM_TYPE.LOGIN:
-        this.auth.authenticate(model.email, model.password).subscribe(() => {
-          this.closeLogin();
-        }, () => {
-          this.authError = true
-        }, ()=>{
-          setTimeout(()=>{
+        this.auth.authenticate(model.email, model.password).subscribe(
+          () => this.closeLogin(),
+          e => Toast.getToast(e),
+          () => {
+          setTimeout(() => {
             location.reload();
             this.router.navigate(['/library']);
           }, 500);
@@ -135,21 +137,19 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit{
         user.email = model.email;
         user.fullname = model.formType.registration.fullname;
         user.pass = hashSync(model.password, 4);
-        this.userService.register(user).subscribe(() => {
-          this.setFormType(this.FORM_TYPE.LOGIN);
-        },
-          () => {
-          this.authError = true;
-        });
+        this.userService.register(user).subscribe(
+          () => this.setFormType(this.FORM_TYPE.LOGIN),
+          e => Toast.getToast(e));
         break;
     }
   }
 
 
-  public openLogin():void{
+  public openLogin(): void {
     this.openModal();
   }
-  public closeLogin():void{
+
+  public closeLogin(): void {
     this.closeModal();
   }
 }

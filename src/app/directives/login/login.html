@@ -21,31 +21,42 @@
           <label for="password_first_prefix">Password</label>
         </div>
         <div formGroupName="formType">
-          <div *ngIf="submitForm.controls.formType.controls.type.value === FORM_TYPE.REGISTRATION" class="col s12 u-reg--form">
+          <div *ngIf="submitForm.controls.formType.controls.type.value === FORM_TYPE.REGISTRATION"
+               class="col s12 u-reg--form">
             <div class="input-field col s12" formGroupName="registration">
               <i class="material-icons prefix"><i class="material-icons">account_circle</i></i>
               <input id="firstn_prefix" type="text" class="validate" formControlName="fullname">
               <label for="firstn_prefix">Fullname</label>
             </div>
             <div *ngIf="submitForm.controls.formType.controls.registration.controls['fullname'].hasError('required')
-            && submitForm.controls.formType.controls.registration.controls['fullname'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Fullname is required!</span></div>
+            && submitForm.controls.formType.controls.registration.controls['fullname'].touched"
+                 class="alert alert-danger col s12" [@flyInOut]><span>Fullname is required!</span></div>
             <div *ngIf="submitForm.controls.formType.controls.registration.controls['fullname'].hasError('minlength')
-            && submitForm.controls.formType.controls.registration.controls['fullname'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Your fullname must be at least 10 characters long.</span></div>
+            && submitForm.controls.formType.controls.registration.controls['fullname'].touched"
+                 class="alert alert-danger col s12" [@flyInOut]>
+              <span>Your fullname must be at least 10 characters long.</span></div>
             <div *ngIf="submitForm.controls.formType.controls.registration.controls['fullname'].hasError('maxlength')
-            && submitForm.controls.formType.controls.registration.controls['fullname'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Your fullname cannot exceed 50 characters.</span></div>
+            && submitForm.controls.formType.controls.registration.controls['fullname'].touched"
+                 class="alert alert-danger col s12" [@flyInOut]><span>Your fullname cannot exceed 50 characters.</span>
+            </div>
             <div *ngIf="submitForm.controls['password'].hasError('required')
-            && submitForm.controls['password'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Password is required!</span></div>
+            && submitForm.controls['password'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Password is required!</span>
+            </div>
             <div *ngIf="submitForm.controls['password'].hasError('minlength')
-            && submitForm.controls['password'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Your password must be at least 8 characters long.</span></div>
+            && submitForm.controls['password'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Your password must be at least 8 characters long.</span>
+            </div>
             <div *ngIf="submitForm.controls['password'].hasError('maxlength')
-            && submitForm.controls['password'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Your passowrd cannot exceed 30 characters.</span></div>
+            && submitForm.controls['password'].touched" class="alert alert-danger col s12" [@flyInOut]><span>Your passowrd cannot exceed 30 characters.</span>
+            </div>
           </div>
           <div *ngIf="submitForm.controls.formType.controls.type.value === FORM_TYPE.LOGIN" class="col s12">
             <div class="input-field col s12 u-human--check" formGroupName="login">
               <input id="human" type="checkbox" class="validate" formControlName="isHuman">
               <label for="human">Are you a human?</label>
             </div>
-            <div *ngIf="submitForm.controls.formType.controls.login.controls['isHuman'].hasError('required')" class="alert alert-danger col s12">You are not a human!</div>
+            <div *ngIf="submitForm.controls.formType.controls.login.controls['isHuman'].hasError('required')"
+                 class="alert alert-danger col s12">You are not a human!
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="waves-effect waves-green btn-flat jq-login" [disabled]="!submitForm.valid">

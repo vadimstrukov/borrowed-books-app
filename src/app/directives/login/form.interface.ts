@@ -10,7 +10,7 @@ export interface SubmitForm {
       fullname: string;
     },
     login: {
-      isHuman:boolean;
+      isHuman: boolean;
     }
   }
 }

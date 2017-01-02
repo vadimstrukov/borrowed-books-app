@@ -1,7 +1,8 @@
 <div id="bookinfo" class="modal">
   <span (click)="closeInfo()"><i class="material-icons u-close--modal">clear</i></span>
   <span *ngIf="isInLibrary" class="chip u-library--indicator">Added in library</span>
-  <button *ngIf="auth.user && !isInLibrary" (click)="addBook()" type="submit" class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
+  <button *ngIf="auth.user && !isInLibrary" (click)="addBook()" type="submit"
+          class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
     Add to my library
   </button>
   <div class="modal-content">
@@ -10,9 +11,10 @@
       <div class="u-information--wrapper">
         <div class="u-thumbnail--box">
           <img [src]="selectedBook?.volumeInfo.imageLinks.medium || selectedBook?.volumeInfo.imageLinks.smallThumbnail"
-          onerror="src='../../assets/img_loading.gif';"/>
+               onerror="src='../../assets/img_loading.gif';"/>
         </div>
-        <div [innerHTML]="selectedBook?.volumeInfo.description" class="u-text--justify u-display--right col s12 m12 l9"></div>
+        <div [innerHTML]="selectedBook?.volumeInfo.description"
+             class="u-text--justify u-display--right col s12 m12 l9"></div>
       </div>
       <div class="u-information--about col s12 m12 l12">
         <div class="u-makeit--center col s12 m12 l12">

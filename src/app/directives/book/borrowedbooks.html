@@ -1,5 +1,6 @@
-<div *ngIf="bookService.borrowedBooks" class="row u-paddingbot--150px_">
-  <div  *ngFor="let userBook of bookService.borrowedBooks" class="col s12 m6 l4 u-position--relative u-height--350px u-borrowed--height" >
+<div *ngIf="borrowedBooks" class="row u-paddingbot--150px_">
+  <div *ngFor="let userBook of borrowedBooks"
+       class="col s12 m6 l4 u-position--relative u-height--350px u-borrowed--height">
     <div class="u-bookmark--action">
       <img src="../../../assets/borrowed.png" alt="">
     </div>
@@ -12,22 +13,27 @@
       <div class="card-stacked">
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4 u-lineheight--21px u-display--block_">{{userBook.ownedBook.book.volumeInfo.title}}</span>
-          <p class="limit u-border--top_ u-height--75px" [innerHTML]="userBook.ownedBook.book.volumeInfo.description"></p>
+          <p class="limit u-border--top_ u-height--75px"
+             [innerHTML]="userBook.ownedBook.book.volumeInfo.description"></p>
         </div>
       </div>
     </div>
     <div class="u-borrow-information">
       <div class="u-left--line"></div>
       <div class="u-right--line"></div>
-      <div>Description: {{userBook.borrowDescription}}</div><hr/>
-      <div>Return date: {{userBook.returnDate | date }}</div><hr/>
-      <div>Borrow date: {{userBook.borrowDate | date}}</div><hr/>
-      <div>Reading status: {{userBook.ownedBook.readStatus}}</div><hr/>
+      <div>Description: {{userBook.borrowDescription}}</div>
+      <hr/>
+      <div>Return date: {{userBook.returnDate | date }}</div>
+      <hr/>
+      <div>Borrow date: {{userBook.borrowDate | date}}</div>
+      <hr/>
+      <div>Reading status: {{userBook.ownedBook.readStatus}}</div>
+      <hr/>
     </div>
   </div>
 </div>
 <bookinfo #bookinfo></bookinfo>
 <borrowbook #borrowbook></borrowbook>
-<div *ngIf="!bookService.borrowedBooks" class="u-if--empty">
+<div *ngIf="!borrowedBooks" class="u-if--empty">
   You don't gave any book to somebody...
 </div>

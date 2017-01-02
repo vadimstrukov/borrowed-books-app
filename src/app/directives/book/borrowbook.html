@@ -17,12 +17,14 @@
         <label for="return_date">Date return</label>
         <input #return_date id="return_date" type="date" class="datepicker" [value]="selectedBook?.returnDate | date">
         <div class="input-field">
-          <textarea #description id="description" class="materialize-textarea">{{selectedBook?.borrowDescription}}</textarea>
+          <textarea #description id="description"
+                    class="materialize-textarea">{{selectedBook?.borrowDescription}}</textarea>
           <label for="description">Description</label>
         </div>
       </div>
     </form>
-    <button (click)="borrowBook(description.value, return_date.value)" type="submit" class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
+    <button (click)="borrowBook(description.value, return_date.value)" type="submit"
+            class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
       Borrow book
     </button>
   </div>

@@ -1,12 +1,12 @@
 import {ImageLink} from "./ImageLink";
-export class VolumeInfo{
+export class VolumeInfo {
   title: string;
   authors: Array<String>;
   publisher: string;
   publishedDate: string;
   description: string;
-  pageCount:string;
-  language:string;
-  infoLink:string;
+  pageCount: string;
+  language: string;
+  infoLink: string;
   imageLinks: ImageLink;
 }

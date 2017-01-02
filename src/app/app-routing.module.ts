@@ -9,12 +9,13 @@ import {BorrowedBooks} from "./directives/book/borrowedbooks.directive";
  */
 const routes: Routes = [
   {path: '', redirectTo: 'search', pathMatch: 'full'},
-  {path: 'search', component:SearchBooks},
+  {path: 'search', component: SearchBooks},
   {path: 'library', component: UserBooks, canActivate: [CanActivateViaAuth]},
   {path: 'borrowed', component: BorrowedBooks, canActivate: [CanActivateViaAuth]}
 ];
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule{}
+export class AppRoutingModule {
+}

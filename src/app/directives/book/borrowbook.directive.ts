@@ -1,10 +1,10 @@
 /**
  * Created by strukov on 23.12.16.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
-import {BookService} from "../../service/BookService";
+import {BookService, deleteBookFromMem} from "../../service/BookService";
 import {OwnedBook} from "../../model/OwnedBook";
 import {BorrowedBook} from "../../model/BorrowedBook";
 import {Toast} from "../../utils/Toast";
@@ -14,16 +14,18 @@ import {Book} from "../../model/Book";
   templateUrl: './borrowbook.html',
   styleUrls: ['../../app.component.scss']
 })
-export class BorrowBookModal extends ModalBehaviour implements OnInit{
-  selectedBook:BorrowedBook|OwnedBook;
-  bookToBorrow:Book;
-  borrowedBook:BorrowedBook;
+export class BorrowBookModal extends ModalBehaviour implements OnInit {
+  selectedBook: BorrowedBook|OwnedBook;
+  bookToBorrow: Book;
+  borrowedBook: BorrowedBook;
+  @Input()
+  bookList: Array<OwnedBook>;
 
-  constructor(private bookService:BookService){
+  constructor(private bookService: BookService) {
     super();
   }
 
-  ngOnInit():void{
+  ngOnInit(): void {
     super.ngOnInit();
     this.initModalName(Constants.BorrowBookModal);
     $('.datepicker').pickadate({
@@ -33,8 +35,8 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
     });
   }
 
-  public openBorrow(bookToBorrow: OwnedBook | BorrowedBook):void{
-    if(isBorrowed(bookToBorrow))
+  public openBorrow(bookToBorrow: OwnedBook | BorrowedBook): void {
+    if (isBorrowed(bookToBorrow))
       this.bookToBorrow = bookToBorrow.ownedBook.book;
     else
       this.bookToBorrow = bookToBorrow.book;
@@ -42,8 +44,8 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
     this.openModal();
   }
 
-  public borrowBook(description:string, return_date:Date):void{
-    if(!isBorrowed(this.selectedBook)) {
+  public borrowBook(description: string, return_date: Date): void {
+    if (!isBorrowed(this.selectedBook)) {
       this.selectedBook.borrowed = true;
       this.bookService.borrowBook(
         this.borrowedBook = {
@@ -51,25 +53,26 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit{
           borrowDate: new Date(),
           returnDate: return_date,
           borrowDescription: description
-        }).subscribe(() => {
-        this.bookService.deleteBookFromMem(this.selectedBook, this.bookService.userBooks);
-        console.log("Book borrowed successfully!");
-        this.closeBorrow();
-      });
-      Toast.getToast("Book borrowed successfully!");
+        }).subscribe(
+        () => {
+          this.closeBorrow();
+          deleteBookFromMem(this.selectedBook, this.bookList)
+        },
+        e => Toast.getToast(e),
+        () => Toast.getToast("Book borrowed successfully!")
+      )
     }
     else {
       this.selectedBook.borrowDescription = description;
       this.selectedBook.returnDate = return_date;
-      this.bookService.updateBorrowedBook(this.selectedBook).subscribe(()=> {
-        this.closeBorrow();
-      });
-      Toast.getToast("Borrowed book updated successfully!");
-
+      this.bookService.updateItem(this.selectedBook, Constants.BorrowedBooks).subscribe(
+        () => this.closeBorrow(),
+        e => Toast.getToast(e),
+        () => Toast.getToast("Borrowed book updated successfully!"));
     }
   }
 
-  public closeBorrow():void{
+  public closeBorrow(): void {
     this.closeModal();
   }
 
