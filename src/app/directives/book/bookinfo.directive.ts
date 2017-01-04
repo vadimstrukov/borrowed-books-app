@@ -41,7 +41,10 @@ export class BookInfoModal extends ModalBehaviour implements OnInit {
         date_added: new Date()
       }, Constants.OwnedBooks)
       .subscribe(
-        () => this.setIsInLibrary(true),
+        () => {
+          this.setIsInLibrary(true);
+          this.bookService.getLibraryLength();
+        },
         e => Toast.getToast(e),
         () => Toast.getToast("Book added to your library successfully!"));
   }

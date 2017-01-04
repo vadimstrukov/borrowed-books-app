@@ -19,8 +19,8 @@
     </ul>
     <ul class="side-nav" id="mobile-view">
       <li class="u-image--box"></li>
-      <li><a (click)="openLibrary()">My library</a></li>
-      <li><a (click)="openBorrowed()">Borrowed books</a></li>
+      <li><a (click)="openLibrary()">My library {{bookService.userLibrary?.ownedBooksLength}}</a></li>
+      <li><a (click)="openBorrowed()">Borrowed books {{bookService.userLibrary?.borrowedBooksLength}}</a></li>
       <li class="u-hide--onHuge"><a *ngIf="auth.user">{{auth.user.fullname}}</a>
         <ul *ngIf="auth.user">
           <li class="divider"></li>

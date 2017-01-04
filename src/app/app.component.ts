@@ -3,6 +3,7 @@ import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login/login.directive";
 import {Authentication} from "./utils/Authentication";
 import {Router} from "@angular/router";
+import {BookService} from "./service/BookService";
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
   @ViewChild('login')
   private loginModal: LoginRegisterModal;
 
-  constructor(public auth: Authentication, private router: Router) {
+  constructor(public auth: Authentication, private router: Router, public bookService:BookService) {
     this.searchControl.valueChanges.debounceTime(500).distinctUntilChanged()
       .subscribe((value: string) => {
         if (value.length > 0) {
@@ -47,6 +48,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.auth.isLoggedIn())
+      this.bookService.getLibraryLength();
     setTimeout(() => {
       $('.button-collapse').sideNav();
     }, 500);
