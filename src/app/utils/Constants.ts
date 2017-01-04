@@ -6,6 +6,10 @@ export class Constants {
     return 'https://books.strukov.eu/restful/borrowed'
   }
 
+  public static get LibraryLength(): string {
+    return this.API_URL + '/api/v1/books/count'
+  }
+
   public static get GoogleAPI(): string {
     return 'https://www.googleapis.com/books/v1/volumes'
   }
