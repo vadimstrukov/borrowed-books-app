@@ -125,5 +125,10 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
 }
+::-ms-clear,
+::-ms-reveal {
+  height: 0 $important;
+  width: 0 $important;
+}
 
 /*************************************************COMPONENTS***********************************************/
