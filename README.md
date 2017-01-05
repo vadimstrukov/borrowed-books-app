@@ -6,9 +6,12 @@ This project uses [Spring Boot RESTful API with OAuth2 implementation](https://g
 
 You can see a live example here: https://books.strukov.eu 
 
-![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/develop/git_pictures/search.png "Search")
-![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/develop/git_pictures/book_info.png "Book info")
-![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/develop/git_pictures/library.png "Library")
+![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/master/git_pictures/search.png "Search")
+![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/master/git_pictures/book_info.png "Book info")
+![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/master/git_pictures/library.png "Library")
+![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/master/git_pictures/borrowed.png "Borrowed")
+![alt text](https://github.com/vadimstrukov/borrowed-books-app/blob/master/git_pictures/borrow.png "Borrow")
+
 
 
 ## Installation
