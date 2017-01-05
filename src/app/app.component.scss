@@ -267,7 +267,7 @@ $menuImageUrl: url(../assets/books.jpg);
     }
     .u-slider--wrapper{
       @include displayType();
-      margin-top: 95px;
+      margin-top: 40px;
       height: 150px;
       overflow: $hidden;
       span{
@@ -795,7 +795,7 @@ button.u-library--indicator {
   /* Larger than desktop */
   @media only screen and (min-width: 1000px) {
       .u-slider--wrapper{
-        margin-top: 355px $important;
+        margin-top: 270px $important;
       }
     .u-paddingbot--150px_ {
       @include displayType();
@@ -910,4 +910,18 @@ button.u-library--indicator {
       .u-slider--wrapper{
         margin-top: 130px $important;
       }
+  }
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    .u-css--slider{
+      .u-slider--wrapper{
+        margin-top: 85px $important;
+      }
+    }
   }
