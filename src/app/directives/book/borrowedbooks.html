@@ -1,6 +1,6 @@
 <div *ngIf="borrowedBooks" class="row u-paddingbot--150px_">
   <div *ngFor="let userBook of borrowedBooks"
-       class="col s12 m6 l4 u-position--relative u-height--350px u-borrowed--height">
+       class="col s12 m6 l6 u-position--relative u-height--350px u-borrowed--height">
     <div class="u-bookmark--action">
       <img src="../../../assets/borrowed.png" alt="">
     </div>
@@ -34,6 +34,6 @@
 </div>
 <bookinfo #bookinfo></bookinfo>
 <borrowbook #borrowbook></borrowbook>
-<div *ngIf="!borrowedBooks" class="u-if--empty">
+<div *ngIf="!borrowedBooks" class="u-if--empty u-paddingTop--0px">
   You don't gave any book to somebody...
 </div>
