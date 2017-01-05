@@ -18,7 +18,7 @@ import {BookItems} from "../../model/BookItems";
 import {Book} from "../../model/Book";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {Authentication} from "../../utils/Authentication";
+import {Authentication} from "../../service/AuthService";
 import {BookInfoModal} from "./bookinfo.directive";
 
 @Component({

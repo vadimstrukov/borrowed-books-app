@@ -4,7 +4,7 @@
 import {Component, OnInit} from "@angular/core";
 import {BookService} from "../../service/BookService";
 import {Book} from "../../model/Book";
-import {Authentication} from "../../utils/Authentication";
+import {Authentication} from "../../service/AuthService";
 import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {ActivatedRoute} from "@angular/router";

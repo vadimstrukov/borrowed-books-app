@@ -1,6 +1,6 @@
 import {CanActivate} from "@angular/router";
 import {Injectable} from "@angular/core";
-import {Authentication} from "./Authentication";
+import {Authentication} from "../service/AuthService";
 /**
  * Created by strukov on 30.11.16.
  */
