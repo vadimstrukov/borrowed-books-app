@@ -32,8 +32,8 @@
     </div>
   </div>
 </div>
-<bookinfo #bookinfo></bookinfo>
-<borrowbook #borrowbook></borrowbook>
-<div *ngIf="!borrowedBooks" class="u-if--empty u-paddingTop--0px">
+<div *ngIf="borrowedBooks?.length == 0" class="u-if--empty u-paddingTop--0px">
   You don't gave any book to somebody...
 </div>
+<bookinfo #bookinfo></bookinfo>
+<borrowbook #borrowbook></borrowbook>
