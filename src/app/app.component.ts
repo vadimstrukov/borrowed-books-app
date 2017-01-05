@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, trigger, state, style, transition, animate} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {LoginRegisterModal} from "./directives/login/login.directive";
-import {Authentication} from "./utils/Authentication";
+import {Authentication} from "./service/AuthService";
 import {Router} from "@angular/router";
 import {BookService} from "./service/BookService";
 

@@ -3,7 +3,7 @@ import {Http, URLSearchParams, Response} from "@angular/http";
 import {Constants} from "../utils/Constants";
 import "rxjs/Rx";
 import {Book} from "../model/Book";
-import {Authentication} from "../utils/Authentication";
+import {Authentication} from "./AuthService";
 import {Observable, Subscription} from "rxjs";
 import {BookItems} from "../model/BookItems";
 import {BorrowedBook} from "../model/BorrowedBook";
