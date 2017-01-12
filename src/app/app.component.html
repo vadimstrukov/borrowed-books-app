@@ -49,7 +49,11 @@
       <li class="u-btn--login"><a (click)="openLogin()" class="waves-effect waves-light">Login</a></li>
     </ul>
     <ul *ngIf="auth.authUser" class="side-nav" id="mobile-view">
-      <li class="u-image--box"><a>{{auth.authUser.fullname}}</a></li>
+      <li class="u-image--box">
+        <div class="u-box--about">
+          <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+        </div>
+        <a>{{auth.authUser.fullname}}</a></li>
       <li><a (click)="openLibrary()">My library <span class="chip u-menu--badges">{{bookService.userLibrary?.ownedBooksLength}}</span></a></li>
       <li><a (click)="openBorrowed()">Borrowed books <span class="chip u-menu--badges">{{bookService.userLibrary?.borrowedBooksLength}}</span></a></li>
       <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
