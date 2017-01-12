@@ -515,6 +515,11 @@ $menuImageUrl: url(../assets/books.jpg);
   background-image: $small_images_sprite;
 }
 
+.u-return--modal {
+  min-height: 0 !important;
+  min-width: 0 !important;
+}
+
 .u-library--indicator {
   margin: 10px;
   color: $color_white $important;

@@ -5,7 +5,7 @@
       <img src="../../../assets/borrowed.png" alt="">
     </div>
     <span class="u-icon--edit" (click)="updateBorrowed(userBook)"></span>
-    <span class="u-icon--return" (click)="returnBook(userBook)"></span>
+    <span class="u-icon--return" (click)="openReturnAgreeDialog(userBook)"></span>
     <span class="u-icon--read" (click)=" openAdditionalInfo(userBook.ownedBook.book)"></span>
     <div class="card horizontal u-library--height">
       <div class="card-image u-width--145px">
@@ -34,7 +34,17 @@
   </div>
 </div>
 <div *ngIf="borrowedBooks?.length == 0" class="u-if--empty u-paddingTop--0px">
-  You don't gave any book to somebody...
+  You haven't given any book yet...
+</div>
+<div id="returnDialog" class="modal u-return--modal">
+  <div class="modal-content">
+    <h4>Return a book</h4>
+    <p>Are you sure you want to return this book?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="  waves-effect waves-green btn-flat" (click)="actionAgree()">Return</a>
+    <a class="  waves-effect waves-green btn-flat" (click)="actionCancel()">Cancel</a>
+  </div>
 </div>
 <bookinfo #bookinfo></bookinfo>
 <borrowbook #borrowbook></borrowbook>
