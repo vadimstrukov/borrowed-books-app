@@ -8,6 +8,28 @@
              class="validate u-input--search" onfocus="placeholder = ''" onblur="placeholder = 'Enter book title...'">
       <span class="u-arrow--delete u-display--none" (click)="clearSearchBox()"></span>
     </div>
+    <div class="u-box--about">
+      <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+      <div id="aboutInfo" class="modal u-about--modal">
+        <div class="modal-content">
+          <h4>Information about project</h4>
+          <p>
+            Borrowed Books Application<br />
+            <a href="https://github.com/vadimstrukov/borrowed-books-app" target="_blank">GitHub</a><br />
+            Borrowed Book RESTful API<br />
+            <a href="https://github.com/vadimstrukov/borrowed-books-api" target="_blank">Our API</a><br />
+            <br /><br />Developers:<br />
+            Front-End: Stanisalw Kosharinski<br />
+            <a href="https://github.com/StanislavKosharinski" target="_blank">Stanislav's Git</a><br />
+            Back-End: Strukov Vadim<br />
+            <a href="https://github.com/vadimstrukov" target="_blank">Vadim's Git</a><br />
+          </p>
+        </div>
+        <div class="modal-footer">
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat">Okey</a>
+        </div>
+      </div>
+    </div>
     <ul *ngIf="!auth.authUser" class="side-nav" id="mobile-view-notUser">
       <li class="u-image--box"></li>
       <li class="u-css--slider">

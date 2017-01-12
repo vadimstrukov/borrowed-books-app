@@ -1,7 +1,7 @@
 <div *ngIf="userBooks" class="row u-paddingbot--150px_">
   <div [id]="userBook.book.id" *ngFor="let userBook of userBooks"
        class="col s12 m6 l6 u-position--relative u-height--350px">
-    <div class="u-bookmark--action">
+    <div class="u-bookmark--action u-library--controls">
       <img src="../../../assets/bookmark.png" alt="">
     </div>
     <span class="u-icon--edit" (click)="expandEditPanel($event, userBook)"></span>

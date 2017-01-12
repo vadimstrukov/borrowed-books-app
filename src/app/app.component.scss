@@ -109,6 +109,7 @@ $menuImageUrl: url(../assets/books.jpg);
 .u-icon--remainder,
 .u-icon--edit,
 .u-icon--read,
+.u-icon--return,
 .u-display--block_,
 .u-makeit--center > div > span.chip,
 .card.horizontal,
@@ -145,20 +146,25 @@ $menuImageUrl: url(../assets/books.jpg);
 }
 
 .u-icon--edit,
-.u-icon--read {
+.u-icon--read,
+.u-icon--return{
   position: $absolute;
   height: 26px;
   width: 22px;
   right: 20px;
-  top: 15px;
+  top: 10px;
   @include images_sprite($small_images_sprite, -30px, -52px);
   z-index: 997;
   cursor: $pointer;
 }
 
-.u-icon--read {
-  top: 45px;
-  @include images_sprite($small_images_sprite, -32px, 0px);
+.u-icon--return{
+  top: 68px;
+  @include images_sprite($small_images_sprite, -32px, -30px);
+}
+.u-icon--read{
+  top: 38px;
+  @include images_sprite($small_images_sprite, -32px, -2px);
 }
 
 .u-p-remainder,
@@ -219,6 +225,25 @@ $menuImageUrl: url(../assets/books.jpg);
   > img {
     height: 100%;
     margin-left: 5%;
+  }
+}
+
+.u-about--modal{
+  min-height: 0 !important;
+  min-width: 0 !important;
+  h4{
+    color: black;
+  }
+  color: $color_gray;
+  p{
+    color: black;
+    @extend .u-text--center;
+    line-height: 30px;
+    a{
+      color: gray;
+      font-weight: bold;
+      text-decoration: underline;
+    }
   }
 }
 
@@ -611,10 +636,6 @@ button.u-library--indicator {
   .u-borrowed--height {
     min-height: 470px;
     height: $auto $important;
-    .u-icon--read {
-      top: 55px;
-      background-position: -32px -30px;
-    }
   }
 
   .u-borrowed--book {
@@ -695,6 +716,11 @@ button.u-library--indicator {
     @include btnSpanChip(90px, 14px);
     @include elementsHideManipulations(block, none);
     /*************************************************INCLUDES***********************************************/
+    .u-box--about{
+      cursor: $pointer;
+      float: $right;
+      margin-right: 20px;
+    }
     .u-slider--wrapper{
       margin-top: 295px $important;
     }
@@ -737,7 +763,7 @@ button.u-library--indicator {
       width: $auto;
     }
     .u-search--div {
-      width: 85%;
+      width: 75%;
       text-align: $center;
     }
     .u-arrow--delete {
@@ -758,13 +784,6 @@ button.u-library--indicator {
       label {
         font-size: 14px !important;
       }
-    }
-    .u-icon--edit {
-      top: 15px;
-    }
-    .u-icon--read {
-      top: 45px;
-      background-position: -32px 2px;
     }
     ul {
       > ul {
@@ -847,16 +866,34 @@ button.u-library--indicator {
       padding-top: 40%;
       font-size: 62px;
     }
-    .u-icon--edit,
-    .u-icon--read {
-      top: 175px;
-      right: 25px;
+    .u-library--controls{
+      +.u-icon--edit{
+        top: 175px;
+        right: 25px $important;
+        +.u-icon--read{
+          top: 50px;
+          right: 55px;
+        }
+      }
     }
-    .u-icon--read {
-      right: 50px;
+    .u-icon--edit,
+    .u-icon--read,
+    .u-icon--return{
+      top: 175px;
+      right: 17px;
+    }
+    .u-icon--read{
+      top: 176px $important;
+      right: 42px;
+    }
+    .u-icon--return{
+      right: 70px;
+      top: 176px $important;
+      background-position: -32px -28px;
     }
     .u-borrowed--height {
-      .u-icon--read {
+      .u-icon--read,
+      .u-icon--return{
         top: 178px;
       }
     }
@@ -868,12 +905,13 @@ button.u-library--indicator {
       top: 95px;
       right: 61px;
     }
-    .u-icon--read {
+    .u-icon--read
+    .u-icon--return{
       background-position: -32px -2px;
       right: 55px;
     }
     .u-search--div {
-      width: 100%;
+      width: 90%;
     }
   }
 

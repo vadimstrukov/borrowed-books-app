@@ -5,7 +5,8 @@
       <img src="../../../assets/borrowed.png" alt="">
     </div>
     <span class="u-icon--edit" (click)="updateBorrowed(userBook)"></span>
-    <span class="u-icon--read" (click)="returnBook(userBook)"></span>
+    <span class="u-icon--return" (click)="returnBook(userBook)"></span>
+    <span class="u-icon--read" (click)=" openAdditionalInfo(userBook.ownedBook.book)"></span>
     <div class="card horizontal u-library--height">
       <div class="card-image u-width--145px">
         <img [src]="userBook.ownedBook.book.volumeInfo.imageLinks?.smallThumbnail">
