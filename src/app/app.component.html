@@ -8,8 +8,6 @@
              class="validate u-input--search" onfocus="placeholder = ''" onblur="placeholder = 'Enter book title...'">
       <span class="u-arrow--delete u-display--none" (click)="clearSearchBox()"></span>
     </div>
-    <div class="u-box--about">
-      <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
       <div id="aboutInfo" class="modal u-about--modal">
         <div class="modal-content">
           <h4>Information about project</h4>
@@ -26,9 +24,12 @@
           <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
       </div>
-    </div>
     <ul *ngIf="!auth.authUser" class="side-nav" id="mobile-view-notUser">
-      <li class="u-image--box"></li>
+      <li class="u-image--box">
+        <div class="u-box--about">
+          <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+        </div>
+      </li>
       <li class="u-css--slider">
         <span class="u-slider--wrapper">
           <span>
