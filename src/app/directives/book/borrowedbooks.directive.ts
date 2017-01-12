@@ -4,6 +4,8 @@ import {BookService, deleteBookFromMem} from "../../service/BookService";
 import {Toast} from "../../utils/Toast";
 import {BorrowBookModal} from "./borrowbook.directive";
 import {Constants} from "../../utils/Constants";
+import {BookInfoModal} from "./bookinfo.directive";
+import {Book} from "../../model/Book";
 /**
  * Created by strukov on 23.12.16.
  */
@@ -14,6 +16,8 @@ import {Constants} from "../../utils/Constants";
 export class BorrowedBooks {
   @ViewChild('borrowbook')
   public borrowBookModal: BorrowBookModal;
+  @ViewChild('bookinfo')
+  public bookInfoModal: BookInfoModal;
   public borrowedBooks: Array<BorrowedBook>;
 
   constructor(private bookService: BookService) {
@@ -35,6 +39,10 @@ export class BorrowedBooks {
 
   public updateBorrowed(borrowedBook: BorrowedBook) {
     this.borrowBookModal.openBorrow(borrowedBook);
+  }
+
+  public openAdditionalInfo(book: Book): void {
+    this.bookInfoModal.openInfo(book.id);
   }
 
 }
