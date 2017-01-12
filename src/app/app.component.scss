@@ -227,7 +227,12 @@ $menuImageUrl: url(../assets/books.jpg);
     margin-left: 5%;
   }
 }
-
+.u-box--about{
+  position: $absolute;
+  z-index: 1000;
+  left: 5px;
+  top: -12px;
+}
 .u-about--modal{
   min-height: 0 !important;
   min-width: 0 !important;
