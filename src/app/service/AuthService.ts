@@ -6,6 +6,7 @@ import {URLSearchParams, Headers, Http} from "@angular/http";
 import {Constants} from "../utils/Constants";
 import {User} from "../model/User";
 import {Observable, Subscription} from "rxjs";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Injectable()
 export class Authentication {
@@ -62,7 +63,7 @@ export class Authentication {
       .map((response) => {
         this.accessToken = response.json().access_token;
         localStorage.setItem('access_token', this.accessToken);
-      });
+      }).catch(handleError);
   }
 
   public logout(): Observable<void> {
@@ -86,4 +87,10 @@ export class Authentication {
     return this.accessToken !== null && this.accessToken !== undefined;
   }
 
+}
+
+function handleError(error: any): ErrorObservable {
+  let errorMsg = error.message || 'There was a problem, check your credentials!';
+  console.error(errorMsg);
+  return Observable.throw(errorMsg);
 }
