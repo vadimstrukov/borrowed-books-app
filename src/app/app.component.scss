@@ -612,6 +612,13 @@ button.u-library--indicator {
   }
 
 @-moz-document url-prefix() {
+  .datepicker{
+    width: 200px $important;
+    min-width: 0 $important;
+    background-color: transparent $important;
+    @include border-radius(0);
+    @extend .u-text--center;
+    }
   .side-nav{
     li:last-child{
       bottom: 0 $important;
