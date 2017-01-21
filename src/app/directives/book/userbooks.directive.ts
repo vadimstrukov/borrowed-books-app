@@ -113,7 +113,10 @@ export class UserBooks {
   public deleteUserBook(userBook: OwnedBook): void {
     this.bookService.deleteItem(userBook.id.toString(), Constants.OwnedBooks)
       .subscribe(
-        () => deleteBookFromMem(userBook, this.userBooks),
+        () => {
+          deleteBookFromMem(userBook, this.userBooks);
+          this.bookService.getLibraryLength();
+        },
         e => Toast.getToast(e),
         () => Toast.getToast("Book deleted successfully!"));
   }

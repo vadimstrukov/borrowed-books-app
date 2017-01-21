@@ -1,11 +1,12 @@
 <div *ngIf="borrowedBooks" class="row u-paddingbot--150px_">
   <div *ngFor="let userBook of borrowedBooks"
-       class="col s12 m6 l4 u-position--relative u-height--350px u-borrowed--height">
+       class="col s12 m6 l6 u-position--relative u-height--350px u-borrowed--height">
     <div class="u-bookmark--action">
       <img src="../../../assets/borrowed.png" alt="">
     </div>
     <span class="u-icon--edit" (click)="updateBorrowed(userBook)"></span>
-    <span class="u-icon--read" (click)="returnBook(userBook)"></span>
+    <span class="u-icon--return" (click)="openReturnAgreeDialog(userBook)"></span>
+    <span class="u-icon--read" (click)=" openAdditionalInfo(userBook.ownedBook.book)"></span>
     <div class="card horizontal u-library--height">
       <div class="card-image u-width--145px">
         <img [src]="userBook.ownedBook.book.volumeInfo.imageLinks?.smallThumbnail">
@@ -32,8 +33,18 @@
     </div>
   </div>
 </div>
+<div *ngIf="borrowedBooks?.length == 0" class="u-if--empty u-paddingTop--0px">
+  You haven't given any book yet...
+</div>
+<div id="returnDialog" class="modal u-return--modal">
+  <div class="modal-content">
+    <h4>Return a book</h4>
+    <p>Are you sure you want to return this book?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="  waves-effect waves-green btn-flat" (click)="actionAgree()">Return</a>
+    <a class="  waves-effect waves-green btn-flat" (click)="actionCancel()">Cancel</a>
+  </div>
+</div>
 <bookinfo #bookinfo></bookinfo>
 <borrowbook #borrowbook></borrowbook>
-<div *ngIf="!borrowedBooks" class="u-if--empty">
-  You don't gave any book to somebody...
-</div>

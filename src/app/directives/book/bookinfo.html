@@ -1,7 +1,7 @@
 <div id="bookinfo" class="modal">
   <span (click)="closeInfo()"><i class="material-icons u-close--modal">clear</i></span>
   <span *ngIf="isInLibrary" class="chip u-library--indicator">Added in library</span>
-  <button *ngIf="auth.user && !isInLibrary" (click)="addBook()" type="submit"
+  <button *ngIf="auth.authUser && !isInLibrary" (click)="addBook()" type="submit"
           class="u-library--indicator chip waves-effect waves-green btn-flat jq-login">
     Add to my library
   </button>

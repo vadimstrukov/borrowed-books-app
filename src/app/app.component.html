@@ -1,33 +1,62 @@
 <nav class="u-position--fixed_">
   <div class="nav-wrapper">
-    <a *ngIf="auth.user" data-activates="mobile-view" class="button-collapse u-menu--button"></a>
+    <a *ngIf="auth.authUser" data-activates="mobile-view" class="button-collapse u-menu--button"></a>
+    <a *ngIf="!auth.authUser" data-activates="mobile-view-notUser" class="button-collapse u-menu--button"></a>
     <div class="u-search--div">
       <span class="u-search--icon"></span>
       <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text"
              class="validate u-input--search" onfocus="placeholder = ''" onblur="placeholder = 'Enter book title...'">
       <span class="u-arrow--delete u-display--none" (click)="clearSearchBox()"></span>
     </div>
-    <ul class="right jq-right">
-      <li *ngIf="!auth.user" class="u-float--right"><a (click)="openLogin()" class="waves-effect waves-light"><i
-        class="material-icons">account_circle</i></a></li>
-      <a *ngIf="auth.user" class='dropdown-button u-hide--onSmall' data-activates='dropdown1'>{{auth.user.fullname}}</a>
-      <ul *ngIf="auth.user" id='dropdown1' class='dropdown-content'>
-        <li class="divider"></li>
-        <li class="u-hide--onSmall"><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
-      </ul>
-
-    </ul>
-    <ul class="side-nav" id="mobile-view">
-      <li class="u-image--box"></li>
-      <li><a (click)="openLibrary()">My library</a></li>
-      <li><a (click)="openBorrowed()">Borrowed books</a></li>
-      <li class="u-hide--onHuge"><a *ngIf="auth.user">{{auth.user.fullname}}</a>
-        <ul *ngIf="auth.user">
-          <li class="divider"></li>
-          <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
-          <li class="divider"></li>
-        </ul>
+      <div id="aboutInfo" class="modal u-about--modal">
+        <div class="modal-content">
+          <h4>Information about project</h4>
+          <p>
+            Source Code<br />
+            <a href="https://github.com/vadimstrukov/borrowed-books-app" target="_blank">Web application</a><br />
+            <a href="https://github.com/vadimstrukov/borrowed-books-api" target="_blank">RESTful API</a><br />
+            <br /><br />Developers:<br />
+            Front-End: <a href="https://github.com/StanislavKosharinski" target="_blank">Stanislav Kosharinski</a><br />
+            Back-End: <a href="https://github.com/vadimstrukov" target="_blank">Strukov Vadim</a><br />
+          </p>
+        </div>
+        <div class="modal-footer">
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
+    <ul *ngIf="!auth.authUser" class="side-nav" id="mobile-view-notUser">
+      <li class="u-image--box">
+        <div class="u-box--about">
+          <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+        </div>
       </li>
+      <li class="u-css--slider">
+        <span class="u-slider--wrapper">
+          <span>
+          <img src="../assets/active-search.png" alt=""><br />
+          <span>Here you can find all the books that are interesting to you.</span>
+        </span>
+        <span>
+          <img src="../assets/plus-one.png" alt=""><br />
+          <span>Enrich your library with new books every day..</span>
+        </span>
+        <span>
+          <img src="../assets/share-icon.png" alt=""><br />
+          <span>You can keep track of those books that are given away.</span>
+        </span>
+        </span>
+      </li>
+      <li class="u-btn--login"><a (click)="openLogin()" class="waves-effect waves-light">Login</a></li>
+    </ul>
+    <ul *ngIf="auth.authUser" class="side-nav" id="mobile-view">
+      <li class="u-image--box">
+        <div class="u-box--about">
+          <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+        </div>
+        <a>{{auth.authUser.fullname}}</a></li>
+      <li><a (click)="openLibrary()">My library <span class="chip u-menu--badges">{{bookService.userLibrary?.ownedBooksLength}}</span></a></li>
+      <li><a (click)="openBorrowed()">Borrowed books <span class="chip u-menu--badges">{{bookService.userLibrary?.borrowedBooksLength}}</span></a></li>
+      <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
     </ul>
   </div>
 </nav>
@@ -35,4 +64,4 @@
 
 <router-outlet></router-outlet>
 
-<login #login *ngIf="!auth.user"></login>
+<login #login *ngIf="!auth.authUser"></login>

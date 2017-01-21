@@ -3,7 +3,7 @@
      [infiniteScrollDistance]="1"
      [infiniteScrollThrottle]="500"
      (scrolled)="onScroll()" [@zoomIn]>
-  <div class="col s12 m6 l4" *ngFor="let book of books.items" (click)="openAdditionalInfo(book)">
+  <div class="col s12 m6 l6" *ngFor="let book of books.items" (click)="openAdditionalInfo(book)">
     <div class="card horizontal u-height--245px_">
       <div class="card-image u-width--145px">
         <img [src]="book.volumeInfo.imageLinks?.smallThumbnail">

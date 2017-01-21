@@ -3,25 +3,43 @@
  */
 import {Injectable} from "@angular/core";
 import {URLSearchParams, Headers, Http} from "@angular/http";
-import {Constants} from "./Constants";
+import {Constants} from "../utils/Constants";
 import {User} from "../model/User";
 import {Observable, Subscription} from "rxjs";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Injectable()
 export class Authentication {
 
-  public access_token: string;
-  public user: User;
+  private _accessToken: string;
+  private _authUser: User;
+
+
+  get accessToken(): string {
+    return this._accessToken;
+  }
+
+  set accessToken(value: string) {
+    this._accessToken = value;
+  }
+
+  get authUser(): User {
+    return this._authUser;
+  }
+
+  set authUser(value: User) {
+    this._authUser = value;
+  }
 
   constructor(private http: Http) {
-    this.access_token = localStorage.getItem('access_token');
+    this.accessToken = localStorage.getItem('access_token');
     this.getAuthUser();
   }
 
   public setAuthHeaders(): Headers {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.access_token);
+    headers.append('Authorization', 'Bearer ' + this.accessToken);
     return headers;
   }
 
@@ -43,30 +61,36 @@ export class Authentication {
 
     return this.http.post(Constants.OAuthURL, credentials.toString(), {headers: headers})
       .map((response) => {
-        this.access_token = response.json().access_token;
-        localStorage.setItem('access_token', this.access_token);
-      });
+        this.accessToken = response.json().access_token;
+        localStorage.setItem('access_token', this.accessToken);
+      }).catch(handleError);
   }
 
   public logout(): Observable<void> {
     let headers = new Headers();
-    headers.set('Authorization', 'Bearer ' + this.access_token);
+    headers.set('Authorization', 'Bearer ' + this.accessToken);
     return this.http.get(Constants.LogoutURL, {headers: headers}).map(() => {
-      this.access_token = undefined;
+      this.accessToken= undefined;
       localStorage.removeItem('access_token');
-      this.user = null;
+      this.authUser = null;
     });
   }
 
   public getAuthUser(): Subscription {
-    if (this.access_token)
+    if (this.accessToken)
       return this.http.get(Constants.LoggedInUser, {headers: this.setAuthHeaders()})
         .map(response => response.json())
-        .subscribe(data => this.user = data);
+        .subscribe(data => this.authUser = data);
   }
 
   public isLoggedIn(): boolean {
-    return this.access_token !== null && this.access_token !== undefined;
+    return this.accessToken !== null && this.accessToken !== undefined;
   }
 
+}
+
+function handleError(error: any): ErrorObservable {
+  let errorMsg = error.message || 'There was a problem, check your credentials!';
+  console.error(errorMsg);
+  return Observable.throw(errorMsg);
 }

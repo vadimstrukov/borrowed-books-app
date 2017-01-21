@@ -40,11 +40,9 @@ $menuImageUrl: url(../assets/books.jpg);
     top: $top $important;
   }
 }
-
 @mixin animation( $for: all, $time: 0.2s, $animationType: linear) {
   transition: $for $time $animationType;
 }
-
 @mixin elementsHideManipulations( $dType_1: none, $dType_2: block ) {
   .u-hide--onSmall {
     @include displayType($dType_1);
@@ -54,7 +52,6 @@ $menuImageUrl: url(../assets/books.jpg);
     @include displayType($dType_2);
   }
 }
-
 @mixin booksLines( $lineHeight, $marginTop, $color) {
   .u-left--line,
   .u-right--line {
@@ -102,7 +99,9 @@ $menuImageUrl: url(../assets/books.jpg);
 .u-book--title,
 .u-if--empty,
 .u-borrowed--book,
-.u-borrow-information {
+.u-borrow-information,
+.u-menu--badges,
+.u-css--slider{
   @extend .u-text--center;
 }
 
@@ -110,6 +109,7 @@ $menuImageUrl: url(../assets/books.jpg);
 .u-icon--remainder,
 .u-icon--edit,
 .u-icon--read,
+.u-icon--return,
 .u-display--block_,
 .u-makeit--center > div > span.chip,
 .card.horizontal,
@@ -146,20 +146,25 @@ $menuImageUrl: url(../assets/books.jpg);
 }
 
 .u-icon--edit,
-.u-icon--read {
+.u-icon--read,
+.u-icon--return{
   position: $absolute;
   height: 26px;
   width: 22px;
   right: 20px;
-  top: 15px;
+  top: 10px;
   @include images_sprite($small_images_sprite, -30px, -52px);
   z-index: 997;
   cursor: $pointer;
 }
 
-.u-icon--read {
-  top: 45px;
-  @include images_sprite($small_images_sprite, -32px, 0px);
+.u-icon--return{
+  top: 68px;
+  @include images_sprite($small_images_sprite, -32px, -30px);
+}
+.u-icon--read{
+  top: 38px;
+  @include images_sprite($small_images_sprite, -32px, -2px);
 }
 
 .u-p-remainder,
@@ -222,6 +227,30 @@ $menuImageUrl: url(../assets/books.jpg);
     margin-left: 5%;
   }
 }
+.u-box--about{
+  position: $absolute;
+  z-index: 1000;
+  left: -5px;
+  top: -8px;
+}
+.u-about--modal{
+  min-height: 0 !important;
+  min-width: 0 !important;
+  h4{
+    color: black;
+  }
+  color: $color_gray;
+  p{
+    color: black;
+    @extend .u-text--center;
+    line-height: 30px;
+    a{
+      color: gray;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
 
 .right {
   width: 5rem;
@@ -231,14 +260,66 @@ $menuImageUrl: url(../assets/books.jpg);
     height: $inherit;
   }
 }
-
 .side-nav {
   text-align: $left;
+  .u-menu--badges{
+    @extend .u-float--right;
+    margin-top: 8px;
+    min-width: 0 $important;
+    color: $color_white;
+    background-color: #7f9a40;
+  }
+  .u-btn--login{
+    background-color: $color_dark_green $important;
+  }
+  li:nth-child(3){
+    .u-menu--badges {
+      background-color: #f2c558;
+    }
+  }
+  li:last-child{
+    position: $absolute;
+    bottom: 60px;
+    right: 0;
+    left: 0;
+    background: rgb(239, 83, 80);
+    @extend .u-text--center;
+    a{
+      text-transform: uppercase;
+      color: $color_white;
+    }
+  }
+
+  .u-css--slider{
+    line-height: 20px;
+    img{
+      height: 100px;
+    }
+    .u-slider--wrapper{
+      @include displayType();
+      margin-top: 40px;
+      height: 150px;
+      overflow: $hidden;
+      span{
+        @include displayType();
+        color: $color_gray;
+        &:first-child{
+          -webkit-animation: slider 10s infinite;
+          animation: slider 10s infinite;
+        }
+        span{
+          @include displayType();
+          width: 80%;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
 }
 
 .u-go--top {
   position: $fixed;
-  z-index: 1000;
+  z-index: 998;
   right: 20px;
   bottom: 20px;
   cursor: $pointer;
@@ -399,9 +480,20 @@ $menuImageUrl: url(../assets/books.jpg);
 }
 
 .u-image--box {
+  @include displayType(flex);
   height: 200px;
   background: $color_almost_gray $menuImageUrl;
   background-size: cover;
+  a{
+    align-self: flex-end;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin: 0 auto;
+    &:hover{
+      background: transparent $important;
+    }
+  }
 }
 
 .clicked_ {
@@ -421,6 +513,11 @@ $menuImageUrl: url(../assets/books.jpg);
   margin: 10px;
   cursor: $pointer;
   background-image: $small_images_sprite;
+}
+
+.u-return--modal {
+  min-height: 0 !important;
+  min-width: 0 !important;
 }
 
 .u-library--indicator {
@@ -455,297 +552,430 @@ button.u-library--indicator {
   color: $color_gray;
 }
 
-::-webkit-input-placeholder {
-  color: $color_white;
-}
-
-:-moz-placeholder {
-  color: $color_white;
-}
-
-::-moz-placeholder {
-  color: $color_white;
-}
-
-:-ms-input-placeholder {
-  color: $color_white;
-}
-
-/***************************************************USER-BOOK************************************************************/
-.u-bookmark--action {
-  position: $absolute;
-  height: 158px;
-  width: 50px;
-  z-index: 899;
-  right: 22px;
-  top: 4px;
-  > img {
-    height: 71%;
+  ::-webkit-input-placeholder {
+    color: $color_white;
   }
-}
-
-.u-bookUser--info {
-  @include booksLines(30px, -18px, #e4e4e4);
-}
-
-.u-library--height {
-  height: 350px;
-}
-
-/***************************************************USER-BOOK************************************************************/
-
-/***************************************************BORROWED-BOOK************************************************************/
-.u-borrowed--height {
-  min-height: 470px;
-  height: $auto $important;
-  .u-icon--read {
-    top: 55px;
-    background-position: -32px -30px;
+  :-moz-placeholder {
+    color: $color_white;
   }
-}
+  ::-moz-placeholder {
+    color: $color_white;
+  }
+  :-ms-input-placeholder {
+    color: $color_white;
+  }
+  @-webkit-keyframes slider{
+    0% {
+      margin-top: 0;
+    }
+    30%{
+      margin-top: 0;
+    }
+    35%{
+      margin-top: -145px;
+    }
+    60%{
+      margin-top: -145px;
+    }
+    65%{
+      margin-top: -295px;
+    }
+    90%{
+      margin-top: -295px;
+    }
+    100%{
+      margin-top: 0;
+    }
+  }
+  @keyframes slider {
+    0% {
+      margin-top: 0;
+    }
+    30%{
+      margin-top: 0;
+    }
+    35%{
+      margin-top: -145px;
+    }
+    60%{
+      margin-top: -145px;
+    }
+    65%{
+      margin-top: -295px;
+    }
+    90%{
+      margin-top: -295px;
+    }
+    100%{
+      margin-top: 0;
+    }
+  }
 
-.u-borrowed--book {
-  .u-library--height {
-    box-shadow: none;
-    background-color: transparent;
-    margin: 45px 5px 5px 5px;
-  }
-  .card-stacked {
-    @extend .u-text--justify;
-  }
-  label {
-    width: 100%;
-    font-size: 14px;
-  }
-  label,
-  .row {
-    @extend .u-text--center;
-  }
-  input[type="text"] {
-    width: 200px;
-    min-width: 0;
-    background-color: transparent;
+@-moz-document url-prefix() {
+  .datepicker{
+    width: 200px $important;
+    min-width: 0 $important;
+    background-color: transparent $important;
     @include border-radius(0);
-  }
-}
-
-.u-borrow-information {
-  padding: 5px;
-  color: #737373;
-  border: 3px solid $color_yellow;
-  background-color: $color_white;
-  box-shadow: $materialShadow;
-  hr {
-    width: 10%;
-    border: 2px solid rgba(128, 128, 128, 0.36);
-    @include border-radius(5px);
-  }
-  @include booksLines(50px, -35px, $color_yellow);
-}
-
-#borrowbook {
-  top: 1% $important;
-  min-height: 98%;
-}
-
-/***************************************************BORROWED-BOOK************************************************************/
-
-/* Larger than mobile */
-@media (min-width: 400px) {
-}
-
-@media (max-width: 540px) {
-  .modal .modal-content {
-    padding: 5px;
-  }
-}
-
-/* Larger than phablet */
-@media (min-width: 550px) {
-  .col {
-    float: $left;
-  }
-}
-
-@media (max-width: 740px) {
-  .nav-wrapper {
-    overflow: $hidden;
-  }
-}
-
-/* Larger than tablet */
-@media (min-width: 750px) {
-  /*************************************************INCLUDES***********************************************/
-  @include btnSpanChip(90px, 14px);
-  @include elementsHideManipulations(block, none);
-  /*************************************************INCLUDES***********************************************/
-  .u-information--wrapper {
-    @include displayType(flex);
-  }
-  .jq-right {
-    @include displayType();
-  }
-  .u-book--title {
-    text-align: $left;
-  }
-  .u-makeit--center {
-    @include displayType(flex);
-    > div {
-      @include displayType(flex);
-      width: 20%;
-      flex-direction: column;
-      align-items: $center;
-      > span.chip, div {
-        width: 100%;
-      }
+    @extend .u-text--center;
     }
-    > hr {
-      @include displayType(flex);
-      @include border-radius(20px);
-      align-self: $center;
-      position: $absolute;
-      left: 0;
-      right: 0;
-      border: 2px solid $color_gray;
+  .side-nav{
+    li:last-child{
+      bottom: 0 $important;
     }
   }
-  .u-chip--wrapper {
-    max-width: 150px;
-    min-width: 100px;
-    height: $auto;
-  }
-  .right {
-    width: $auto;
-  }
-  .u-search--div {
-    width: 30rem;
-  }
-  .u-arrow--delete {
-    top: 17.5px $important;
-    right: 2rem $important;
-  }
-  .u-fontsize--1rem {
-    @include displayType(block $important);
-    margin: 1.5rem 0 1.5rem 0;
-    font-size: 1rem;
-    color: $color_gray;
-  }
-  .u-if--empty {
-    padding-top: 20%;
-    font-size: 42px;
-  }
-  .u-options--container {
-    label {
-      font-size: 14px !important;
-    }
-  }
-  .u-icon--edit {
-    top: 15px;
-  }
-  .u-icon--read {
-    top: 45px;
-    background-position: -32px 2px;
-  }
-  ul {
-    > ul {
-      min-width: 100% $important;
-      box-shadow: $materialShadow;
-    }
-    &:hover {
-      ul {
-        opacity: 1;
-        @include displayType();
-      }
-    }
-  }
-  .u-width--145px {
+}
+
+  /***************************************************USER-BOOK************************************************************/
+  .u-bookmark--action {
+    position: $absolute;
+    height: 158px;
+    width: 50px;
+    z-index: 899;
+    right: 22px;
+    top: 4px;
     > img {
-      margin-left: 0;
+      height: 71%;
     }
   }
-}
 
-/* Larger than desktop */
-@media (min-width: 1000px) {
-  .u-paddingbot--150px_ {
-    @include displayType();
+  .u-bookUser--info {
+    @include booksLines(30px, -18px, #e4e4e4);
   }
-  .u-height--350px {
-    margin-bottom: 0;
+
+  .u-library--height {
     height: 350px;
   }
-  .u-library--height {
-    height: 202px;
-  }
-  .u-makeit--center {
-    > hr {
-      margin-top: 6.6px;
-    }
-  }
-  .u-height--410px {
-    height: $auto;
-  }
-  .card.horizontal {
-    @include displayType(flex);
-  }
-  .u-height--245px_ {
-    font-size: 14px;
-    height: 245px;
-  }
-}
 
-/* Larger than Desktop HD */
-@media (min-width: 1200px) {
-  @include modal(80%, 90%, 10%);
-  .u-arrow--delete {
-    top: 20px $important;
-  }
-  .u-if--empty {
-    padding-top: 40%;
-    font-size: 62px;
-  }
-  .u-icon--edit,
-  .u-icon--read {
-    top: 175px;
-    right: 25px;
-  }
-  .u-icon--read {
-    right: 50px;
-  }
+  /***************************************************USER-BOOK************************************************************/
+
+  /***************************************************BORROWED-BOOK************************************************************/
   .u-borrowed--height {
-    .u-icon--read {
-      top: 178px;
+    min-height: 470px;
+    height: $auto $important;
+  }
+
+  .u-borrowed--book {
+    .u-library--height {
+      box-shadow: none;
+      background-color: transparent;
+      margin: 45px 5px 5px 5px;
+    }
+    .card-stacked {
+      @extend .u-text--justify;
+    }
+    label {
+      width: 100%;
+      font-size: 14px;
+    }
+    label,
+    .row {
+      @extend .u-text--center;
+    }
+    input[type="text"] {
+      width: 200px;
+      min-width: 0;
+      background-color: transparent;
+      @include border-radius(0);
     }
   }
-  .materialize-textarea {
-    width: 600px;
-  }
-  .u-bookmark--action {
-    transform: rotate(90deg);
-    top: 95px;
-    right: 61px;
-  }
-  .u-icon--read {
-    background-position: -32px -2px;
-    right: 55px;
-  }
-}
 
-@media (min-width: 1400px) {
-  .u-if--empty {
-    padding-top: 20%;
+  .u-borrow-information {
+    padding: 5px;
+    color: #737373;
+    border: 3px solid $color_yellow;
+    background-color: $color_white;
+    box-shadow: $materialShadow;
+    hr {
+      width: 10%;
+      border: 2px solid rgba(128, 128, 128, 0.36);
+      @include border-radius(5px);
+    }
+    @include booksLines(50px, -35px, $color_yellow);
   }
-  .u-text--justify {
-    width: 100% - 21% $important;
-  }
-  .l4 {
-    width: 25% $important;
-  }
-}
 
-@media (max-height: 730px) and (min-width: 1200px) {
-  .u-if--empty {
-    padding-top: 20%;
-    font-size: 50px;
+  #borrowbook {
+    top: 1% $important;
+    min-height: 98%;
   }
-}
+
+  /***************************************************BORROWED-BOOK************************************************************/
+
+  /* Larger than mobile */
+  @media only screen and (min-width: 400px) {
+    .u-slider--wrapper{
+      margin-top: 155px $important;
+    }
+  }
+
+  @media only screen and (max-width: 540px) {
+    .modal .modal-content {
+      padding: 5px;
+    }
+  }
+
+  /* Larger than phablet */
+  @media only screen and (min-width: 550px) {
+    .col {
+      float: $left;
+    }
+  }
+
+  @media only screen and (max-width: 740px) {
+    .nav-wrapper {
+      overflow: $hidden;
+    }
+  }
+
+  /* Larger than tablet */
+  @media only screen and (min-width: 750px) {
+    /*************************************************INCLUDES***********************************************/
+    @include btnSpanChip(90px, 14px);
+    @include elementsHideManipulations(block, none);
+    /*************************************************INCLUDES***********************************************/
+    .u-slider--wrapper{
+      margin-top: 295px $important;
+    }
+    .u-information--wrapper {
+      @include displayType(flex);
+    }
+    .jq-right {
+      @include displayType();
+    }
+    .u-book--title {
+      text-align: $left;
+    }
+    .u-makeit--center {
+      @include displayType(flex);
+      > div {
+        @include displayType(flex);
+        width: 20%;
+        flex-direction: column;
+        align-items: $center;
+        > span.chip, div {
+          width: 100%;
+        }
+      }
+      > hr {
+        @include displayType(flex);
+        @include border-radius(20px);
+        align-self: $center;
+        position: $absolute;
+        left: 0;
+        right: 0;
+        border: 2px solid $color_gray;
+      }
+    }
+    .u-chip--wrapper {
+      max-width: 150px;
+      min-width: 100px;
+      height: $auto;
+    }
+    .right {
+      width: $auto;
+    }
+    .u-search--div {
+      width: 85%;
+      text-align: $center;
+    }
+    .u-arrow--delete {
+      top: 17.5px $important;
+      right: 2rem $important;
+    }
+    .u-fontsize--1rem {
+      @include displayType(block $important);
+      margin: 1.5rem 0 1.5rem 0;
+      font-size: 1rem;
+      color: $color_gray;
+    }
+    .u-if--empty {
+      padding-top: 20%;
+      font-size: 42px;
+    }
+    .u-options--container {
+      label {
+        font-size: 14px !important;
+      }
+    }
+    ul {
+      > ul {
+        min-width: 100% $important;
+        box-shadow: $materialShadow;
+      }
+      &:hover > a{
+        background-color: $color_white;
+        color: $color_dark_green;
+      }
+      &:hover {
+        ul {
+          opacity: 1;
+          @include displayType();
+          &:hover > li > a{
+            background-color: rgba(192, 192, 192, 0.1);
+          }
+        }
+      }
+    }
+    .u-width--145px {
+      > img {
+        margin-left: 0;
+      }
+    }
+  }
+
+  /* Larger than desktop */
+  @media only screen and (min-width: 1000px) {
+      .u-slider--wrapper{
+        margin-top: 270px $important;
+      }
+    .u-paddingbot--150px_ {
+      @include displayType();
+    }
+    .u-height--350px {
+      margin-bottom: 0;
+      height: 350px;
+    }
+    .u-library--height {
+      height: 202px;
+    }
+    .u-makeit--center {
+      > hr {
+        margin-top: 6.6px;
+      }
+    }
+    .u-height--410px {
+      height: $auto;
+    }
+    .card.horizontal {
+      @include displayType(flex);
+    }
+    .u-height--245px_ {
+      font-size: 14px;
+      height: 245px;
+    }
+  }
+
+  /* Larger than Desktop HD */
+  @media only screen and (min-width: 1200px) {
+    @include modal(80%, 90%, 10%);
+    .u-box--about{
+      left: -25px;
+      top: -15px;
+    }
+    .side-nav{
+      transform: translateX(0) $important;
+    }
+    .nav-wrapper{
+      .button-collapse{
+        display: $none $important;
+      }
+    }
+    .u-if--empty,
+    .nav-wrapper,
+    .u-paddingbot--150px_{
+      padding-left: 300px;
+    }
+    .u-arrow--delete {
+      top: 20px $important;
+    }
+    .u-if--empty {
+      padding-top: 40%;
+      font-size: 62px;
+    }
+    .u-library--controls{
+      +.u-icon--edit{
+        top: 175px;
+        right: 25px $important;
+        +.u-icon--read{
+          top: 50px;
+          right: 55px;
+        }
+      }
+    }
+    .u-icon--edit,
+    .u-icon--read,
+    .u-icon--return{
+      top: 175px;
+      right: 17px;
+    }
+    .u-icon--read{
+      top: 176px $important;
+      right: 42px;
+    }
+    .u-icon--return{
+      right: 70px;
+      top: 176px $important;
+      background-position: -32px -28px;
+    }
+    .u-borrowed--height {
+      .u-icon--read,
+      .u-icon--return{
+        top: 178px;
+      }
+    }
+    .materialize-textarea {
+      width: 600px;
+    }
+    .u-bookmark--action {
+      transform: rotate(90deg);
+      top: 95px;
+      right: 61px;
+    }
+    .u-icon--read
+    .u-icon--return{
+      background-position: -32px -2px;
+      right: 55px;
+    }
+    .u-search--div {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 1400px) {
+    .u-if--empty {
+      padding-top: 20%;
+    }
+    .u-text--justify {
+      width: 100% - 21% $important;
+    }
+    .l4 {
+      width: 25% $important;
+    }
+    .u-arrow--delete{
+      top: 19px $important;
+      right: 2.5rem $important;
+    }
+  }
+
+  @media only screen and (min-width: 1600px) {
+    .u-arrow--delete{
+      right: 3.5rem $important;
+    }
+  }
+
+  @media only screen and (max-height: 730px) and (min-width: 1200px) {
+    .u-if--empty {
+      padding-top: 20%;
+      font-size: 50px;
+    }
+    .u-paddingTop--0px{
+      padding-top: 0;
+    }
+      .u-slider--wrapper{
+        margin-top: 130px $important;
+      }
+  }
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    .u-css--slider{
+      .u-slider--wrapper{
+        margin-top: 85px $important;
+      }
+    }
+  }

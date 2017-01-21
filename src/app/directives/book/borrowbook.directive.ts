@@ -56,7 +56,8 @@ export class BorrowBookModal extends ModalBehaviour implements OnInit {
         }).subscribe(
         () => {
           this.closeBorrow();
-          deleteBookFromMem(this.selectedBook, this.bookList)
+          deleteBookFromMem(this.selectedBook, this.bookList);
+          this.bookService.getLibraryLength();
         },
         e => Toast.getToast(e),
         () => Toast.getToast("Book borrowed successfully!")

@@ -4,7 +4,7 @@
 import {Component, OnInit} from "@angular/core";
 import {BookService} from "../../service/BookService";
 import {Book} from "../../model/Book";
-import {Authentication} from "../../utils/Authentication";
+import {Authentication} from "../../service/AuthService";
 import {ModalBehaviour} from "../modal.directive";
 import {Constants} from "../../utils/Constants";
 import {ActivatedRoute} from "@angular/router";
@@ -41,7 +41,10 @@ export class BookInfoModal extends ModalBehaviour implements OnInit {
         date_added: new Date()
       }, Constants.OwnedBooks)
       .subscribe(
-        () => this.setIsInLibrary(true),
+        () => {
+          this.setIsInLibrary(true);
+          this.bookService.getLibraryLength();
+        },
         e => Toast.getToast(e),
         () => Toast.getToast("Book added to your library successfully!"));
   }

@@ -3,11 +3,12 @@ import {Http, URLSearchParams, Response} from "@angular/http";
 import {Constants} from "../utils/Constants";
 import "rxjs/Rx";
 import {Book} from "../model/Book";
-import {Authentication} from "../utils/Authentication";
-import {Observable} from "rxjs";
+import {Authentication} from "./AuthService";
+import {Observable, Subscription} from "rxjs";
 import {BookItems} from "../model/BookItems";
 import {BorrowedBook} from "../model/BorrowedBook";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+import {UserLibrary} from "../model/UserLibrary";
 /**
  * Created by strukov on 15.11.16.
  */
@@ -15,8 +16,15 @@ import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 @Injectable()
 export class BookService {
   public startIndex: any;
+  public userLibrary:UserLibrary;
 
-  constructor(private http: Http, private auth: Authentication) {
+  constructor(private http: Http, private auth: Authentication) {}
+
+
+  public getLibraryLength():Subscription{
+    return this.http.get(Constants.LibraryLength, {headers: this.auth.setAuthHeaders()})
+      .map(response=>response.json())
+      .subscribe(data => this.userLibrary = data);
   }
 
   public getBooksByTitle(title: string): Observable<BookItems> {
@@ -45,7 +53,7 @@ export class BookService {
   public borrowBook(borrowedBook: BorrowedBook): Observable<any> {
     return Observable.forkJoin(
       this.saveItem(borrowedBook, Constants.BorrowedBooks),
-      this.updateItem(borrowedBook.ownedBook, Constants.OwnedBooks)
+      this.updateItem(borrowedBook.ownedBook, Constants.OwnedBooks),
     );
   }
 

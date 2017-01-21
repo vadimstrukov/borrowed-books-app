@@ -6,7 +6,7 @@ import {AppComponent} from "./app.component";
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import {LoginRegisterModal} from "./directives/login/login.directive";
 import {UserBooks} from "./directives/book/userbooks.directive";
-import {Authentication} from "./utils/Authentication";
+import {Authentication} from "./service/AuthService";
 import {CanActivateViaAuth} from "./utils/CanActivateViaAuth";
 import {SearchBooks} from "./directives/book/searchbooks.directive";
 import {BookService} from "./service/BookService";

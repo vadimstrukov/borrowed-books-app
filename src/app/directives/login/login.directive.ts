@@ -3,7 +3,7 @@
  */
 import {Component, OnInit, trigger, state, style, transition, animate} from "@angular/core";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
-import {Authentication} from "../../utils/Authentication";
+import {Authentication} from "../../service/AuthService";
 import {UserService} from "../../service/UserService";
 import {User} from "../../model/User";
 import {hashSync} from "bcryptjs";
