@@ -50,16 +50,11 @@
             </div>
           </div>
           <div *ngIf="submitForm.controls.formType.controls.type.value === FORM_TYPE.LOGIN" class="col s12">
-            <div class="input-field col s12 u-human--check" formGroupName="login">
-              <input id="human" type="checkbox" class="validate" formControlName="isHuman">
-              <label for="human">Are you a human?</label>
-            </div>
-            <div *ngIf="submitForm.controls.formType.controls.login.controls['isHuman'].hasError('required')"
-                 class="alert alert-danger col s12">You are not a human!
-            </div>
+            <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="6LfhmhIUAAAAAN_Czky-5gcbdxueQDroZP-Uz_Nr">
+            </re-captcha>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="waves-effect waves-green btn-flat jq-login" [disabled]="!submitForm.valid">
+            <button type="submit" class="waves-effect waves-green btn-flat jq-login" [disabled]="!submitForm.valid || !captchaCorrect">
               {{buttonName}}
             </button>
           </div>

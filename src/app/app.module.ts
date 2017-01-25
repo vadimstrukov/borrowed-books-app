@@ -15,6 +15,8 @@ import {BookInfoModal} from "./directives/book/bookinfo.directive";
 import {AppRoutingModule} from "./app-routing.module";
 import {BorrowBookModal} from "./directives/book/borrowbook.directive";
 import {BorrowedBooks} from "./directives/book/borrowedbooks.directive";
+import { ReCaptchaModule } from 'angular2-recaptcha';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {BorrowedBooks} from "./directives/book/borrowedbooks.directive";
     FormsModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReCaptchaModule
   ],
   providers: [Authentication, CanActivateViaAuth, BookService, UserService],
   bootstrap: [AppComponent]
