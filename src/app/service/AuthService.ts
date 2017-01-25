@@ -89,7 +89,7 @@ export class Authentication {
 
 }
 
-function handleError(error: any): ErrorObservable {
+function handleError(error: any) {
   let errorMsg = error.message || 'There was a problem, check your credentials!';
   console.error(errorMsg);
   return Observable.throw(errorMsg);
