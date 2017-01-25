@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.19-3",
+    "version": "1.0.0-beta.26",
     "name": "borrowed-books-app"
   },
   "apps": [
@@ -31,10 +31,6 @@
         "prod": "environments/environment.prod.ts"
       }
     }
-  ],
-  "addons": [
-  ],
-  "packages": [
   ],
   "e2e": {
     "protractor": {
