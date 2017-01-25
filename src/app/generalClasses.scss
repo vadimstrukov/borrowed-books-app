@@ -104,6 +104,10 @@ $big_images_sprite: url(../assets/big_images_sprite.png);
   position: $relative;
 }
 
+.u-position--absolute{
+  position: $absolute;
+}
+
 input[type="text"] {
   @extend .u-text--center;
   @include border-radius(30px);

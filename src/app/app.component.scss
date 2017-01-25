@@ -65,11 +65,9 @@ $menuImageUrl: url(../assets/books.jpg);
     box-shadow: 0 0 3px $color_gray;
   }
   .u-left--line {
-    //position: $absolute;
     left: 5px;
   }
   .u-right--line {
-    //position: $absolute;
     right: 5px;
   }
 }
@@ -87,6 +85,17 @@ $menuImageUrl: url(../assets/books.jpg);
 .u-bookUser--info,
 .u-borrow-information {
   @extend .u-position--relative;
+}
+
+.u-icon--edit,
+.u-icon--read,
+.u-icon--return,
+.u-search--div > .u-arrow--delete,
+.u-box--about,
+.u-makeit--center > hr,
+.u-position--absolute_,
+.u-bookmark--action{
+  @extend .u-position--absolute;
 }
 
 .side-nav ul,
@@ -118,37 +127,32 @@ $menuImageUrl: url(../assets/books.jpg);
   @include displayType();
 }
 
+.u-flex--center {
+  justify-content: $center $important;
+}
+
+/*********************************************ICONS*****************************************************/
 .u-menu--button {
   @include images_sprite($small_images_sprite, 9px, 18px);
   width: 40px;
   height: 46px;
 }
-
-.u-go--top {
-  height: 55px;
-  width: 55px;
-}
-
 .u-icon--delete,
 .u-icon--remainder {
   height: 26px;
   width: 22px;
 }
-
 .u-icon--remainder {
   @include images_sprite($big_images_sprite, -1.7px, -52px);
   background-size: 27px;
 }
-
 .u-icon--delete {
   @include images_sprite($big_images_sprite, -3.7px, -32px);
   background-size: 30px;
 }
-
 .u-icon--edit,
 .u-icon--read,
 .u-icon--return{
-  position: $absolute;
   height: 26px;
   width: 22px;
   right: 20px;
@@ -157,7 +161,6 @@ $menuImageUrl: url(../assets/books.jpg);
   z-index: 997;
   cursor: $pointer;
 }
-
 .u-icon--return{
   top: 68px;
   @include images_sprite($small_images_sprite, -32px, -30px);
@@ -166,7 +169,9 @@ $menuImageUrl: url(../assets/books.jpg);
   top: 38px;
   @include images_sprite($small_images_sprite, -32px, -2px);
 }
+/*********************************************ICONS*****************************************************/
 
+/**********************************************PARAGRAPHS***********************************************/
 .u-p-remainder,
 .u-p--delete {
   height: 51px;
@@ -178,21 +183,17 @@ $menuImageUrl: url(../assets/books.jpg);
     align-self: $center;
   }
 }
-
 .u-p-remainder {
   margin-right: -10px;
   background-color: #43a047;
 }
-
 .u-p--delete {
   margin-left: -10px;
   background-color: #e53935;
 }
+/**********************************************PARAGRAPHS***********************************************/
 
-.u-flex--center {
-  justify-content: $center $important;
-}
-
+/*********************************************SEARCH DIV************************************************/
 .u-search--div {
   @include displayType(inline-block);
   height: $inherit;
@@ -200,7 +201,7 @@ $menuImageUrl: url(../assets/books.jpg);
   text-align: $left;
   margin-left: 1%;
   > .u-search--icon {
-    left: 0.5rem;
+    left: 8px;
     vertical-align: middle;
     @include displayType(inline-block);
     @include images_sprite($small_images_sprite, 0px, -54px);
@@ -208,9 +209,8 @@ $menuImageUrl: url(../assets/books.jpg);
     height: 26px;
   }
   > .u-arrow--delete {
-    position: $absolute;
     top: 14.5px;
-    right: 1.3rem;
+    right: 21px;
     vertical-align: middle;
     cursor: $pointer;
     @include images_sprite($small_images_sprite, 0px, -25px);
@@ -218,17 +218,33 @@ $menuImageUrl: url(../assets/books.jpg);
     height: 26px;
   }
 }
-
-.u-width--145px {
-  width: 150px;
-  margin: 0 $auto;
-  > img {
-    height: 100%;
-    margin-left: 5%;
+.right {
+  width: 80px;
+  height: $inherit;
+  overflow: $hidden;
+  > .dropdown-button {
+    height: $inherit;
   }
 }
+.u-go--top {
+  height: 55px;
+  width: 55px;
+  position: $fixed;
+  z-index: 998;
+  right: 20px;
+  bottom: 20px;
+  cursor: $pointer;
+  opacity: 0.45;
+  transform: rotate(-90deg);
+  @include animation();
+  @include images_sprite($big_images_sprite, 0px, 0px);
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+/*********************************************SEARCH DIV************************************************/
+
+/*********************************************INFORMATION ABOUT US**************************************/
 .u-box--about{
-  position: $absolute;
   z-index: 1000;
   left: -5px;
   top: -8px;
@@ -251,13 +267,41 @@ $menuImageUrl: url(../assets/books.jpg);
     }
   }
 }
+/*********************************************INFORMATION ABOUT US**************************************/
 
-.right {
-  width: 5rem;
-  height: $inherit;
-  overflow: $hidden;
-  > .dropdown-button {
-    height: $inherit;
+/*********************************************NAVIGATION MENU*******************************************/
+.u-transform--translateX0{
+  transform: translateX(0);
+}
+.u-sideNav--wrapper{
+  height: 100%;
+  padding-bottom: 0;
+
+  @include displayType(flex);
+  flex-direction: column;
+  justify-content: flex-end;
+  .u-sideNav--container{
+    box-sizing: border-box;
+    min-height: 100%;
+  }
+  .u-btn--wrapper{
+    z-index: 1000;
+    height: 48px;
+    margin-top: -48px; /*Special for IE*/
+    @extend .u-text--center;
+    a{
+      text-transform: uppercase;
+      color: $color_white;
+    }
+  }
+}
+.u-are--logged{
+  li{
+    text-align: left;
+    padding: 0 10px;
+    a{
+      padding: 0;
+    }
   }
 }
 .side-nav {
@@ -272,32 +316,27 @@ $menuImageUrl: url(../assets/books.jpg);
   .u-btn--login{
     background-color: $color_dark_green $important;
   }
+  .u-about--image{
+    padding: 0 18px;
+  }
   li:nth-child(3){
     .u-menu--badges {
       background-color: #f2c558;
     }
   }
-  li:last-child{
-    position: $absolute;
-    bottom: 60px;
-    right: 0;
-    left: 0;
-    background: rgb(239, 83, 80);
-    @extend .u-text--center;
-    a{
-      text-transform: uppercase;
-      color: $color_white;
-    }
-  }
-
   .u-css--slider{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100% - 248px);
+    height: -moz-calc(100% - 188px);
     line-height: 20px;
     img{
       height: 100px;
     }
     .u-slider--wrapper{
       @include displayType();
-      margin-top: 40px;
+      /*margin-top: 40px;*/
       height: 150px;
       overflow: $hidden;
       span{
@@ -316,31 +355,11 @@ $menuImageUrl: url(../assets/books.jpg);
     }
   }
 }
+/*********************************************NAVIGATION MENU*******************************************/
 
-.u-go--top {
-  position: $fixed;
-  z-index: 998;
-  right: 20px;
-  bottom: 20px;
-  cursor: $pointer;
-  opacity: 0.45;
-  transform: rotate(-90deg);
-  @include animation();
-  @include images_sprite($big_images_sprite, 0px, 0px);
-  -webkit-background-size: 100%;
-  background-size: 100%;
-}
-
-.loader-preview {
-  padding-top: 300px;
-  > h4 {
-    color: $color_gray;
-    padding-top: 20px;
-  }
-}
-
+/**********************************************ABOUT BOOK***********************************************/
 .u-information--about {
-  padding-bottom: 2rem;
+  padding-bottom: 32px;
   hr {
     @include displayType(none);
   }
@@ -348,10 +367,9 @@ $menuImageUrl: url(../assets/books.jpg);
     @include displayType(none);
   }
 }
-
 .u-makeit--center {
   > div {
-    margin-top: 1.5rem;
+    margin-top: 25px;
     > span.chip {
       height: $auto $important;
       @extend .u-float--left;
@@ -361,13 +379,11 @@ $menuImageUrl: url(../assets/books.jpg);
   > hr {
     left: 0;
     right: 0;
-    position: $absolute;
-    top: 4.4rem;
+    top: 70.4px;
     border: 2px solid $color_gray;
     @include border-radius(20px);
   }
 }
-
 .u-thumbnail--box {
   @include displayType(inline-block);
   height: 350px;
@@ -379,7 +395,9 @@ $menuImageUrl: url(../assets/books.jpg);
     width: 100%;
   }
 }
+/**********************************************ABOUT BOOK***********************************************/
 
+/**********************************************BOOK'S CARD**********************************************/
 .card.horizontal {
   .u-bookUser--info {
     span.chip {
@@ -387,14 +405,34 @@ $menuImageUrl: url(../assets/books.jpg);
     }
   }
 }
+.u-width--145px {
+  width: 150px;
+  margin: 0 $auto;
+  > img {
+    height: 100%;
+    margin-left: 5%;
+  }
+}
+.limit {
+  overflow: $hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+/**********************************************BOOK'S CARD**********************************************/
 
+.loader-preview {
+  padding-top: 300px;
+  > h4 {
+    color: $color_gray;
+    padding-top: 20px;
+  }
+}
 .u-bookUser--info {
   box-shadow: $materialShadow;
   margin-top: -15px;
   height: 50px;
   background-color: $color_white;
 }
-
 .u-options--container {
   margin-top: 5px;
   form {
@@ -410,75 +448,54 @@ $menuImageUrl: url(../assets/books.jpg);
     }
   }
 }
-
 .card-action {
   span:first-child {
     cursor: $pointer;
   }
 }
-
 .u-display--block_ {
   margin-bottom: 10px;
 }
-
-.limit {
-  overflow: $hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
 .u-make--wider {
-  width: 17rem;
+  width: 272px;
 }
-
 .u-input--search {
   border-bottom: $none $important;
-  margin-left: -1.8rem;
+  margin-left: -28.8px;
 }
-
 .u-height--245px_ {
   height: 345px;
   @include animation();
 }
-
 .button-collapse {
   @include displayType(block $important);
   cursor: $pointer;
 }
-
 .u-position--fixed_ {
   position: $fixed;
   z-index: 1000;
 }
-
 .u-paddingbot--150px_ {
   padding: 80px 0 150px 0;
 }
-
 .nav-wrapper {
   background-color: $color_dark_green;
 }
-
 .u-position--absolute_ {
-  position: $absolute;
   top: 15px;
   right: 5px;
 }
-
 .u-lineheight--21px {
   line-height: 21px $important;
 }
-
 .u-border--top_ {
   border-top: 1px solid rgba(0, 0, 0, 0.16);
   padding-top: 10px;
-  padding-bottom: 2rem;
+  padding-bottom: 32px;
 }
-
 .u-height--75px {
   height: 75px;
 }
-
 .u-image--box {
   @include displayType(flex);
   height: 200px;
@@ -487,7 +504,7 @@ $menuImageUrl: url(../assets/books.jpg);
   a{
     align-self: flex-end;
     color: white;
-    font-size: 1.5rem;
+    font-size: 25px;
     font-weight: 100;
     margin: 0 auto;
     &:hover{
@@ -495,76 +512,68 @@ $menuImageUrl: url(../assets/books.jpg);
     }
   }
 }
-
 .clicked_ {
   min-width: 100% $important;
 }
-
 .u-btn--add {
   @include border-radius(30px);
 }
-
 .col {
   float: $none;
 }
-
 .u-close--modal {
   @extend .u-float--right;
   margin: 10px;
   cursor: $pointer;
   background-image: $small_images_sprite;
 }
-
 .u-return--modal {
   min-height: 0 !important;
   min-width: 0 !important;
 }
-
 .u-library--indicator {
   margin: 10px;
   color: $color_white $important;
   background-color: $color_dark_green;
   text-transform: uppercase;
 }
-
 button.u-library--indicator {
   background-color: $color_yellow;
 }
-
 .u-bookUser--info {
   padding: 10px $important;
   border-top: $none $important;
-  bottom: -0.5rem;
+  bottom: -8px;
 }
-
 .u-height--410px {
   height: 410px;
 }
-
 .u-height--350px {
   height: 470px;
   overflow: $hidden;
 }
-
 .u-if--empty {
   padding-top: 0;
   font-size: 22px;
   color: $color_gray;
 }
 
-  ::-webkit-input-placeholder {
+/************************************************PLACEHOLDER***************************************************/
+::-webkit-input-placeholder {
     color: $color_white;
   }
-  :-moz-placeholder {
+:-moz-placeholder {
     color: $color_white;
   }
-  ::-moz-placeholder {
+::-moz-placeholder {
     color: $color_white;
   }
-  :-ms-input-placeholder {
+:-ms-input-placeholder {
     color: $color_white;
   }
-  @-webkit-keyframes slider{
+/************************************************PLACEHOLDER***************************************************/
+
+@-webkit-keyframes slider{
     0% {
       margin-top: 0;
     }
@@ -587,7 +596,7 @@ button.u-library--indicator {
       margin-top: 0;
     }
   }
-  @keyframes slider {
+@keyframes slider {
     0% {
       margin-top: 0;
     }
@@ -611,7 +620,11 @@ button.u-library--indicator {
     }
   }
 
+/************************************************MOZILLA FIREFOX STYLES******************************************/
 @-moz-document url-prefix() {
+  .u-sideNav--wrapper{
+    overflow-y: inherit $important;
+  }
   .datepicker{
     width: 200px $important;
     min-width: 0 $important;
@@ -625,10 +638,10 @@ button.u-library--indicator {
     }
   }
 }
+/************************************************MOZILLA FIREFOX STYLES******************************************/
 
-  /***************************************************USER-BOOK************************************************************/
-  .u-bookmark--action {
-    position: $absolute;
+/***************************************************USER-BOOK****************************************************/
+.u-bookmark--action {
     height: 158px;
     width: 50px;
     z-index: 899;
@@ -638,24 +651,20 @@ button.u-library--indicator {
       height: 71%;
     }
   }
-
-  .u-bookUser--info {
+.u-bookUser--info {
     @include booksLines(30px, -18px, #e4e4e4);
   }
-
-  .u-library--height {
+.u-library--height {
     height: 350px;
   }
+  /***************************************************USER-BOOK**************************************************/
 
-  /***************************************************USER-BOOK************************************************************/
-
-  /***************************************************BORROWED-BOOK************************************************************/
-  .u-borrowed--height {
+/***************************************************BORROWED-BOOK************************************************/
+.u-borrowed--height {
     min-height: 470px;
     height: $auto $important;
   }
-
-  .u-borrowed--book {
+.u-borrowed--book {
     .u-library--height {
       box-shadow: none;
       background-color: transparent;
@@ -679,8 +688,7 @@ button.u-library--indicator {
       @include border-radius(0);
     }
   }
-
-  .u-borrow-information {
+.u-borrow-information {
     padding: 5px;
     color: #737373;
     border: 3px solid $color_yellow;
@@ -693,49 +701,37 @@ button.u-library--indicator {
     }
     @include booksLines(50px, -35px, $color_yellow);
   }
-
-  #borrowbook {
+#borrowbook {
     top: 1% $important;
     min-height: 98%;
   }
+  /***************************************************BORROWED-BOOK***********************************************/
 
-  /***************************************************BORROWED-BOOK************************************************************/
-
-  /* Larger than mobile */
-  @media only screen and (min-width: 400px) {
-    .u-slider--wrapper{
-      margin-top: 155px $important;
-    }
-  }
-
-  @media only screen and (max-width: 540px) {
+@media only screen and (max-width: 540px) {
     .modal .modal-content {
       padding: 5px;
     }
   }
 
-  /* Larger than phablet */
-  @media only screen and (min-width: 550px) {
+/* Larger than phablet */
+@media only screen and (min-width: 550px) {
     .col {
       float: $left;
     }
   }
 
-  @media only screen and (max-width: 740px) {
+@media only screen and (max-width: 740px) {
     .nav-wrapper {
       overflow: $hidden;
     }
   }
 
-  /* Larger than tablet */
-  @media only screen and (min-width: 750px) {
+/* Larger than tablet */
+@media only screen and (min-width: 750px) {
     /*************************************************INCLUDES***********************************************/
     @include btnSpanChip(90px, 14px);
     @include elementsHideManipulations(block, none);
     /*************************************************INCLUDES***********************************************/
-    .u-slider--wrapper{
-      margin-top: 295px $important;
-    }
     .u-information--wrapper {
       @include displayType(flex);
     }
@@ -760,7 +756,6 @@ button.u-library--indicator {
         @include displayType(flex);
         @include border-radius(20px);
         align-self: $center;
-        position: $absolute;
         left: 0;
         right: 0;
         border: 2px solid $color_gray;
@@ -780,12 +775,12 @@ button.u-library--indicator {
     }
     .u-arrow--delete {
       top: 17.5px $important;
-      right: 2rem $important;
+      right: 32px $important;
     }
     .u-fontsize--1rem {
       @include displayType(block $important);
-      margin: 1.5rem 0 1.5rem 0;
-      font-size: 1rem;
+      margin: 24px 0 24px 0;
+      font-size: 16px;
       color: $color_gray;
     }
     .u-if--empty {
@@ -823,11 +818,8 @@ button.u-library--indicator {
     }
   }
 
-  /* Larger than desktop */
-  @media only screen and (min-width: 1000px) {
-      .u-slider--wrapper{
-        margin-top: 270px $important;
-      }
+/* Larger than desktop */
+@media only screen and (min-width: 1000px) {
     .u-paddingbot--150px_ {
       @include displayType();
     }
@@ -855,9 +847,12 @@ button.u-library--indicator {
     }
   }
 
-  /* Larger than Desktop HD */
-  @media only screen and (min-width: 1200px) {
+/* Larger than Desktop 1200px */
+@media only screen and (min-width: 1200px) {
     @include modal(80%, 90%, 10%);
+    .u-about--image{
+      padding: 0 35px $important;
+    }
     .u-box--about{
       left: -25px;
       top: -15px;
@@ -921,7 +916,7 @@ button.u-library--indicator {
       top: 95px;
       right: 61px;
     }
-    .u-icon--read
+    .u-icon--read,
     .u-icon--return{
       background-position: -32px -2px;
       right: 55px;
@@ -931,7 +926,8 @@ button.u-library--indicator {
     }
   }
 
-  @media only screen and (min-width: 1400px) {
+/* Larger than Desktop 1400px */
+@media only screen and (min-width: 1400px) {
     .u-if--empty {
       padding-top: 20%;
     }
@@ -943,39 +939,24 @@ button.u-library--indicator {
     }
     .u-arrow--delete{
       top: 19px $important;
-      right: 2.5rem $important;
+      right: 40px $important;
     }
   }
 
-  @media only screen and (min-width: 1600px) {
+/* Larger than Desktop 1600px */
+@media only screen and (min-width: 1600px) {
     .u-arrow--delete{
-      right: 3.5rem $important;
+      right: 56px $important;
     }
   }
 
-  @media only screen and (max-height: 730px) and (min-width: 1200px) {
+/* Special for normal laptop screens */
+@media only screen and (max-height: 730px) and (min-width: 1200px) {
     .u-if--empty {
       padding-top: 20%;
       font-size: 50px;
     }
     .u-paddingTop--0px{
       padding-top: 0;
-    }
-      .u-slider--wrapper{
-        margin-top: 130px $important;
-      }
-  }
-
-  @media
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (   min--moz-device-pixel-ratio: 2),
-  only screen and (     -o-min-device-pixel-ratio: 2/1),
-  only screen and (        min-device-pixel-ratio: 2),
-  only screen and (                min-resolution: 192dpi),
-  only screen and (                min-resolution: 2dppx) {
-    .u-css--slider{
-      .u-slider--wrapper{
-        margin-top: 85px $important;
-      }
     }
   }
