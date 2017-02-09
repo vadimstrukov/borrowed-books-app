@@ -1,7 +1,7 @@
 /**
  * Created by strukov on 20.11.16.
  */
-import {Component, OnInit, trigger, state, style, transition, animate} from "@angular/core";
+import {Component, OnInit, trigger, state, style, transition, animate, ViewChild} from "@angular/core";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
 import {Authentication} from "../../service/AuthService";
 import {UserService} from "../../service/UserService";
@@ -12,6 +12,8 @@ import {Constants} from "../../utils/Constants";
 import {Router} from "@angular/router";
 import {SubmitForm} from "./form.interface";
 import {Toast} from "../../utils/Toast";
+import {ReCaptchaComponent} from 'angular2-recaptcha/lib/captcha.component';
+
 
 @Component({
   selector: "login",
@@ -38,6 +40,9 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit {
 
   private submitForm: FormGroup;
   private buttonName: string;
+  public captchaCorrect:boolean = false;
+  @ViewChild(ReCaptchaComponent) captcha:ReCaptchaComponent;
+
 
   private FORM_TYPE = {
     LOGIN: 'login',
@@ -110,7 +115,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit {
 
   private initLoginModel(): any {
     return {
-      isHuman: [false, Validators.pattern('true')]
+
     };
   }
 
@@ -124,7 +129,7 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit {
       case this.FORM_TYPE.LOGIN:
         this.auth.authenticate(model.email, model.password).subscribe(
           () => this.closeLogin(),
-          e => Toast.getToast(e),
+          e => {Toast.getToast(e); this.resetCaptcha()},
           () => {
           setTimeout(() => {
             location.reload();
@@ -144,12 +149,23 @@ export class LoginRegisterModal extends ModalBehaviour implements OnInit {
     }
   }
 
+  handleCorrectCaptcha(response:any){
+    if(response!="" || !response.isUndefined() || response != null)
+      this.captchaCorrect = true;
+  }
+
 
   public openLogin(): void {
     this.openModal();
   }
 
+  private resetCaptcha(){
+    this.captcha.reset();
+    this.captchaCorrect = false;
+  }
+
   public closeLogin(): void {
+    this.resetCaptcha();
     this.closeModal();
   }
 }

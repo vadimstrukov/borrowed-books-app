@@ -2,11 +2,10 @@
  * Created by strukov on 22.11.16.
  */
 import {Injectable} from "@angular/core";
-import {Http, Response, RequestOptions, Headers} from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
 import {User} from "../model/User";
 import {Constants} from "../utils/Constants";
 import {Observable} from "rxjs";
-import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import "rxjs/Rx";
 @Injectable()
 export class UserService {
@@ -24,7 +23,7 @@ export class UserService {
   }
 }
 
-function handleError(error: any): ErrorObservable {
+function handleError(error: any) {
   let errorMsg = error.message || 'There was a problem, check your credentials!';
   console.error(errorMsg);
   return Observable.throw(errorMsg);

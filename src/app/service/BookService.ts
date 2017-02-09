@@ -91,7 +91,7 @@ export class BookService {
   }
 }
 
-function handleError(error: any): ErrorObservable {
+function handleError(error: any) {
   let errorMsg = error.message || 'There was a problem with our API, try again...';
   console.error(errorMsg);
   return Observable.throw(errorMsg);

@@ -2,12 +2,20 @@
   <div class="nav-wrapper">
     <a *ngIf="auth.authUser" data-activates="mobile-view" class="button-collapse u-menu--button"></a>
     <a *ngIf="!auth.authUser" data-activates="mobile-view-notUser" class="button-collapse u-menu--button"></a>
+
+    <!---------------------------------------------SEARCH DIV--------------------------------------------->
+
     <div class="u-search--div">
       <span class="u-search--icon"></span>
       <input [formControl]="searchControl" placeholder="Enter book title..." id="search_book" type="text"
              class="validate u-input--search" onfocus="placeholder = ''" onblur="placeholder = 'Enter book title...'">
       <span class="u-arrow--delete u-display--none" (click)="clearSearchBox()"></span>
     </div>
+
+    <!---------------------------------------------SEARCH DIV--------------------------------------------->
+
+    <!---------------------------------------------ABOUT US DIV--------------------------------------------->
+
       <div id="aboutInfo" class="modal u-about--modal">
         <div class="modal-content">
           <h4>Information about project</h4>
@@ -24,40 +32,68 @@
           <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
       </div>
-    <ul *ngIf="!auth.authUser" class="side-nav" id="mobile-view-notUser">
-      <li class="u-image--box">
-        <div class="u-box--about">
-          <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+
+    <!---------------------------------------------ABOUT US DIV--------------------------------------------->
+
+    <!----------------------------------MENU IF YOU ARE NOT LOGGED IN --------------------------------------------------->
+
+      <div *ngIf="!auth.authUser" class="side-nav u-sideNav--wrapper" id="mobile-view-notUser">
+        <div class="u-sideNav--container">
+          <ul class="side-nav u-transform--translateX0">
+            <li class="u-image--box">
+              <div class="u-box--about">
+                <a class="u-about--image" href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+              </div>
+            </li>
+            <li class="u-css--slider">
+              <span class="u-slider--wrapper">
+                <span>
+                <img src="../assets/active-search.png" alt=""><br />
+                <span>Here you can find all the books that are interesting to you.</span>
+              </span>
+              <span>
+                <img src="../assets/plus-one.png" alt=""><br />
+                <span>Enrich your library with new books every day..</span>
+              </span>
+              <span>
+                <img src="../assets/share-icon.png" alt=""><br />
+                <span>You can keep track of those books that are given away.</span>
+              </span>
+              </span>
+            </li>
+          </ul>
         </div>
-      </li>
-      <li class="u-css--slider">
-        <span class="u-slider--wrapper">
-          <span>
-          <img src="../assets/active-search.png" alt=""><br />
-          <span>Here you can find all the books that are interesting to you.</span>
-        </span>
-        <span>
-          <img src="../assets/plus-one.png" alt=""><br />
-          <span>Enrich your library with new books every day..</span>
-        </span>
-        <span>
-          <img src="../assets/share-icon.png" alt=""><br />
-          <span>You can keep track of those books that are given away.</span>
-        </span>
-        </span>
-      </li>
-      <li class="u-btn--login"><a (click)="openLogin()" class="waves-effect waves-light">Login</a></li>
-    </ul>
-    <ul *ngIf="auth.authUser" class="side-nav" id="mobile-view">
-      <li class="u-image--box">
-        <div class="u-box--about">
-          <a href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+        <div class="u-btn--wrapper">
+          <div class="u-btn--login">
+            <a (click)="openLogin()" class="waves-effect waves-light">Login</a>
+          </div>
         </div>
-        <a>{{auth.authUser.fullname}}</a></li>
-      <li><a (click)="openLibrary()">My library <span class="chip u-menu--badges">{{bookService.userLibrary?.ownedBooksLength}}</span></a></li>
-      <li><a (click)="openBorrowed()">Borrowed books <span class="chip u-menu--badges">{{bookService.userLibrary?.borrowedBooksLength}}</span></a></li>
-      <li><a (click)="logout()" class="waves-effect waves-light">Logout</a></li>
-    </ul>
+      </div>
+
+    <!----------------------------------MENU IF YOU ARE NOT LOGGED IN --------------------------------------------------->
+
+    <!----------------------------------MENU IF YOU ARE LOGGED IN-------------------------------------------------------->
+
+    <div *ngIf="auth.authUser" class="side-nav u-sideNav--wrapper" id="mobile-view">
+      <div class="u-sideNav--container">
+        <ul class="side-nav u-transform--translateX0 u-are--logged">
+          <li class="u-image--box">
+            <div class="u-box--about">
+              <a class="u-about--image" href="#aboutInfo"><i class="material-icons">info_outline</i></a>
+            </div>
+            <a>{{auth.authUser.fullname}}</a>
+          </li>
+          <li><a (click)="openLibrary()">My library <span class="chip u-menu--badges">{{bookService.userLibrary?.ownedBooksLength}}</span></a></li>
+          <li><a (click)="openBorrowed()">Borrowed books <span class="chip u-menu--badges">{{bookService.userLibrary?.borrowedBooksLength}}</span></a></li>
+        </ul>
+      </div>
+      <div class="u-btn--wrapper">
+        <div class="u-btn--login"><a (click)="logout()" class="waves-effect waves-light">Logout</a></div>
+      </div>
+    </div>
+
+    <!---------------------------------MENU IF YOU ARE LOGGED IN--------------------------------------------------------->
+
   </div>
 </nav>
 <span class="u-go--top u-display--none" (click)="scrollWindowToTop()"></span>
